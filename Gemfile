@@ -11,6 +11,7 @@ gem 'figaro'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'devise'
+gem 'omniauth-facebook'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.3'
