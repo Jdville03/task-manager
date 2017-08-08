@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  has_many :user_lists
+  has_many :lists, through: :user_lists
+  has_many :tasks, through: :lists
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
