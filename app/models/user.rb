@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :user_lists
   has_many :lists, through: :user_lists
   has_many :tasks, through: :lists
+  has_many :assigned_tasks, :class_name => "Task", :foreign_key => :assigned_user_id
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
