@@ -12,9 +12,10 @@
   <body>
     <%= render partial: 'layouts/navbar' %>
 
-    <!-- <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p> -->
+    <div class="container">
+      <%= render partial: 'layouts/flash' %>
+      <%= yield %>
+    </div>
 
-    <%= yield %>
   </body>
 </html>
