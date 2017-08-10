@@ -1,6 +1,12 @@
 <% if user_signed_in? %>
-  <p class="navbar-text">Signed in as <%= current_user.name %></p>
-  <li><%= link_to "<span class='glyphicon glyphicon-log-out' aria-hidden='true'></span> Sign out".html_safe, destroy_user_session_path, method: :delete %></li>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <%= current_user.name %> <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><a href="#">Action</a></li>
+      <li role="separator" class="divider"></li>
+      <li><%= link_to "<span class='glyphicon glyphicon-log-out' aria-hidden='true'></span> Sign out".html_safe, destroy_user_session_path, method: :delete %></li>
+    </ul>
+  </li>
 <% else %>
   <li><%= link_to "<span class='glyphicon glyphicon-log-in' aria-hidden='true'></span> Log in".html_safe, new_user_session_path %></li>
   <li><%= link_to 'Sign up', new_user_registration_path %></li>

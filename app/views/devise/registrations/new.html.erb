@@ -48,14 +48,14 @@
   <div class="col-md-8 col-md-offset-2">
     <p class="text-center">or</p>
     <%- resource_class.omniauth_providers.each do |provider| %>
-      <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: "btn btn-primary btn-block" %><br />
+      <%= link_to image_tag("icons/FB-f-Logo__blue_29.png") + " Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: "btn btn-primary btn-block" %><br />
     <% end -%>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
-    <p class="text-center">Already have an account? <%= link_to "Log in", new_session_path(resource_name) %></p>
+    <p class="text-center text-muted">Already have an account? <%= link_to "Log in", new_session_path(resource_name) %></p>
   </div>
 </div>
 
