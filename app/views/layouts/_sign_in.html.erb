@@ -4,6 +4,7 @@
     <ul class="dropdown-menu">
       <li><a href="#">Action</a></li>
       <li role="separator" class="divider"></li>
+      <li class="dropdown-header"><%= current_user.email %></li>
       <li><%= link_to "<span class='glyphicon glyphicon-log-out' aria-hidden='true'></span> Sign out".html_safe, destroy_user_session_path, method: :delete %></li>
     </ul>
   </li>
