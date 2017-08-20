@@ -7,4 +7,20 @@ class Task < ApplicationRecord
 
   validates :description, presence: true
 
+  def complete?
+    self.status == "complete"
+  end
+
+  def incomplete?
+    self.status == "incomplete"
+  end
+
+  def self.completed
+    where(status: "complete")
+  end
+
+  def self.incomplete
+    where(status: "incomplete")
+  end
+
 end

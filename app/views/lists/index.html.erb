@@ -26,7 +26,7 @@
       <div class="list-group">
         <% @lists.each do |list| %>
           <a href="<%= list_path(list) %>" class="list-group-item">
-            <span class="badge"><%= list.tasks.count if list.tasks.present? %></span>
+            <span class="badge"><%= number_of_incomplete_tasks(list) if !list.all_tasks_completed? %></span>
             <%= list.name %>
           </a>
         <% end %>

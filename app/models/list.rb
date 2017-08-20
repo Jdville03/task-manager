@@ -5,4 +5,8 @@ class List < ApplicationRecord
 
   validates :name, presence: true
 
+  def all_tasks_completed?
+    !self.tasks.incomplete.any?
+  end
+
 end
