@@ -1,5 +1,36 @@
-<h1>lists#index</h1>
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Side-bar
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <span class="badge">1</span>
+          A
+        </li>
+        <li class="list-group-item">
+          <span class="badge">2</span>
+          B
+        </li>
+        <!-- <li class="list-group-item">C</li> -->
+      </ul>
+    </div>
+  </div>
 
-<% @lists.each do |list| %>
-  <%= list.name %>
-<% end %>
+  <div class="col-md-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Lists
+      </div>
+      <div class="list-group">
+        <% @lists.each do |list| %>
+          <a href="<%= list_path(list) %>" class="list-group-item">
+            <span class="badge"><%= list.tasks.count if list.tasks.present? %></span>
+            <%= list.name %>
+          </a>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
