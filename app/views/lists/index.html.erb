@@ -5,10 +5,12 @@
         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tasks
       </div>
       <div class="list-group">
-        <a href="#" class="list-group-item">
-          <span class="badge">1</span>
-          <span class="glyphicon glyphicon-user text-primary" aria-hidden="true"></span> Assigned to me (from shared lists)
-        </a>
+        <% if current_user.assigned_tasks.any? %>
+          <a href="#" class="list-group-item">
+            <span class="badge"><%= current_user.assigned_tasks.count %></span>
+            <span class="glyphicon glyphicon-user text-primary" aria-hidden="true"></span> Assigned to me (from shared lists)
+          </a>
+        <% end %>
         <a href="#" class="list-group-item">
           <span class="badge">2</span>
           <span class="glyphicon glyphicon-flag text-danger" aria-hidden="true"></span> Important

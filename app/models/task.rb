@@ -23,4 +23,8 @@ class Task < ApplicationRecord
     where(status: "incomplete")
   end
 
+  def self.assigned_to_user(user)
+    where(assigned_user: user)
+  end
+
 end

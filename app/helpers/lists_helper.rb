@@ -8,4 +8,8 @@ module ListsHelper
     list.tasks.incomplete.count
   end
 
+  def number_of_tasks_assigned_to_user(list, user)
+    list.tasks.assigned_to_user(user).count
+  end
+
 end
