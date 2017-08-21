@@ -13,6 +13,7 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(list_params)
+    @list.owner = current_user
     if @list.save
       current_user.lists << @list
       redirect_to list_path(@list)
