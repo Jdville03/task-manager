@@ -13,9 +13,10 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
+      current_user.lists << @list
       redirect_to list_path(@list)
     else
-      @lists = List.all
+      @lists = current_user.lists
       render :index
     end
   end

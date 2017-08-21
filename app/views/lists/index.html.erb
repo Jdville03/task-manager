@@ -24,13 +24,29 @@
         Lists
       </div>
       <div class="list-group">
+        <%= form_for @list do |f| %>
+          <div class="list-group-item">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <!-- <button class="btn btn-default" type="button">Go!</button> -->
+                <!-- <%= submit_tag "Submit", class: "btn btn-default" %> -->
+                <%= button_tag(type: "submit", class: "btn btn-default") do %>
+                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <% end %>
+              </span>
+              <!-- <span class="input-group-addon" id="new-list-addon"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></span> -->
+              <%= f.text_field :name, placeholder: @list.errors.full_messages_for(:name).first || "Create new list", class: "form-control", 'aria-describedby': "new-list-addon" %>
+            </div>
+            <!-- <%= f.submit :style => "display: none" %> -->
+          </div>
+        <% end %>
         <% @lists.each do |list| %>
           <a href="<%= list_path(list) %>" class="list-group-item">
             <span class="badge"><%= number_of_incomplete_tasks(list) if !list.all_tasks_completed? %></span>
             <%= list.name %>
           </a>
         <% end %>
-      </ul>
+      </div>
     </div>
   </div>
 </div>
