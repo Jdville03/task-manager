@@ -2,19 +2,26 @@
   <div class="col-md-4">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        Side-bar
+        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tasks
       </div>
-      <ul class="list-group">
-        <li class="list-group-item">
+      <div class="list-group">
+        <a href="#" class="list-group-item">
           <span class="badge">1</span>
-          A
-        </li>
-        <li class="list-group-item">
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Assigned to me (from shared lists)
+        </a>
+        <a href="#" class="list-group-item">
           <span class="badge">2</span>
-          B
-        </li>
-        <!-- <li class="list-group-item">C</li> -->
-      </ul>
+          <span class="glyphicon glyphicon-flag" aria-hidden="true"></span> Important
+        </a>
+        <a href="#" class="list-group-item">
+          <span class="badge">3</span>
+          <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Overdue
+        </a>
+        <a href="#" class="list-group-item">
+          <span class="badge">4</span>
+          <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Due Today
+        </a>
+      </div>
     </div>
   </div>
 
@@ -25,16 +32,13 @@
       </div>
       <div class="list-group">
         <%= form_for @list do |f| %>
-          <div class="list-group-item">
+          <div class="form-group list-group-item">
             <div class="input-group">
               <span class="input-group-btn">
-                <!-- <button class="btn btn-default" type="button">Go!</button> -->
-                <!-- <%= submit_tag "Submit", class: "btn btn-default" %> -->
                 <%= button_tag(type: "submit", class: "btn btn-default") do %>
                   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <% end %>
               </span>
-              <!-- <span class="input-group-addon" id="new-list-addon"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></span> -->
               <%= f.text_field :name, placeholder: @list.errors.full_messages_for(:name).first || "Create new list", class: "form-control", 'aria-describedby': "new-list-addon" %>
             </div>
             <!-- <%= f.submit :style => "display: none" %> -->

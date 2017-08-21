@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tasks in <%= @list.name %>
+      </div>
+      <div class="list-group">
+        <a href="#" class="list-group-item">
+          <span class="badge">1</span>
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Assigned to me
+        </a>
+        <a href="#" class="list-group-item">
+          <span class="badge">2</span>
+          <span class="glyphicon glyphicon-flag" aria-hidden="true"></span> Important
+        </a>
+        <a href="#" class="list-group-item">
+          <span class="badge">3</span>
+          <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Overdue
+        </a>
+        <a href="#" class="list-group-item">
+          <span class="badge">4</span>
+          <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Due Today
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <%= @list.name %>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">A</li>
+            <li class="list-group-item">B</li>
+            <li class="list-group-item">C</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <%= @list.name %>
+      </div>
+      <div class="list-group">
+        <%= form_for @task do |f| %>
+          <div class="form-group list-group-item">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <%= button_tag(type: "submit", class: "btn btn-default") do %>
+                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <% end %>
+              </span>
+              <%= f.text_field :description, placeholder: @task.errors.full_messages_for(:description).first || "Create new task", class: "form-control", 'aria-describedby': "new-list-addon" %>
+            </div>
+            <!-- <%= f.submit :style => "display: none" %> -->
+          </div>
+        <% end %>
+        <% @list.tasks.each do |task| %>
+          <a href="<%= task_path(task) %>" class="list-group-item">
+            <%= task.description %>
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
