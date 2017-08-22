@@ -21,20 +21,12 @@
           </li>
         <% end %>
         <a href="#" class="list-group-item">
-          <span class="badge"><%= @list.tasks.count %></span>
+          <span class="badge"><%= number_of_incomplete_tasks(@list) %></span>
           <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> All
         </a>
-        <a href="#" class="list-group-item">
-          <span class="badge"><%= number_of_incomplete_tasks(@list) %></span>
-          <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> Incomplete
-        </a>
-        <a href="#" class="list-group-item">
-          <span class="badge"><%= number_of_completed_tasks(@list) %></span>
-          <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Completed
-        </a>
-        <% if @list.shared_list? && @list.tasks.assigned_to_user(current_user).any? %>
+        <% if @list.shared_list? && @list.tasks.incomplete.assigned_to_user(current_user).any? %>
           <a href="#" class="list-group-item">
-            <span class="badge"><%= number_of_tasks_assigned_to_user(@list, current_user) %></span>
+            <span class="badge"><%= number_of_incomplete_tasks_assigned_to_user(@list, current_user) %></span>
             <span class="glyphicon glyphicon-user text-info" aria-hidden="true"></span> Assigned to me
           </a>
         <% end %>

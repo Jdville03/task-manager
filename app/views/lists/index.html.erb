@@ -7,11 +7,11 @@
       <div class="list-group">
         <a href="#" class="list-group-item">
           <span class="badge"><%= current_user.tasks.incomplete.count %></span>
-          <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> Incomplete
+          <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> All
         </a>
-        <% if current_user.assigned_tasks.any? %>
+        <% if current_user.assigned_tasks.incomplete.any? %>
           <a href="#" class="list-group-item">
-            <span class="badge"><%= current_user.assigned_tasks.count %></span>
+            <span class="badge"><%= current_user.assigned_tasks.incomplete.count %></span>
             <span class="glyphicon glyphicon-user text-info" aria-hidden="true"></span> Assigned to me (from shared lists)
           </a>
         <% end %>
