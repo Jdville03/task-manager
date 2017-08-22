@@ -8,14 +8,14 @@ class ListsController < ApplicationController
 
   def show
     @list = List.find(params[:id])
+
     @task = Task.new
   end
 
   def create
     @list = List.new(list_params)
-    @list.owner = current_user
     if @list.save
-      current_user.lists << @list
+      current_user.user_lists.create(list: @list, permission: "owner")
       redirect_to list_path(@list)
     else
       @lists = current_user.lists

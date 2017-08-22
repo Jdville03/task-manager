@@ -10,14 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821085739) do
+ActiveRecord::Schema.define(version: 20170808055116) do
 
   create_table "lists", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "owner_id"
-    t.index ["owner_id"], name: "index_lists_on_owner_id"
   end
 
   create_table "tags", force: :cascade do |t|
