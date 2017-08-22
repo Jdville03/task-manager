@@ -26,7 +26,7 @@ module DeviseHelper
     !resource.errors.empty?
   end
 
-  def member_glyphicon_and_label_class(user)
+  def user_class(user)
     if user == current_user
       "primary"
     else
@@ -36,6 +36,10 @@ module DeviseHelper
 
   def user_initials(user)
     user.name.split(" ").collect{|name| name.first.upcase}.join("")
+  end
+
+  def user_initial(user)
+    user.name.first.upcase
   end
 
 end
