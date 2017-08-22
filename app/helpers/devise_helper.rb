@@ -28,10 +28,14 @@ module DeviseHelper
 
   def member_glyphicon_and_label_class(user)
     if user == current_user
-      "info"
+      "primary"
     else
       "success"
     end
+  end
+
+  def user_initials(user)
+    user.name.split(" ").collect{|name| name.first.upcase}.join("")
   end
 
 end

@@ -1,8 +1,9 @@
 <div class="row">
   <div class="col-md-4">
-    <div class="panel panel-primary">
+    <div class="panel panel-info">
       <div class="panel-heading">
         <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> <%= @list.name %>
+        <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
       </div>
       <div class="list-group">
         <% if @list.shared_list? %>
@@ -27,7 +28,7 @@
         <% if @list.shared_list? && @list.tasks.incomplete.assigned_to_user(current_user).any? %>
           <a href="#" class="list-group-item">
             <span class="badge"><%= number_of_incomplete_tasks_assigned_to_user(@list, current_user) %></span>
-            <span class="glyphicon glyphicon-user text-info" aria-hidden="true"></span> Assigned to me
+            <span class="glyphicon glyphicon-user text-primary" aria-hidden="true"></span> Assigned to me
           </a>
         <% end %>
         <a href="#" class="list-group-item">
@@ -47,7 +48,7 @@
   </div>
 
   <div class="col-md-8">
-    <div class="panel panel-primary">
+    <div class="panel panel-info">
       <div class="panel-heading">
         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> <%= @list.name %>
       </div>
@@ -68,6 +69,12 @@
         <% @list.tasks.each do |task| %>
           <a href="<%= task_path(task) %>" class="list-group-item">
             <%= task.description %>
+            <% if task.assigned_user %>
+              <span class="pull-right label label-<%= member_glyphicon_and_label_class(task.assigned_user) %>">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <%= user_initials(task.assigned_user) %></span>
+              </span>
+            <% end %>
           </a>
         <% end %>
       </div>

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-4">
-    <div class="panel panel-primary">
+    <div class="panel panel-info">
       <div class="panel-heading">
         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tasks
       </div>
@@ -12,7 +12,7 @@
         <% if current_user.assigned_tasks.incomplete.any? %>
           <a href="#" class="list-group-item">
             <span class="badge"><%= current_user.assigned_tasks.incomplete.count %></span>
-            <span class="glyphicon glyphicon-user text-info" aria-hidden="true"></span> Assigned to me (from shared lists)
+            <span class="glyphicon glyphicon-user text-primary" aria-hidden="true"></span> Assigned to me (from shared lists)
           </a>
         <% end %>
         <a href="#" class="list-group-item">
@@ -32,7 +32,7 @@
   </div>
 
   <div class="col-md-8">
-    <div class="panel panel-primary">
+    <div class="panel panel-info">
       <div class="panel-heading">
         <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Lists
       </div>
