@@ -26,11 +26,11 @@ module DeviseHelper
     !resource.errors.empty?
   end
 
-  def glyphicon_user_class(user)
+  def member_glyphicon_and_label_class(user)
     if user == current_user
-      "glyphicon glyphicon-user text-primary"
+      "info"
     else
-      "glyphicon glyphicon-user text-success"
+      "success"
     end
   end
 
