@@ -12,6 +12,7 @@ gem 'figaro'
 gem 'jquery-rails'
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'font-awesome-sass'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.3'
