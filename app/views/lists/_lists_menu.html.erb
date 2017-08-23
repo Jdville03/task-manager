@@ -1,0 +1,17 @@
+<% if user_signed_in? %>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-list fa-fw" aria-hidden="true"></i> Lists <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <% lists.each do |list| %>
+        <li>
+          <a href="<%= list_path(list) %>">
+            <%= list.name %>
+            <span class="badge pull-right"><%= number_of_incomplete_tasks(list) if !list.all_tasks_completed? %></span>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
