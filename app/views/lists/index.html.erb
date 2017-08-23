@@ -12,7 +12,7 @@
         <% if current_user.assigned_tasks.incomplete.any? %>
           <a href="#" class="list-group-item">
             <span class="badge"><%= current_user.assigned_tasks.incomplete.count %></span>
-            <i class="fa fa-user fa-fw text-primary" aria-hidden="true"></i> Assigned to me (from shared lists)
+            <i class="fa fa-user fa-fw text-primary" aria-hidden="true"></i> Assigned to me <small>(from shared lists)</small>
           </a>
         <% end %>
         <a href="#" class="list-group-item">
@@ -50,7 +50,7 @@
       </div>
       <div class="list-group">
         <%= form_for @list do |f| %>
-          <div class="form-group list-group-item">
+          <div class="list-group-item form-group <%= "has-error" if @list.errors[:name].any? %>">
             <div class="input-group">
               <span class="input-group-btn">
                 <%= button_tag(type: "submit", class: "btn btn-default") do %>
