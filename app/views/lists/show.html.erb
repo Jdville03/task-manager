@@ -35,7 +35,11 @@
         <% end %>
         <a href="#" class="list-group-item">
           <span class="badge">2</span>
-          <i class="fa fa-flag fa-fw text-danger" aria-hidden="true"></i> Important
+          <i class="fa fa-flag fa-fw text-danger" aria-hidden="true"></i> Urgent
+        </a>
+        <a href="#" class="list-group-item">
+          <span class="badge">2</span>
+          <i class="fa fa-flag-o fa-fw text-warning" aria-hidden="true"></i> Important
         </a>
         <a href="#" class="list-group-item">
           <span class="badge">3</span>
@@ -60,6 +64,18 @@
           <% end %>
           <%= @list.name %>
         </strong>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-sort fa-fw fa-lg" aria-hidden="true"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header">Sort</li>
+            <li><a href="#"><i class="fa fa-sort-alpha-asc fa-fw" aria-hidden="true"></i> Alphabetically</a></li>
+            <li><a href="#"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Creation Date</a></li>
+            <li><a href="#"><i class="fa fa-flag-o fa-fw" aria-hidden="true"></i> Priority</a></li>
+            <li><a href="#"><i class="fa fa-user-o fa-fw" aria-hidden="true"></i> Assignee</a></li>
+          </ul>
+        </div>
       </div>
       <div class="list-group">
         <%= form_for @task do |f| %>
@@ -82,7 +98,9 @@
               <% if task.assigned_user == current_user %>
                 <i class="fa fa-user-circle fa-fw text-primary pull-right" aria-hidden="true"></i>
               <% else %>
-                <i class="fa fa-user-circle-o fa-fw text-success pull-right" aria-hidden="true"></i>
+                <span class="label label-success pull-right">
+                  <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i> <%= user_initials(task.assigned_user) %>
+                </span>
               <% end %>
             <% end %>
           </a>
