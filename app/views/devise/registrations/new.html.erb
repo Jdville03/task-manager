@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-sm-8 col-sm-offset-2">
     <%= devise_error_messages! %>
     <h2>Sign up</h2>
     <hr>
@@ -8,7 +8,7 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <div class="row">
-    <div class="form-group col-md-8 col-md-offset-2">
+    <div class="form-group col-sm-8 col-sm-offset-2">
       <div class="input-group <%= "has-error" if resource.errors[:name].any? %>">
         <span class="input-group-addon" id="name-addon"><i class="fa fa-user-o fa-fw"></i></span>
         <%= f.text_field :name, autofocus: true, placeholder: "Name", class: "form-control", 'aria-describedby': "name-addon" %>
@@ -29,7 +29,7 @@
   </div>
 
   <div class="row">
-    <div class="form-group col-md-8 col-md-offset-2">
+    <div class="form-group col-sm-8 col-sm-offset-2">
       <%= f.submit "Sign up", class: "btn btn-success btn-block" %>
       <p class="text-center">-or-</p>
       <a href="<%= user_facebook_omniauth_authorize_path %>" class="btn btn-block btn-social btn-facebook">
@@ -40,7 +40,7 @@
 <% end %>
 
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-sm-8 col-sm-offset-2">
     <p class="text-center text-muted">Already have an account? <%= link_to "Log in", new_session_path(resource_name) %></p>
   </div>
 </div>
