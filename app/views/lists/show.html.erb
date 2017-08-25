@@ -3,8 +3,8 @@
     <div class="panel-group">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <a data-toggle="collapse" href="#collapse1">
-            <strong><i class="fa fa-tasks fa-fw" aria-hidden="true"></i> <%= @list.name %></strong>
+          <a data-toggle="collapse" href="#collapse1" class="panel-title">
+            <i class="fa fa-tasks fa-fw" aria-hidden="true"></i> <%= @list.name %>
           </a>
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-link btn-xs pull-right" data-toggle="modal" data-target="#myModal" data-remote="<%= edit_list_path(@list) %> #editListModal">
@@ -73,14 +73,14 @@
   <div class="col-sm-8">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <strong>
+        <span class="panel-title">
           <% if @list.shared_list? %>
             <i class="fa fa-users fa-fw text-success" aria-hidden="true"></i>
           <% else %>
             <i class="fa fa-user-o fa-fw text-primary" aria-hidden="true"></i>
           <% end %>
           <%= @list.name %>
-        </strong>
+        </span>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-sort fa-fw" aria-hidden="true"></i>
