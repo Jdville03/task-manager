@@ -18,9 +18,9 @@
 //= require_tree .
 
 window.setTimeout(function () {
-    $(".alert-success").fadeTo(500, 0).slideUp(500, function () {
-        $(this).remove();
-    });
+  $(".alert-success").fadeTo(500, 0).slideUp(500, function () {
+    $(this).remove();
+  });
 }, 3000);
 
 $(document).ready(function(){
@@ -38,11 +38,11 @@ $(window).resize(function(){
   }
 });
 
-// $('a[data-toggle="collapse"]').click(function(e){
-//   e.preventDefault()
-//   if ($(window).width() >= 768){
-//     e.stopPropagation();
-//   } else {
-//     $(this).tab('show');
-//   }
-// });
+$('a[data-toggle="collapse"]').click(function(e){
+  e.preventDefault()
+  if ($(window).width() >= 768){
+    e.stopPropagation();
+  } else {
+    $(this).tab('show');
+  }
+});
