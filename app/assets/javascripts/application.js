@@ -22,3 +22,18 @@ window.setTimeout(function () {
         $(this).remove();
     });
 }, 3000);
+
+$(document).ready(function(){
+  if ($(window).width() <= 768){
+    $('.panel-collapse').removeClass('in');
+  }
+});
+
+$(window).resize(function(){
+  if ($(window).width() >= 768){
+    $('.panel-collapse').addClass('in');
+  }
+  if ($(window).width() <= 768){
+    $('.panel-collapse').removeClass('in');
+  }
+});

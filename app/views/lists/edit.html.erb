@@ -1,0 +1,16 @@
+<!-- content injected into .modal-content div in lists/show.html.erb -->
+<div id="editListModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" id="myModalLabel">Edit List</h4>
+  </div>
+  <div class="modal-body">
+    <h4><%= @list.name %></h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat magnam ea non modi atque, voluptas quae nobis nisi ullam quis assumenda explicabo in animi eaque ducimus hic, id, ut omnis.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At ullam esse, reiciendis accusamus consectetur nulla alias tempora quos aperiam sequi cumque, nesciunt, dolor animi commodi quod eum ex et expedita!</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Save changes</button>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-4">
-    <div class="panel panel-info">
+    <div class="panel panel-default">
       <div class="panel-heading">
         <strong><i class="fa fa-tasks fa-fw" aria-hidden="true"></i> Tasks</strong>
       </div>
@@ -36,7 +36,7 @@
   </div>
 
   <div class="col-sm-8">
-    <div class="panel panel-info">
+    <div class="panel panel-default">
       <div class="panel-heading">
         <strong><i class="fa fa-list fa-fw" aria-hidden="true"></i> Lists</strong>
         <div class="btn-group pull-right">
@@ -52,9 +52,9 @@
           </ul>
         </div>
       </div>
-      <div class="list-group">
+      <div class="panel-body">
         <%= form_for @list do |f| %>
-          <div class="list-group-item form-group <%= "has-error" if @list.errors[:name].any? %>">
+          <div class="form-group <%= "has-error" if @list.errors[:name].any? %> form-group-in-panel">
             <div class="input-group">
               <span class="input-group-btn">
                 <%= button_tag(type: "submit", class: "btn btn-default") do %>
@@ -66,6 +66,8 @@
             <!-- <%= f.submit :style => "display: none" %> -->
           </div>
         <% end %>
+      </div>
+      <div class="list-group">
         <% @lists.each do |list| %>
           <a href="<%= list_path(list) %>" class="list-group-item">
             <span class="badge"><%= number_of_incomplete_tasks(list) if !list.all_tasks_completed? %></span>

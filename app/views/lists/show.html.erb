@@ -1,81 +1,77 @@
 <div class="row">
   <div class="col-sm-4">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <strong><i class="fa fa-tasks fa-fw" aria-hidden="true"></i> <%= @list.name %></strong>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-link btn-xs pull-right" data-toggle="modal" data-target="#myModal">
-          <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-              </div>
-              <div class="modal-body">
-                ...
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <a data-toggle="collapse" href="#collapse1">
+            <strong><i class="fa fa-tasks fa-fw" aria-hidden="true"></i> <%= @list.name %></strong>
+          </a>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-link btn-xs pull-right" data-toggle="modal" data-target="#myModal" data-remote="<%= edit_list_path(@list) %> #editListModal">
+            <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+          </button>
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <!-- content from lists/edit.html.erb injected into .modal-content div -->
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="list-group">
-        <% if @list.shared_list? %>
-          <ul class="list-group-item list-unstyled">
-            <% @list.users.each do |user| %>
-              <li>
-                <% if user == current_user %>
-                  <i class="fa fa-user-circle fa-fw text-primary" aria-hidden="true"></i>
-                <% else %>
-                  <i class="fa fa-user-circle-o fa-fw text-success" aria-hidden="true"></i>
+        <div id="collapse1" class="panel-collapse collapse in">
+          <div class="list-group">
+            <% if @list.shared_list? %>
+              <ul class="list-group-item list-unstyled">
+                <% @list.users.each do |user| %>
+                  <li>
+                    <% if user == current_user %>
+                      <i class="fa fa-user-circle fa-fw text-primary" aria-hidden="true"></i>
+                    <% else %>
+                      <i class="fa fa-user-circle-o fa-fw text-success" aria-hidden="true"></i>
+                    <% end %>
+                    <%= user.name %>
+                    <% if @list.user_permission(user) == "owner" %>
+                      <span class="label label-<%= user_class(user) %>">owner</span>
+                    <% end %>
+                  </li>
                 <% end %>
-                <%= user.name %>
-                <% if @list.user_permission(user) == "owner" %>
-                  <span class="label label-<%= user_class(user) %>">owner</span>
-                <% end %>
-              </li>
+              </ul>
             <% end %>
-          </ul>
-        <% end %>
-        <a href="#" class="list-group-item">
-          <span class="badge"><%= number_of_incomplete_tasks(@list) %></span>
-          <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> All
-        </a>
-        <% if @list.shared_list? && @list.tasks.incomplete.assigned_to_user(current_user).any? %>
-          <a href="#" class="list-group-item">
-            <span class="badge"><%= number_of_incomplete_tasks_assigned_to_user(@list, current_user) %></span>
-            <i class="fa fa-user fa-fw text-primary" aria-hidden="true"></i> Assigned to me
-          </a>
-        <% end %>
-        <a href="#" class="list-group-item">
-          <span class="badge">2</span>
-          <i class="fa fa-flag fa-fw text-danger" aria-hidden="true"></i> Urgent
-        </a>
-        <a href="#" class="list-group-item">
-          <span class="badge">2</span>
-          <i class="fa fa-flag-o fa-fw text-warning" aria-hidden="true"></i> Important
-        </a>
-        <a href="#" class="list-group-item">
-          <span class="badge">3</span>
-          <i class="fa fa-clock-o fa-fw text-danger" aria-hidden="true"></i> Overdue
-        </a>
-        <a href="#" class="list-group-item">
-          <span class="badge">4</span>
-          <i class="fa fa-calendar-times-o fa-fw text-warning" aria-hidden="true"></i> Due Today
-        </a>
+            <a href="#" class="list-group-item">
+              <span class="badge"><%= number_of_incomplete_tasks(@list) %></span>
+              <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> All
+            </a>
+            <% if @list.shared_list? && @list.tasks.incomplete.assigned_to_user(current_user).any? %>
+              <a href="#" class="list-group-item">
+                <span class="badge"><%= number_of_incomplete_tasks_assigned_to_user(@list, current_user) %></span>
+                <i class="fa fa-user fa-fw text-primary" aria-hidden="true"></i> Assigned to me
+              </a>
+            <% end %>
+            <a href="#" class="list-group-item">
+              <span class="badge">2</span>
+              <i class="fa fa-flag fa-fw text-danger" aria-hidden="true"></i> Urgent
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">2</span>
+              <i class="fa fa-flag-o fa-fw text-warning" aria-hidden="true"></i> Important
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">3</span>
+              <i class="fa fa-clock-o fa-fw text-danger" aria-hidden="true"></i> Overdue
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">4</span>
+              <i class="fa fa-calendar-times-o fa-fw text-warning" aria-hidden="true"></i> Due Today
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="col-sm-8">
-    <div class="panel panel-info">
+    <div class="panel panel-default">
       <div class="panel-heading">
         <strong>
           <% if @list.shared_list? %>
@@ -98,9 +94,9 @@
           </ul>
         </div>
       </div>
-      <div class="list-group">
+      <div class="panel-body">
         <%= form_for @task do |f| %>
-          <div class="list-group-item form-group <%= "has-error" if @task.errors[:description].any? %>">
+          <div class="form-group <%= "has-error" if @task.errors[:description].any? %> form-group-in-panel">
             <div class="input-group">
               <span class="input-group-btn">
                 <%= button_tag(type: "submit", class: "btn btn-default") do %>
@@ -112,15 +108,17 @@
             <!-- <%= f.submit :style => "display: none" %> -->
           </div>
         <% end %>
+      </div>
+      <div class="list-group">
         <% @list.tasks.each do |task| %>
-          <a href="<%= task_path(task) %>" class="list-group-item">
+          <a href="<%= list_task_path(@list, task) %>" class="list-group-item">
             <%= task.description %>
             <% if task.assigned_user %>
               <% if task.assigned_user == current_user %>
                 <i class="fa fa-user-circle fa-fw text-primary pull-right" aria-hidden="true"></i>
               <% else %>
                 <span class="label label-success pull-right">
-                  <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i> <%= user_initials(task.assigned_user) %>
+                  <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i><%= user_initials(task.assigned_user) %>
                 </span>
               <% end %>
             <% end %>

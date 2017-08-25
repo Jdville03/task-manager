@@ -23,6 +23,12 @@ class ListsController < ApplicationController
     end
   end
 
+  def edit
+    @list = List.find(params[:id])
+    @lists = current_user.lists
+    @task = Task.new
+  end
+
   private
 
     def list_params
