@@ -38,11 +38,9 @@ $(window).resize(function(){
   }
 });
 
+// this is not working to disable the panel collapse
 $('a[data-toggle="collapse"]').click(function(e){
-  e.preventDefault()
   if ($(window).width() >= 768){
     e.stopPropagation();
-  } else {
-    $(this).tab('show');
   }
 });

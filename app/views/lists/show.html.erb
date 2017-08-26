@@ -111,18 +111,20 @@
       </div>
       <div class="list-group">
         <% @list.tasks.each do |task| %>
-          <a href="<%= list_task_path(@list, task) %>" class="list-group-item">
-            <%= task.description %>
-            <% if task.assigned_user %>
-              <% if task.assigned_user == current_user %>
-                <i class="fa fa-user-circle fa-fw text-primary pull-right" aria-hidden="true"></i>
-              <% else %>
-                <span class="label label-success pull-right">
-                  <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i><%= user_initials(task.assigned_user) %>
-                </span>
+          <% if task.valid? %>
+            <a href="<%= list_task_path(@list, task) %>" class="list-group-item">
+              <%= task.description %>
+              <% if task.assigned_user %>
+                <% if task.assigned_user == current_user %>
+                  <i class="fa fa-user-circle fa-fw text-primary pull-right" aria-hidden="true"></i>
+                <% else %>
+                  <span class="label label-success pull-right">
+                    <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i><%= user_initials(task.assigned_user) %>
+                  </span>
+                <% end %>
               <% end %>
-            <% end %>
-          </a>
+            </a>
+          <% end %>
         <% end %>
       </div>
     </div>

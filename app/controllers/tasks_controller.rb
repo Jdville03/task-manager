@@ -6,6 +6,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to list_path(@list)
     else
+      @lists = current_user.lists
       render "lists/show"
     end
   end
@@ -22,7 +23,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  
+
 
   private
 
