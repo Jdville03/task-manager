@@ -40,7 +40,7 @@
             <% end %>
             <a href="#" class="list-group-item">
               <span class="badge"><%= number_of_incomplete_tasks(@list) %></span>
-              <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> All
+              <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> Remaining
             </a>
             <% if @list.shared_list? && @list.tasks.incomplete.assigned_to_user(current_user).any? %>
               <a href="#" class="list-group-item">
@@ -109,11 +109,18 @@
           </div>
         <% end %>
       </div>
-      <div class="list-group">
+      <ul class="list-group">
         <% @list.tasks.each do |task| %>
-          <% if task.valid? %>
-            <a href="<%= list_task_path(@list, task) %>" class="list-group-item">
-              <%= task.description %>
+          <% if task.valid? %> <!-- prevents error from being raised due to blank task being entered -->
+            <li class="list-group-item">
+              <%= form_for_task_status(task) %>
+              <a href="<%= list_task_path(@list, task) %>">
+                <% if task.complete? %>
+                  <s class="text-muted"><%= task.description %></s>
+                <% else %>
+                  <%= task.description %>
+                <% end %>
+              </a>
               <% if task.assigned_user %>
                 <% if task.assigned_user == current_user %>
                   <i class="fa fa-user-circle fa-fw text-primary pull-right" aria-hidden="true"></i>
@@ -123,10 +130,10 @@
                   </span>
                 <% end %>
               <% end %>
-            </a>
+            </li>
           <% end %>
         <% end %>
-      </div>
+      </ul>
     </div>
   </div>
 </div>
