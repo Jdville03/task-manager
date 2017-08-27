@@ -109,8 +109,7 @@
           </div>
         <% end %>
       </div>
-
-      <ul class="todo-list">
+      <ul class="list-group my-tasks">
         <%= render :collection => @list.tasks, :partial => "tasks/task_li", :as => :task %>
       </ul>
 
