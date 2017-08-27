@@ -49,7 +49,7 @@
               </a>
             <% end %>
             <a href="#" class="list-group-item">
-              <span class="badge">2</span>
+              <span class="badge">1</span>
               <i class="fa fa-flag fa-fw text-danger" aria-hidden="true"></i> Urgent
             </a>
             <a href="#" class="list-group-item">
@@ -112,33 +112,6 @@
       <ul class="list-group my-tasks">
         <%= render :collection => @list.tasks, :partial => "tasks/task_li", :as => :task %>
       </ul>
-
-
-
-
-      <!-- <ul class="list-group">
-        <%# @list.tasks.each do |task| %>
-          <%# if task.valid? %>
-            <li class="list-group-item">
-              <%# form_for_task_status(task) %>
-              <a href="<%# list_task_path(@list, task) %>">
-                <%# task.description %>
-              </a>
-              <%# if task.assigned_user %>
-                <%# if task.assigned_user == current_user %>
-                  <i class="fa fa-user-circle fa-fw text-primary pull-right" aria-hidden="true"></i>
-                <%# else %>
-                  <span class="label label-success pull-right">
-                    <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i><%# user_initials(task.assigned_user) %>
-                  </span>
-                <%# end %>
-              <%# end %>
-            </li>
-          <%# end %>
-        <%# end %>
-      </ul> -->
-
-
     </div>
   </div>
 </div>
