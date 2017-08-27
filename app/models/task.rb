@@ -7,20 +7,25 @@ class Task < ApplicationRecord
 
   validates :description, presence: true
 
+  STATUS = {
+    :incomplete => 0,
+    :complete => 1
+  }
+
   def complete?
-    self.status == "complete"
+    self.status == STATUS[:complete]
   end
 
   def incomplete?
-    self.status == "incomplete"
+    self.status == STATUS[:incomplete]
   end
 
   def self.completed
-    where(status: "complete")
+    where(status: STATUS[:complete])
   end
 
   def self.incomplete
-    where(status: "incomplete")
+    where(status: STATUS[:incomplete])
   end
 
   def self.assigned_to_user(user)

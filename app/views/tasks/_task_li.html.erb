@@ -1,0 +1,9 @@
+<% if task.valid? %>
+  <li class="<%= li_class_for_task(task) %>">
+    <div class="view">
+      <%= form_for_task_status(task) %>
+      <label><%= task.description %></label>
+      <%= button_to "x", list_task_path(task.list, task), :method => "delete", :class => "destroy" %>
+    </div>
+  </li>
+<% end %>

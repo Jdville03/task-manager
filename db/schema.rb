@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20170808055116) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "description"
-    t.string "status", default: "incomplete"
+    t.integer "status", default: 0
     t.date "due_date"
     t.text "note"
     t.integer "list_id"

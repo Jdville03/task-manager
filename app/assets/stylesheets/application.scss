@@ -17,29 +17,8 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "bootstrap-social";
-
-.list-group-lists {
-  margin: 0;
-}
-
-.list-group-lists .list-group-item {
-  border-left-style: none;
-  border-right-style: none;
-  padding-top: 6px;
-  padding-bottom: 6px;
-}
-
-.list-group-lists .list-group-item:first-child {
-  border-top-style: none;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-}
-
-.list-group-lists .list-group-item:last-child {
-  border-bottom-style: none;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
+@import "lists";
+@import "tasks";
 
 .form-group-in-panel {
   margin: 0;

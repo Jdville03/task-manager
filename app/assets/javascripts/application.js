@@ -44,3 +44,9 @@ $('a[data-toggle="collapse"]').click(function(e){
     e.stopPropagation();
   }
 });
+
+$(function(){
+  $("input.toggle").on("change", function(){
+    $(this).parents("form").trigger("submit")
+  })
+});

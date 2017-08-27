@@ -103,37 +103,43 @@
                   <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
                 <% end %>
               </span>
-              <%= f.text_field :description, placeholder: @task.errors.full_messages_for(:description).first || "Create new task", class: "form-control", 'aria-describedby': "new-list-addon" %>
+              <%= f.text_field :description, autofocus: true, placeholder: @task.errors.full_messages_for(:description).first || "Create new task", class: "form-control", 'aria-describedby': "new-list-addon" %>
             </div>
             <!-- <%= f.submit :style => "display: none" %> -->
           </div>
         <% end %>
       </div>
-      <ul class="list-group">
-        <% @list.tasks.each do |task| %>
-          <% if task.valid? %> <!-- prevents error from being raised due to blank task being entered -->
-            <li class="list-group-item">
-              <%= form_for_task_status(task) %>
-              <a href="<%= list_task_path(@list, task) %>">
-                <% if task.complete? %>
-                  <s class="text-muted"><%= task.description %></s>
-                <% else %>
-                  <%= task.description %>
-                <% end %>
-              </a>
-              <% if task.assigned_user %>
-                <% if task.assigned_user == current_user %>
-                  <i class="fa fa-user-circle fa-fw text-primary pull-right" aria-hidden="true"></i>
-                <% else %>
-                  <span class="label label-success pull-right">
-                    <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i><%= user_initials(task.assigned_user) %>
-                  </span>
-                <% end %>
-              <% end %>
-            </li>
-          <% end %>
-        <% end %>
+
+      <ul class="todo-list">
+        <%= render :collection => @list.tasks, :partial => "tasks/task_li", :as => :task %>
       </ul>
+
+
+
+
+      <!-- <ul class="list-group">
+        <%# @list.tasks.each do |task| %>
+          <%# if task.valid? %>
+            <li class="list-group-item">
+              <%# form_for_task_status(task) %>
+              <a href="<%# list_task_path(@list, task) %>">
+                <%# task.description %>
+              </a>
+              <%# if task.assigned_user %>
+                <%# if task.assigned_user == current_user %>
+                  <i class="fa fa-user-circle fa-fw text-primary pull-right" aria-hidden="true"></i>
+                <%# else %>
+                  <span class="label label-success pull-right">
+                    <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i><%# user_initials(task.assigned_user) %>
+                  </span>
+                <%# end %>
+              <%# end %>
+            </li>
+          <%# end %>
+        <%# end %>
+      </ul> -->
+
+
     </div>
   </div>
 </div>
