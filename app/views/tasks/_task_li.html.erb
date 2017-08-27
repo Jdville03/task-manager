@@ -5,9 +5,9 @@
     <span class="task-icons">
       <% if task.assigned_user %>
         <% if task.assigned_user == current_user %>
-          <i class="fa fa-user-circle fa-fw text-primary pull-right" aria-hidden="true"></i>
+          <i class="fa fa-user-circle fa-fw text-primary" aria-hidden="true"></i>
         <% else %>
-          <span class="label label-success pull-right">
+          <span class="label label-success">
             <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i><%= user_initials(task.assigned_user) %>
           </span>
         <% end %>
