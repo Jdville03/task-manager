@@ -32,7 +32,13 @@ class ListsController < ApplicationController
   def update
     @list = List.find(params[:id])
     @list.update(list_params)
-    redirect_to list_path(@list)
+    if @list.save
+      redirect_to list_path(@list)
+    else
+      @lists = current_user.lists
+      @task = Task.new
+      render :edit
+    end
   end
 
   private

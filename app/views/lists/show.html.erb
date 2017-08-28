@@ -6,18 +6,23 @@
           <span class="panel-title">
             <a data-toggle="collapse" href="#collapse1" class="panel-title"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i> <%= @list.name %></a>
           </span>
+
+          <%= link_to "<i class='fa fa-pencil fa-fw' aria-hidden='true'></i>".html_safe, edit_list_path(@list), class: "btn btn-link btn-xs pull-right" %>
+
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-link btn-xs pull-right" data-toggle="modal" data-target="#myModal" data-remote="<%= edit_list_path(@list) %> #editListModal">
+          <!-- <button type="button" class="btn btn-link btn-xs pull-right" data-toggle="modal" data-target="#myModal" data-remote="<%= edit_list_path(@list) %> #editListModal">
             <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
-          </button>
+          </button> -->
           <!-- Modal -->
-          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
+              <div class="modal-content"> -->
                 <!-- content from lists/edit.html.erb injected into .modal-content div -->
-              </div>
+              <!-- </div>
             </div>
-          </div>
+          </div> -->
+
+
         </div>
         <div id="collapse1" class="panel-collapse collapse in">
           <div class="list-group">
@@ -69,47 +74,6 @@
   </div>
 
   <div class="col-sm-8">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <span class="panel-title">
-          <% if @list.shared_list? %>
-            <i class="fa fa-users fa-fw text-success" aria-hidden="true"></i>
-          <% else %>
-            <i class="fa fa-user-o fa-fw text-primary" aria-hidden="true"></i>
-          <% end %>
-          <%= @list.name %>
-        </span>
-        <div class="btn-group pull-right">
-          <button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-sort fa-fw" aria-hidden="true"></i>
-          </button>
-          <ul class="dropdown-menu">
-            <li class="dropdown-header">Sort</li>
-            <li><a href="#"><i class="fa fa-sort-alpha-asc fa-fw" aria-hidden="true"></i> Alphabetically</a></li>
-            <li><a href="#"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Creation Date</a></li>
-            <li><a href="#"><i class="fa fa-star-o fa-fw" aria-hidden="true"></i> Priority</a></li>
-            <li><a href="#"><i class="fa fa-user-o fa-fw" aria-hidden="true"></i> Assignee</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="panel-body">
-        <%= form_for([@list, @task]) do |f| %>
-          <div class="form-group <%= "has-error" if @task.errors[:description].any? %> form-group-in-panel">
-            <div class="input-group">
-              <span class="input-group-btn">
-                <%= button_tag(type: "submit", class: "btn btn-default") do %>
-                  <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
-                <% end %>
-              </span>
-              <%= f.text_field :description, placeholder: @task.errors.full_messages_for(:description).first || "Create new task", class: "form-control", 'aria-describedby': "new-list-addon" %>
-            </div>
-            <!-- <%= f.submit :style => "display: none" %> -->
-          </div>
-        <% end %>
-      </div>
-      <ul class="list-group my-tasks">
-        <%= render :collection => @list.tasks, :partial => "tasks/task_li", :as => :task %>
-      </ul>
-    </div>
+    <%= render partial: "tasks/task_panel" %>
   </div>
 </div>

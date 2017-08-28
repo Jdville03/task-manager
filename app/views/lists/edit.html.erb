@@ -1,50 +1,66 @@
-<!-- content injected into .modal-content div in lists/show.html.erb -->
-<div id="editListModal">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title" id="myModalLabel">Edit List</h4>
+<div class="row">
+  <div class="col-sm-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span class="panel-title">
+          <i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit List
+        </span>
+      </div>
+      <div class="panel-body">
+        <%= form_for @list do |f| %>
+          <div class="form-group <%= "has-error" if @list.errors[:name].any? %> form-group-in-panel">
+            <div class="input-group">
+              <span class="input-group-addon" id="name-addon"><i class="fa fa-list-ul fa-fw"></i></span>
+              <%= f.text_field :name, placeholder: @list.errors.full_messages_for(:name).first, class: "form-control", 'aria-describedby': "name-addon" %>
+            </div>
+            <%= f.submit :style => "display: none" %>
+          </div>
+        <% end %>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <h5 class="list-group-item-heading">Users</h5>
+          <span class="list-group-item-text">
+            <%= form_for @list do |f| %>
+              <div class="form-group <%= "has-error" if @list.errors[:name].any? %> form-group-in-panel">
+                Share list
+                <div class="input-group">
+                  <span class="input-group-btn">
+                    <%= button_tag(type: "submit", class: "btn btn-default") do %>
+                      <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
+                    <% end %>
+                  </span>
+                  <%= f.text_field :name, placeholder: "Enter email address", class: "form-control", 'aria-describedby': "name-addon" %>
+                </div>
+                <!-- <%= f.submit :style => "display: none" %> -->
+              </div>
+            <% end %>
+          </span>
+        </li>
+        <% @list.users.each do |user| %>
+          <li class="list-group-item user-in-edit-panel">
+            <div class="user-in-edit-panel">
+              <% if user == current_user %>
+                <i class="fa fa-user-circle fa-fw text-primary" aria-hidden="true"></i>
+              <% else %>
+                <i class="fa fa-user-circle-o fa-fw text-success" aria-hidden="true"></i>
+              <% end %>
+              <%= user.name %>
+              <% if @list.user_permission(user) == "owner" %>
+                <span class="label label-<%= user_class(user) %>">owner</span>
+              <% end %>
+              <br>
+              <small class="email-in-edit-panel"><%= user.email %></small>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 
-  <%= form_for @list do |f| %>
-    <div class="modal-body">
-      <div class="input-group">
-        <span class="input-group-addon" id="name-addon"><i class="fa fa-list-ul fa-fw"></i></span>
-        <%= f.text_field :name, class: "form-control", 'aria-describedby': "name-addon", required: true %>
-      </div><hr>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <span class="panel-title">
-            Users
-          </span>
-        </div>
-        <div class="panel-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus animi, error quae hic veritatis consequuntur recusandae sequi dolore illum cumque saepe aliquid odit, ut, iusto mollitia? Qui incidunt dolores sed.
-        </div>
-        <ul class="list-group">
-          <% @list.users.each do |user| %>
-            <li class="list-group-item">
-              <div>
-                <% if user == current_user %>
-                  <i class="fa fa-user-circle fa-fw text-primary" aria-hidden="true"></i>
-                <% else %>
-                  <i class="fa fa-user-circle-o fa-fw text-success" aria-hidden="true"></i>
-                <% end %>
-                <%= user.name %>
-                <% if @list.user_permission(user) == "owner" %>
-                  <span class="label label-<%= user_class(user) %>">owner</span>
-                <% end %>
-                <br>
-                <small class="email"><%= user.email %></small>
-              </div>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <%= f.submit "Save changes", class: "btn btn-primary" %>
-    </div>
-  <% end %>
-
+  <div class="col-sm-7">
+    <fieldset disabled>
+      <%= render partial: "tasks/task_panel" %>
+    </fieldset>
+  </div>
 </div>
