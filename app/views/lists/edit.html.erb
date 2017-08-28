@@ -4,13 +4,47 @@
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h4 class="modal-title" id="myModalLabel">Edit List</h4>
   </div>
-  <div class="modal-body">
-    <h4><%= @list.name %></h4>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat magnam ea non modi atque, voluptas quae nobis nisi ullam quis assumenda explicabo in animi eaque ducimus hic, id, ut omnis.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At ullam esse, reiciendis accusamus consectetur nulla alias tempora quos aperiam sequi cumque, nesciunt, dolor animi commodi quod eum ex et expedita!</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Save changes</button>
-  </div>
+
+  <%= form_for @list do |f| %>
+    <div class="modal-body">
+      <div class="input-group">
+        <span class="input-group-addon" id="name-addon"><i class="fa fa-list-ul fa-fw"></i></span>
+        <%= f.text_field :name, class: "form-control", 'aria-describedby': "name-addon", required: true %>
+      </div><hr>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span class="panel-title">
+            Users
+          </span>
+        </div>
+        <div class="panel-body">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus animi, error quae hic veritatis consequuntur recusandae sequi dolore illum cumque saepe aliquid odit, ut, iusto mollitia? Qui incidunt dolores sed.
+        </div>
+        <ul class="list-group">
+          <% @list.users.each do |user| %>
+            <li class="list-group-item">
+              <div>
+                <% if user == current_user %>
+                  <i class="fa fa-user-circle fa-fw text-primary" aria-hidden="true"></i>
+                <% else %>
+                  <i class="fa fa-user-circle-o fa-fw text-success" aria-hidden="true"></i>
+                <% end %>
+                <%= user.name %>
+                <% if @list.user_permission(user) == "owner" %>
+                  <span class="label label-<%= user_class(user) %>">owner</span>
+                <% end %>
+                <br>
+                <small class="email"><%= user.email %></small>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
 </div>

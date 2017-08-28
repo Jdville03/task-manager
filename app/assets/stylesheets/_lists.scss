@@ -24,3 +24,11 @@
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
+
+.modal-body .list-group-item {
+  line-height: 1.2;
+}
+
+.modal-body .list-group-item .email {
+  margin-left: 24px;
+}

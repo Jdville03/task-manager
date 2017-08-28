@@ -101,7 +101,7 @@
                   <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
                 <% end %>
               </span>
-              <%= f.text_field :description, autofocus: true, placeholder: @task.errors.full_messages_for(:description).first || "Create new task", class: "form-control", 'aria-describedby': "new-list-addon" %>
+              <%= f.text_field :description, placeholder: @task.errors.full_messages_for(:description).first || "Create new task", class: "form-control", 'aria-describedby': "new-list-addon" %>
             </div>
             <!-- <%= f.submit :style => "display: none" %> -->
           </div>
