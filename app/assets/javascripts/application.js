@@ -23,10 +23,18 @@ window.setTimeout(function () {
   });
 }, 3000);
 
-$(document).ready(function(){
-  if ($(window).width() <= 768){
-    $('.panel-collapse').removeClass('in');
-  }
+document.addEventListener("turbolinks:load", function() {
+  $('a[data-toggle="collapse"]').click(function(e){
+    if ($(window).width() >= 768){
+      e.stopPropagation();
+    }
+  })
+  $("input.toggle-status").on("change", function(){
+    $(this).parents("form").trigger("submit")
+  })
+  $("input.toggle-priority").on("change", function(){
+    $(this).parents("form").trigger("submit")
+  })
 });
 
 $(window).resize(function(){
@@ -36,21 +44,4 @@ $(window).resize(function(){
   if ($(window).width() <= 768){
     $('.panel-collapse').removeClass('in');
   }
-});
-
-// this is not working to disable the panel collapse
-$('a[data-toggle="collapse"]').click(function(e){
-  if ($(window).width() >= 768){
-    e.stopPropagation();
-  }
-});
-
-// need to update - currently need to refresh page after switching lists to get this to work
-$(function(){
-  $("input.toggle-status").on("change", function(){
-    $(this).parents("form").trigger("submit")
-  })
-  $("input.toggle-priority").on("change", function(){
-    $(this).parents("form").trigger("submit")
-  })
 });
