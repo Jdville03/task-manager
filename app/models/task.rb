@@ -12,6 +12,11 @@ class Task < ApplicationRecord
     :complete => 1
   }
 
+  PRIORITY = {
+    :normal => 0,
+    :starred => 1
+  }
+
   def complete?
     self.status == STATUS[:complete]
   end
@@ -26,6 +31,22 @@ class Task < ApplicationRecord
 
   def self.incomplete
     where(status: STATUS[:incomplete])
+  end
+
+  def starred?
+    self.priority == PRIORITY[:starred]
+  end
+
+  def normal?
+    self.priority == PRIORITY[:normal]
+  end
+
+  def self.starred
+    where(priority: PRIORITY[:starred])
+  end
+
+  def self.normal
+    where(priority: PRIORITY[:normal])
   end
 
   def self.assigned_to_user(user)

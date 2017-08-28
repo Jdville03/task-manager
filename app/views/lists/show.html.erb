@@ -40,22 +40,20 @@
             <% end %>
             <a href="#" class="list-group-item">
               <span class="badge"><%= number_of_incomplete_tasks(@list) %></span>
-              <i class="fa fa-circle-o fa-fw" aria-hidden="true"></i> Remaining
+              <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> Remaining
             </a>
+            <% if @list.tasks.incomplete.starred.any? %>
+              <a href="#" class="list-group-item">
+                <span class="badge"><%= number_of_incomplete_starred_tasks(@list) %></span>
+                <i class="fa fa-star fa-fw text-warning" aria-hidden="true"></i> Starred
+              </a>
+            <% end %>
             <% if @list.shared_list? && @list.tasks.incomplete.assigned_to_user(current_user).any? %>
               <a href="#" class="list-group-item">
                 <span class="badge"><%= number_of_incomplete_tasks_assigned_to_user(@list, current_user) %></span>
                 <i class="fa fa-user fa-fw text-primary" aria-hidden="true"></i> Assigned to me
               </a>
             <% end %>
-            <a href="#" class="list-group-item">
-              <span class="badge">1</span>
-              <i class="fa fa-flag fa-fw text-danger" aria-hidden="true"></i> Urgent
-            </a>
-            <a href="#" class="list-group-item">
-              <span class="badge">2</span>
-              <i class="fa fa-star fa-fw text-warning" aria-hidden="true"></i> Starred
-            </a>
             <a href="#" class="list-group-item">
               <span class="badge">3</span>
               <i class="fa fa-clock-o fa-fw text-danger" aria-hidden="true"></i> Overdue

@@ -9,7 +9,7 @@
 	/* font-size: 16px; */
 }
 
-.my-tasks li .toggle {
+.my-tasks li .toggle-status {
   text-align: center;
   width: 30px;
   /* auto, since non-WebKit browsers doesn't support input styling */
@@ -17,25 +17,53 @@
   position: absolute;
   top: 5px;
   bottom: 0;
+  left: 5px;
   margin: auto 0;
   border: none; /* Mobile Safari */
 	-webkit-appearance: none;
 	appearance: none;
 }
 
-.my-tasks li .toggle:after {
+.my-tasks li .toggle-status:after {
   content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="-10 -18 100 135"><rect x="0" y="0" rx="20" ry="20" width="100" height="100" fill="none" stroke="#dddddd" stroke-width="5"/></svg>');
 }
 
-.my-tasks li .toggle:checked:after {
+.my-tasks li .toggle-status:checked:after {
 	content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="-10 -18 100 135"><rect x="0" y="0" rx="20" ry="20" width="100" height="100" fill="none" stroke="#dddddd" stroke-width="5" stroke-opacity="0.7"/><path fill="#3c763d" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+}
+
+.my-tasks li .toggle-priority {
+  text-align: center;
+  width: 24px;
+  /* auto, since non-WebKit browsers doesn't support input styling */
+  height: auto;
+  position: absolute;
+  top: 8px;
+  bottom: 0;
+  left: 38px;
+  margin: auto 0;
+  border: none; /* Mobile Safari */
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.my-tasks li .toggle-priority:after {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="-10 -18 200 200"><polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:#dddddd;stroke:#dddddd;stroke-width:3;fill-rule:nonzero;opacity:0.5"/></svg>');
+}
+
+.my-tasks li .toggle-priority:checked:after {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="-10 -18 200 200"><polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:#ffd76e;stroke:#ffd76e;stroke-width:3;fill-rule:nonzero;opacity:1.0"/></svg>');
+}
+
+.my-tasks li.completed .toggle-priority:checked:after {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="-10 -18 200 200"><polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:#ffd76e;stroke:#ffd76e;stroke-width:3;fill-rule:nonzero;opacity:0.5"/></svg>');
 }
 
 .my-tasks li span.task-description {
 	/* white-space: pre-line; */
 	/* word-break: break-all; */
 	/* padding: 15px 60px 15px 15px; */
-	margin-left: 40px;
+	margin-left: 56px;
 	display: block;
 	line-height: 1.428571429;
 	transition: color 0.4s;
@@ -55,6 +83,10 @@
 	margin: auto 0;
   background: none;
 	border: 0;
+}
+
+.my-tasks li.completed span.task-icons {
+  opacity: 0.5;
 }
 
 .my-tasks li .destroy {

@@ -21,4 +21,12 @@ class User < ApplicationRecord
     end
   end
 
+  def incomplete_tasks
+    self.tasks.incomplete
+  end
+
+  def starred_tasks
+    self.tasks.starred
+  end
+
 end

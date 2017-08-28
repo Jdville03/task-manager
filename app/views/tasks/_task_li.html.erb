@@ -1,6 +1,7 @@
 <% if task.valid? %>
   <li class="list-group-item <%= li_class_for_task(task) %>">
     <%= form_for_task_status(task) %>
+    <%= form_for_task_priority(task) %>
     <span class="task-description"><%= task.description %></span>
     <span class="task-icons">
       <% if task.assigned_user %>

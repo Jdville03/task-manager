@@ -42,4 +42,12 @@ module DeviseHelper
     user.name.first.upcase
   end
 
+  def user_incomplete_tasks_count(user)
+    user.incomplete_tasks.count
+  end
+
+  def user_incomplete_starred_tasks(user)
+    user.starred_tasks.incomplete.count
+  end
+
 end

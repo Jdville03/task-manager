@@ -45,9 +45,12 @@ $('a[data-toggle="collapse"]').click(function(e){
   }
 });
 
-// need to update - need to refresh after switching lists to get this to work
+// need to update - currently need to refresh page after switching lists to get this to work
 $(function(){
-  $("input.toggle").on("change", function(){
+  $("input.toggle-status").on("change", function(){
+    $(this).parents("form").trigger("submit")
+  })
+  $("input.toggle-priority").on("change", function(){
     $(this).parents("form").trigger("submit")
   })
 });
