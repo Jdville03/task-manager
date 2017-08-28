@@ -11,7 +11,7 @@
           <div class="list-group">
             <a href="#" class="list-group-item">
               <span class="badge"><%= current_user.tasks.incomplete.count %></span>
-              <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> Remaining
+              <i class="fa fa-circle-o fa-fw" aria-hidden="true"></i> Remaining
             </a>
             <% if current_user.assigned_tasks.incomplete.any? %>
               <a href="#" class="list-group-item">
