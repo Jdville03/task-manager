@@ -5,9 +5,11 @@ class List < ApplicationRecord
 
   validates :name, presence: true
 
-  def user_email=(email)
-    if user = User.find_by(email: email)
-      self.user_lists.create(user: user, permission: "collaborator") if !self.users.include?(user)
+  def users_attributes=(user_attributes)
+    user_attributes.values.each do |user_attribute|
+      if user = User.find_by(user_attribute)
+        self.user_lists.create(user: user, permission: "collaborator") if !self.users.include?(user)
+      end
     end
   end
 

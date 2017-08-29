@@ -25,12 +25,12 @@
     <%= form_for([@list, @task]) do |f| %>
       <div class="form-group <%= "has-error" if @task.errors[:description].any? %> form-group-in-panel">
         <div class="input-group">
+          <%= f.text_field :description, placeholder: @task.errors.full_messages_for(:description).first || "Create new task", class: "form-control", 'aria-describedby': "new-task-addon" %>
           <span class="input-group-btn">
             <%= button_tag(type: "submit", class: "btn btn-default") do %>
               <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
             <% end %>
           </span>
-          <%= f.text_field :description, placeholder: @task.errors.full_messages_for(:description).first || "Create new task", class: "form-control", 'aria-describedby': "new-task-addon" %>
         </div>
         <!-- <%= f.submit :style => "display: none" %> -->
       </div>
