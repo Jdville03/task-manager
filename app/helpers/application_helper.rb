@@ -4,12 +4,4 @@ module ApplicationHelper
     "active" if current_page?(link_path)
   end
 
-  def button_class(flash)
-    if flash[:alert]
-      "danger"
-    else
-      "default"
-    end
-  end
-
 end

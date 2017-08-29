@@ -27,13 +27,13 @@
           <span class="list-group-item-text">
             <%= form_for @list do |f| %>
               <div class="form-group <%= "has-error" if flash[:alert] %> form-group-in-panel">
-                Share list with another account holder:
+                Share list with another registered user:
                 <div class="input-group">
                   <%= f.fields_for :users, User.new do |users_fields| %>
                     <%= users_fields.email_field :email, placeholder: "Enter user's email address", class: "form-control", 'aria-describedby': "new-user-addon" %>
                   <% end %>
                   <span class="input-group-btn">
-                    <%= button_tag(type: "submit", class: "btn btn-#{button_class(flash)}") do %>
+                    <%= button_tag(type: "submit", class: "btn btn-default") do %>
                       <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
                     <% end %>
                   </span>

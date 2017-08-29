@@ -34,11 +34,7 @@ class ListsController < ApplicationController
     @list.update(list_params)
     #raise list_params.inspect
     if @list.save
-      #raise list_params.inspect
-      #raise list_params.dig(:users_attributes, "0", :email).inspect
-      #email = list_params.dig(:users_attributes, "0", :email)
-      #flash[:alert] = "There is no user associated with #{email}" if !User.all.include?(User.find_by(email: email))
-      error_message_for_shared_list_new_user(list_params)
+      error_message_for_sharing_list(list_params)
       redirect_to edit_list_path(@list)
     else
       @lists = current_user.lists
@@ -53,7 +49,7 @@ class ListsController < ApplicationController
       params.require(:list).permit(:name, users_attributes: [:email])
     end
 
-    def error_message_for_shared_list_new_user(list_params)
+    def error_message_for_sharing_list(list_params)
       email = list_params.dig(:users_attributes, "0", :email)
       if email.present? && !User.all.include?(User.find_by(email: email))
         flash[:alert] = "There is no user associated with #{email}."
