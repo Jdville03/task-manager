@@ -5,6 +5,12 @@ class List < ApplicationRecord
 
   validates :name, presence: true
 
+  def user_email=(email)
+    if user = User.find_by(email: email)
+      self.user_lists.create(user: user, permission: "collaborator") if !self.users.include?(user)
+    end
+  end
+
   def all_tasks_completed?
     !self.tasks.incomplete.any?
   end

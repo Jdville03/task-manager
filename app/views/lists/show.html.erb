@@ -36,7 +36,7 @@
                       <i class="fa fa-user-circle-o fa-fw text-success" aria-hidden="true"></i>
                     <% end %>
                     <%= user.name %>
-                    <% if @list.user_permission(user) == "owner" %>
+                    <% if @list.owner == user %>
                       <span class="label label-<%= user_class(user) %>">owner</span>
                     <% end %>
                   </li>
@@ -74,6 +74,6 @@
   </div>
 
   <div class="col-sm-8">
-    <%= render partial: "tasks/task_panel" %>
+    <%= render partial: "tasks/tasks_panel" %>
   </div>
 </div>

@@ -14,6 +14,6 @@
         <% end %>
       <% end %>
     </span>
-    <%= button_to "X", list_task_path(task.list, task), :method => "delete", :class => "destroy" %>
+    <%= button_to "&times;".html_safe, list_task_path(task.list, task), :method => "delete", :class => "destroy" %>
   </li>
 <% end %>

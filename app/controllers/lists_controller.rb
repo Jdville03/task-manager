@@ -33,7 +33,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @list.update(list_params)
     if @list.save
-      redirect_to list_path(@list)
+      redirect_to edit_list_path(@list)
     else
       @lists = current_user.lists
       @task = Task.new
@@ -44,7 +44,7 @@ class ListsController < ApplicationController
   private
 
     def list_params
-      params.require(:list).permit(:name)
+      params.require(:list).permit(:name, :user_email)
     end
 
 end

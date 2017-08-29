@@ -10,7 +10,11 @@
         <%= form_for @list do |f| %>
           <div class="form-group <%= "has-error" if @list.errors[:name].any? %> form-group-in-panel">
             <div class="input-group">
-              <span class="input-group-addon" id="name-addon"><i class="fa fa-list-ul fa-fw"></i></span>
+              <span class="input-group-btn">
+                <%= button_tag(type: "submit", class: "btn btn-default") do %>
+                  <i class="fa fa-list-ul fa-fw" aria-hidden="true"></i>
+                <% end %>
+              </span>
               <%= f.text_field :name, placeholder: @list.errors.full_messages_for(:name).first, class: "form-control", 'aria-describedby': "name-addon" %>
             </div>
             <%= f.submit :style => "display: none" %>
@@ -23,14 +27,14 @@
           <span class="list-group-item-text">
             <%= form_for @list do |f| %>
               <div class="form-group <%= "has-error" if @list.errors[:name].any? %> form-group-in-panel">
-                Share list with another account holder
+                Share list with another account holder:
                 <div class="input-group">
                   <span class="input-group-btn">
                     <%= button_tag(type: "submit", class: "btn btn-default") do %>
                       <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
                     <% end %>
                   </span>
-                  <%= f.text_field :name, placeholder: "Enter email address", class: "form-control", 'aria-describedby': "name-addon" %>
+                  <%= f.text_field :name, placeholder: "Enter user's email address", class: "form-control", 'aria-describedby': "new-user-addon" %>
                 </div>
                 <!-- <%= f.submit :style => "display: none" %> -->
               </div>
@@ -46,7 +50,7 @@
                 <i class="fa fa-user-circle-o fa-fw text-success" aria-hidden="true"></i>
               <% end %>
               <%= user.name %>
-              <% if @list.user_permission(user) == "owner" %>
+              <% if @list.owner == user %>
                 <span class="label label-<%= user_class(user) %>">owner</span>
               <% end %>
               <br>
@@ -55,12 +59,20 @@
           </li>
         <% end %>
       </ul>
+      <div class="panel-footer clearfix">
+        <% if @list.owner == current_user %>
+          <%= form_tag(list_path(@list), :method => :delete) do %>
+            <button class="btn btn-link pull-left" type="submit"><i class="fa fa-trash-o fa-fw text-danger" aria-hidden="true"></i></button>
+          <% end %>
+        <% end %>
+        <%= link_to "Close", list_path(@list), class: "btn btn-primary pull-right" %>
+      </div>
     </div>
   </div>
 
   <div class="col-sm-7">
     <fieldset disabled>
-      <%= render partial: "tasks/task_panel" %>
+      <%= render partial: "tasks/tasks_panel" %>
     </fieldset>
   </div>
 </div>
