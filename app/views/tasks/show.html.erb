@@ -12,14 +12,25 @@
           <%= form_for_task_status(@task) %>
           <%= form_for_task_priority(@task) %>
           <span class="task-description"><%= @task.description %></span>
+          <!-- <div class="form-group form-group-in-panel">
+          <%= form_for([@task.list, @task]) do |f| %>
+            <%= f.text_field :description, class: "form-control" %>
+          <% end %>
+          </div> -->
         </li>
-        <li class="list-group-item">
-          A
-        </li>
+        <% if @task.list.shared_list? %>
+          <li class="list-group-item">
+            A
+          </li>
+        <% end %>
         <li class="list-group-item">
           B
         </li>
       </ul>
+      <div class="panel-footer clearfix">
+        <%= link_to "<i class='fa fa-trash-o fa-fw fa-lg text-muted' aria-hidden='true'></i>".html_safe, list_task_path(@task.list, @task), :method => :delete, :class => "btn btn-link btn-sm pull-left", "data-confirm" => "Do you really want to delete the #{@task.description} task?" %>
+        <%= link_to "Close", list_path(@list), class: "btn btn-primary btn-sm pull-right" %>
+      </div>
     </div>
   </div>
 

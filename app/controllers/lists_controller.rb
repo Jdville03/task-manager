@@ -32,7 +32,6 @@ class ListsController < ApplicationController
   def update
     @list = List.find(params[:id])
     @list.update(list_params)
-    #raise list_params.inspect
     if @list.save
       error_message_for_sharing_list(list_params)
       redirect_to edit_list_path(@list)
