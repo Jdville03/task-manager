@@ -46,9 +46,10 @@
       </ul>
       <div class="panel-footer clearfix">
         <% if @list.owner == current_user %>
-          <%= form_tag(list_path(@list), :method => :delete, "data-confirm" => "Do you really want to delete the #{@list.name} list?") do %>
+          <!-- <%= form_tag(list_path(@list), :method => :delete, "data-confirm" => "Do you really want to delete the #{@list.name} list?") do %>
             <button class="btn btn-link pull-left" type="submit"><i class="fa fa-trash-o fa-fw text-muted" aria-hidden="true"></i></button>
-          <% end %>
+          <% end %> -->
+          <%= link_to "<i class='fa fa-trash-o fa-fw fa-lg text-muted' aria-hidden='true'></i>".html_safe, list_path(@list), :method => :delete, :class => "btn btn-link pull-left", "data-confirm" => "Do you really want to delete the #{@list.name} list?" %>
         <% end %>
         <%= link_to "Close", list_path(@list), class: "btn btn-primary pull-right" %>
       </div>

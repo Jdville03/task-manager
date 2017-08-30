@@ -78,7 +78,7 @@
   display: block;
   position: absolute;
 	top: 9px;
-	right: 30px;
+	right: 45px;
 	bottom: 0;
 	margin: auto 0;
   background: none;
@@ -94,7 +94,7 @@
 	position: absolute;
 	top: 0;
 	right: 5px;
-	bottom: 6px;
+	bottom: 10px;
 	width: 20px;
 	height: 20px;
 	margin: auto 0;
@@ -110,10 +110,35 @@
 	color: #af5b5e;
 }
 
-.my-tasks li .destroy:after {
+/*.my-tasks li .destroy:after {
 	content: 'x';
-}
+}*/
 
 .my-tasks li:hover .destroy {
+	display: block;
+}
+
+.my-tasks li .edit-task {
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 20px;
+	bottom: 4px;
+	width: 20px;
+	height: 20px;
+	margin: auto 0;
+	font-size: 14px;
+	color: #cccccc;
+	/* margin-bottom: 4px; */
+	transition: color 0.2s ease-out;
+	background: none;
+	border: 0;
+}
+
+.my-tasks li .edit-task:hover {
+	color: #777777;
+}
+
+.my-tasks li:hover .edit-task {
 	display: block;
 }

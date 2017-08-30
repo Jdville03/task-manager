@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :tags
-  #resources :tasks
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   root 'lists#index'
   resources :lists do
