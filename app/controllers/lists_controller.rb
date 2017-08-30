@@ -53,9 +53,17 @@ class ListsController < ApplicationController
           task.update(assigned_user: nil)
         end
       end
-      redirect_to root_path and return if user == current_user
+      if user == current_user
+        flash[:notice] = "You left the #{@list.name} list successfully."
+        redirect_to root_path
+      else
+        redirect_to edit_list_path(@list)
+      end
+    else
+      @list.destroy
+      flash[:notice] = "#{@list.name} list deleted successfully."
+      redirect_to root_path
     end
-    redirect_to edit_list_path
   end
 
   private

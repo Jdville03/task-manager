@@ -1,0 +1,20 @@
+<li class="list-group-item user-in-edit-panel clearfix">
+  <div class="user-in-edit-panel pull-left">
+    <% if user == current_user %>
+      <i class="fa fa-user-circle fa-fw text-primary" aria-hidden="true"></i>
+    <% else %>
+      <i class="fa fa-user-circle-o fa-fw text-success" aria-hidden="true"></i>
+    <% end %>
+    <%= user.name %>
+    <% if @list.owner == user %>
+      <span class="label label-<%= user_class(user) %>">owner</span>
+    <% end %>
+    <br>
+    <small class="email-in-edit-panel"><%= user.email %></small>
+  </div>
+  <% if (@list.owner == current_user && @list.user_permission(user) == "collaborator") || (user == current_user && @list.user_permission(user) == "collaborator") %>
+    <%= form_tag(list_path(@list, :user_id => user.id), :method => :delete, "data-confirm" => delete_user_from_list_confirmation(user, @list)) do %>
+      <button class="btn btn-link pull-right" type="submit"><i class="fa fa-user-times fa-fw text-muted" aria-hidden="true"></i></button>
+    <% end %>
+  <% end %>
+</li>

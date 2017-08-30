@@ -42,32 +42,11 @@
             <% end %>
           </span>
         </li>
-        <% @list.users.each do |user| %>
-          <li class="list-group-item user-in-edit-panel clearfix">
-            <div class="user-in-edit-panel pull-left">
-              <% if user == current_user %>
-                <i class="fa fa-user-circle fa-fw text-primary" aria-hidden="true"></i>
-              <% else %>
-                <i class="fa fa-user-circle-o fa-fw text-success" aria-hidden="true"></i>
-              <% end %>
-              <%= user.name %>
-              <% if @list.owner == user %>
-                <span class="label label-<%= user_class(user) %>">owner</span>
-              <% end %>
-              <br>
-              <small class="email-in-edit-panel"><%= user.email %></small>
-            </div>
-            <% if (@list.owner == current_user && @list.user_permission(user) == "collaborator") || (user == current_user && @list.user_permission(user) == "collaborator") %>
-              <%= form_tag(list_path(@list, :user_id => user.id), :method => :delete, "data-confirm" => delete_user_from_list_confirmation(user, @list)) do %>
-                <button class="btn btn-link pull-right" type="submit"><i class="fa fa-user-times fa-fw text-muted" aria-hidden="true"></i></button>
-              <% end %>
-            <% end %>
-          </li>
-        <% end %>
+        <%= render :collection => @list.users, :partial => "lists/edit_list_users", :as => :user %>
       </ul>
       <div class="panel-footer clearfix">
         <% if @list.owner == current_user %>
-          <%= form_tag(list_path(@list), :method => :delete) do %>
+          <%= form_tag(list_path(@list), :method => :delete, "data-confirm" => "Do you really want to delete the #{@list.name} list?") do %>
             <button class="btn btn-link pull-left" type="submit"><i class="fa fa-trash-o fa-fw text-muted" aria-hidden="true"></i></button>
           <% end %>
         <% end %>
