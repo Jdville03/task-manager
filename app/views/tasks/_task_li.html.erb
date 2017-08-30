@@ -14,7 +14,7 @@
         <% end %>
       <% end %>
     </span>
-    <%= link_to "<i class='fa fa-pencil fa-fw' aria-hidden='true'></i>".html_safe, list_task_path(task.list, task), :class => "edit-task" %>
-    <%= button_to "&times;".html_safe, list_task_path(task.list, task), :method => "delete", :class => "destroy", "data-confirm" => "Do you really want to delete this task?" %>
+    <%= link_to "<i class='fa fa-pencil fa-fw' aria-hidden='true'></i>".html_safe, list_task_path(task.list, task), :class => "btn btn-link edit-task" %>
+    <%= link_to "<i class='fa fa-times fa-fw' aria-hidden='true'></i>".html_safe, list_task_path(task.list, task), :method => "delete", :class => "btn btn-link destroy", "data-confirm" => "Do you really want to delete this task?" %>
   </li>
 <% end %>
