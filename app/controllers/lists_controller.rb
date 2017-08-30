@@ -43,6 +43,21 @@ class ListsController < ApplicationController
     end
   end
 
+  def destroy
+    @list = List.find(params[:id])
+    if params[:user_id]
+      user = User.find(params[:user_id])
+      @list.users.delete(user)
+      if tasks = @list.tasks.assigned_to_user(user)
+        tasks.each do |task|
+          task.update(assigned_user: nil)
+        end
+      end
+      redirect_to root_path and return if user == current_user
+    end
+    redirect_to edit_list_path
+  end
+
   private
 
     def list_params

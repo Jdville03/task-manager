@@ -16,4 +16,12 @@ module ListsHelper
     list.tasks.incomplete.assigned_to_user(user).count
   end
 
+  def delete_user_from_list_confirmation(user, list)
+    if user == current_user
+      "Do you really want to leave the #{list.name} list?"
+    else
+      "Do you really want to remove #{user.name} from the #{list.name} list?"
+    end
+  end
+
 end
