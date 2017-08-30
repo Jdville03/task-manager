@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     @task.update(task_params)
-    redirect_to list_path(@task.list)
+    redirect_back(fallback_location: list_path(@task.list))
   end
 
   def show
