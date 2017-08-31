@@ -18,19 +18,35 @@
           <% end %>
           </div> -->
         </li>
+      <%= form_for([@task.list, @task]) do |f| %>
         <% if @task.list.shared_list? %>
           <li class="list-group-item">
-            A
+            <div class="form-group form-group-in-panel">
+              <div class="input-group">
+                <span class="input-group-addon" id="assigned-user-addon"><i class="fa fa-user-o fa-fw"></i></span>
+                <%= f.collection_select :assigned_user_id, @task.users, :id, :name, {include_blank: "None", prompt: "Assign user"}, {class: "form-control edit-input"} %>
+              </div>
+            </div>
           </li>
         <% end %>
         <li class="list-group-item">
           B
         </li>
+        <li class="list-group-item">
+          <div class="form-group form-group-in-panel">
+            <div class="input-group">
+              <span class="input-group-addon" id="note-addon"><i class="fa fa-pencil-square-o fa-fw"></i></span>
+              <%= f.text_area :note, rows: "4", placeholder: "Add note", class: "form-control edit-input", 'aria-describedby': "note-addon" %>
+            </div>
+          </div>
+        </li>
       </ul>
       <div class="panel-footer clearfix">
         <%= link_to "<i class='fa fa-trash-o fa-fw fa-lg text-muted' aria-hidden='true'></i>".html_safe, list_task_path(@task.list, @task), :method => :delete, :class => "btn btn-link btn-sm pull-left", "data-confirm" => "Do you really want to delete the #{@task.description} task?" %>
-        <%= link_to "Close", list_path(@list), class: "btn btn-primary btn-sm pull-right" %>
+        <%= link_to "Done", list_path(@list), class: "btn btn-primary btn-sm pull-right" %>
+        <%= f.submit :style => "display: none" %>
       </div>
+      <% end %>
     </div>
   </div>
 

@@ -16,17 +16,23 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+    @list = List.find(params[:list_id])
+    @lists = current_user.lists
+    @task = Task.find(params[:id])
+  end
+
   def update
     @task = Task.find(params[:id])
     @task.update(task_params)
     redirect_back(fallback_location: list_path(@task.list))
   end
 
-  def show
-    @list = List.find(params[:list_id])
-    @lists = current_user.lists
-    @task = Task.find(params[:id])
-  end
+  # def show
+  #   @list = List.find(params[:list_id])
+  #   @lists = current_user.lists
+  #   @task = Task.find(params[:id])
+  # end
 
   def destroy
     @task = Task.find(params[:id])
@@ -38,7 +44,7 @@ class TasksController < ApplicationController
   private
 
     def task_params
-      params.require(:task).permit(:description, :status, :priority)
+      params.require(:task).permit(:description, :status, :priority, :assigned_user_id, :note)
     end
 
 end

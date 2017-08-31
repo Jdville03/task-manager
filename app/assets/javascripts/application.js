@@ -28,10 +28,10 @@ document.addEventListener("turbolinks:load", function() {
       e.stopPropagation();
     }
   })
-  $("input.toggle-status").on("change", function(){
+  $("input.toggle-status,input.toggle-priority,select.edit-input").on("change", function(){
     $(this).parents("form").trigger("submit")
   })
-  $("input.toggle-priority").on("change", function(){
+  $("textarea.edit-input").on("mouseout", function(){
     $(this).parents("form").trigger("submit")
   })
   $(function () {
