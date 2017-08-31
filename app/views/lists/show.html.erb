@@ -9,7 +9,7 @@
           <%= link_to "<i class='fa fa-pencil fa-fw text-muted' aria-hidden='true'></i>".html_safe, edit_list_path(@list), class: "pull-right" %>
         </div>
         <div id="collapse1" class="panel-collapse collapse in">
-          <div class="list-group">
+          <ul class="list-group">
             <% if @list.shared_list? %>
               <ul class="list-group-item list-unstyled">
                 <% @list.users.each do |user| %>
@@ -27,31 +27,35 @@
                 <% end %>
               </ul>
             <% end %>
-            <a href="#" class="list-group-item">
+            <li class="list-group-item">
               <span class="badge"><%= number_of_incomplete_tasks(@list) %></span>
               <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> Remaining
-            </a>
+            </li>
             <% if @list.tasks.incomplete.starred.any? %>
-              <a href="#" class="list-group-item">
+              <li class="list-group-item">
                 <span class="badge"><%= number_of_incomplete_starred_tasks(@list) %></span>
                 <i class="fa fa-star fa-fw text-warning" aria-hidden="true"></i> Starred
-              </a>
+              </li>
             <% end %>
             <% if @list.shared_list? && @list.tasks.incomplete.assigned_to_user(current_user).any? %>
-              <a href="#" class="list-group-item">
+              <li class="list-group-item">
                 <span class="badge"><%= number_of_incomplete_tasks_assigned_to_user(@list, current_user) %></span>
                 <i class="fa fa-user fa-fw text-primary" aria-hidden="true"></i> Assigned to me
-              </a>
+              </li>
             <% end %>
-            <a href="#" class="list-group-item">
-              <span class="badge">3</span>
-              <i class="fa fa-calendar-times-o fa-fw text-danger" aria-hidden="true"></i> Overdue
-            </a>
-            <a href="#" class="list-group-item">
-              <span class="badge">4</span>
-              <i class="fa fa-calendar-check-o fa-fw text-warning" aria-hidden="true"></i> Due Today
-            </a>
-          </div>
+            <% if @list.tasks.incomplete.overdue.any? %>
+              <li class="list-group-item">
+                <span class="badge"><%= number_of_incomplete_tasks_overdue(@list) %></span>
+                <i class="fa fa-calendar-times-o fa-fw text-danger" aria-hidden="true"></i> Overdue
+              </li>
+            <% end %>
+            <% if @list.tasks.incomplete.due_today.any? %>
+              <li class="list-group-item">
+                <span class="badge"><%= number_of_incomplete_tasks_due_today(@list) %></span>
+                <i class="fa fa-calendar-check-o fa-fw text-warning" aria-hidden="true"></i> Due Today
+              </li>
+            <% end %>
+          </ul>
         </div>
       </div>
     </div>

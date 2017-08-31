@@ -24,4 +24,12 @@ module ListsHelper
     end
   end
 
+  def number_of_incomplete_tasks_overdue(list)
+    list.tasks.incomplete.overdue.count
+  end
+
+  def number_of_incomplete_tasks_due_today(list)
+    list.tasks.incomplete.due_today.count
+  end
+
 end

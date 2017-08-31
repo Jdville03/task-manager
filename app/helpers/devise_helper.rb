@@ -50,4 +50,16 @@ module DeviseHelper
     user.starred_tasks.incomplete.count
   end
 
+  def user_incomplete_assigned_tasks(user)
+    user.assigned_tasks.incomplete.count
+  end
+
+  def user_incomplete_overdue_tasks(user)
+    user.overdue_tasks.incomplete.count
+  end
+
+  def user_incomplete_due_today_tasks(user)
+    user.due_today_tasks.incomplete.count
+  end
+
 end

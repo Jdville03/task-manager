@@ -29,4 +29,12 @@ class User < ApplicationRecord
     self.tasks.starred
   end
 
+  def overdue_tasks
+    self.tasks.overdue
+  end
+
+  def due_today_tasks
+    self.tasks.due_today
+  end
+
 end

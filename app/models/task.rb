@@ -53,4 +53,20 @@ class Task < ApplicationRecord
     where(assigned_user: user)
   end
 
+  def overdue?
+    self.due_date < Date.today
+  end
+
+  def due_today?
+    self.due_date == Date.today
+  end
+
+  def self.overdue
+    where("due_date < ?", Date.today)
+  end
+
+  def self.due_today
+    where(due_date: Date.today)
+  end
+
 end
