@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-5">
-    <div class="panel panel-default">
+    <div class="panel panel-primary">
       <div class="panel-heading">
         <span class="panel-title">
           <i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit List
@@ -9,7 +9,7 @@
       <div class="panel-body">
         <%= form_for @list do |f| %>
           <div class="form-group <%= "has-error" if @list.errors[:name].any? %> form-group-in-panel">
-            <%= f.text_field :name, placeholder: @list.errors.full_messages_for(:name).first, class: "form-control edit-input", 'aria-describedby': "name-addon" %>
+            <%= f.text_field :name, placeholder: @list.errors.full_messages_for(:name).first || "List name", class: "form-control edit-input" %>
             <%= f.submit :style => "display: none" %>
           </div>
         <% end %>

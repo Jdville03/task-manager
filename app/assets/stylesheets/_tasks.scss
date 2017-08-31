@@ -17,7 +17,7 @@
   position: absolute;
   top: 5px;
   bottom: 0;
-  left: 5px;
+  left: 10px;
   margin: auto 0;
   border: none; /* Mobile Safari */
 	-webkit-appearance: none;
@@ -40,7 +40,7 @@
   position: absolute;
   top: 8px;
   bottom: 0;
-  left: 38px;
+  left: 43px;
   margin: auto 0;
   border: none; /* Mobile Safari */
 	-webkit-appearance: none;
@@ -63,7 +63,7 @@
 	/* white-space: pre-line; */
 	/* word-break: break-all; */
 	/* padding: 15px 60px 15px 15px; */
-	margin-left: 56px;
+	margin-left: 60px;
 	display: block;
 	line-height: 1.428571429;
 	transition: color 0.3s;
@@ -144,4 +144,8 @@
 
 .my-tasks li:hover .edit-task {
 	display: block;
+}
+
+.edit-task-description-form {
+  display: inline;
 }

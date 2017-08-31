@@ -6,24 +6,25 @@
   </div>
 
   <div class="col-sm-5">
-    <div class="panel panel-default task-panel">
+    <div class="panel panel-primary">
       <div class="panel-heading">
         <span class="panel-title">
           <i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit Task
         </span>
       </div>
       <ul class="list-group my-tasks">
-        <li class="list-group-item <%= li_class_for_task(@task) %>">
+        <li class="list-group-item <%= li_class_for_task(@task) %> clearfix">
           <%= form_for_task_status(@task) %>
           <%= form_for_task_priority(@task) %>
           <span class="task-description"><%= @task.description %></span>
-          <!-- <div class="form-group form-group-in-panel">
-          <%= form_for([@task.list, @task]) do |f| %>
-            <%= f.text_field :description, class: "form-control" %>
-          <% end %>
-          </div> -->
         </li>
       <%= form_for([@task.list, @task]) do |f| %>
+        <li class="list-group-item">
+        <div class="form-group <%= "has-error" if @task.errors[:description].any? %> form-group-in-panel">
+          <%= f.text_field :description, placeholder: @task.errors.full_messages_for(:description).first || "Task name", class: "form-control edit-input" %>
+          <%# f.submit :style => "display: none" %>
+        </div>
+        </li>
         <% if @task.list.shared_list? %>
           <li class="list-group-item">
             <div class="form-group form-group-in-panel">
