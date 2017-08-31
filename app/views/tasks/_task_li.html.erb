@@ -5,13 +5,15 @@
     <span class="task-description"><%= task.description %></span>
     <span class="task-icons">
       <% if task.assigned_user %>
-        <% if task.assigned_user == current_user %>
-          <i class="fa fa-user-circle fa-fw text-primary" aria-hidden="true"></i>
-        <% else %>
-          <span class="label label-success">
-            <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i><%= user_initials(task.assigned_user) %>
-          </span>
-        <% end %>
+        <div data-toggle="tooltip" title="<%= task.assigned_user.name %>">
+          <% if task.assigned_user == current_user %>
+            <i class="fa fa-user-circle fa-fw text-primary" aria-hidden="true"></i>
+          <% else %>
+            <span class="label label-success">
+              <i class="fa fa-user-circle fa-fw" aria-hidden="true"></i><%= user_initials(task.assigned_user) %>
+            </span>
+          <% end %>
+        </div>
       <% end %>
     </span>
     <%= link_to "<i class='fa fa-pencil fa-fw' aria-hidden='true'></i>".html_safe, list_task_path(task.list, task), :class => "btn btn-link edit-task" %>

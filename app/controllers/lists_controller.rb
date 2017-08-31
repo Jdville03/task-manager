@@ -60,7 +60,7 @@ class ListsController < ApplicationController
       end
     else
       @list.destroy
-      flash[:notice] = "#{@list.name} list deleted successfully."
+      flash[:notice] = "#{@list.name.capitalize} list deleted successfully."
       redirect_to root_path
     end
   end

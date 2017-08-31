@@ -34,6 +34,9 @@ document.addEventListener("turbolinks:load", function() {
   $("input.toggle-priority").on("change", function(){
     $(this).parents("form").trigger("submit")
   })
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 });
 
 $(window).resize(function(){
