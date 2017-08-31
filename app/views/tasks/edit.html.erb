@@ -35,7 +35,13 @@
           </li>
         <% end %>
         <li class="list-group-item">
-          B
+          <div class="form-group form-group-in-panel">
+            <div class="input-group">
+              <span class="input-group-addon" id="due-date-addon"><i class="fa fa-calendar fa-fw"></i></span>
+              <%# f.collection_select :assigned_user_id, @task.users, :id, :name, {include_blank: "None", prompt: "Assign user"}, {class: "form-control edit-input"} %>
+              <%= f.date_field :due_date, placeholder: "Set due date", class: "form-control edit-input", 'aria-describedby': "due-date-addon" %>
+            </div>
+          </div>
         </li>
         <li class="list-group-item">
           <div class="form-group form-group-in-panel">
