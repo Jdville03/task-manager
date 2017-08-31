@@ -7,6 +7,11 @@
 
   <div class="col-sm-5">
     <div class="panel panel-default task-panel">
+      <div class="panel-heading">
+        <span class="panel-title">
+          <i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit Task
+        </span>
+      </div>
       <ul class="list-group my-tasks">
         <li class="list-group-item <%= li_class_for_task(@task) %>">
           <%= form_for_task_status(@task) %>

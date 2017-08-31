@@ -31,7 +31,7 @@ document.addEventListener("turbolinks:load", function() {
   $("input.toggle-status,input.toggle-priority,select.edit-input").on("change", function(){
     $(this).parents("form").trigger("submit")
   })
-  $("textarea.edit-input").on("mouseout", function(){
+  $("textarea.edit-input,input.edit-input").on("mouseout", function(){
     $(this).parents("form").trigger("submit")
   })
   $(function () {

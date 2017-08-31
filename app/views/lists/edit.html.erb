@@ -9,14 +9,7 @@
       <div class="panel-body">
         <%= form_for @list do |f| %>
           <div class="form-group <%= "has-error" if @list.errors[:name].any? %> form-group-in-panel">
-            <div class="input-group">
-              <%= f.text_field :name, placeholder: @list.errors.full_messages_for(:name).first, class: "form-control", 'aria-describedby': "name-addon" %>
-              <span class="input-group-btn">
-                <%= button_tag(type: "submit", class: "btn btn-default") do %>
-                  <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i>
-                <% end %>
-              </span>
-            </div>
+            <%= f.text_field :name, placeholder: @list.errors.full_messages_for(:name).first, class: "form-control edit-input", 'aria-describedby': "name-addon" %>
             <%= f.submit :style => "display: none" %>
           </div>
         <% end %>
@@ -48,7 +41,7 @@
         <% if @list.owner == current_user %>
           <%= link_to "<i class='fa fa-trash-o fa-fw fa-lg text-muted' aria-hidden='true'></i>".html_safe, list_path(@list), :method => :delete, :class => "btn btn-link btn-sm pull-left", "data-confirm" => "Do you really want to delete the #{@list.name} list?" %>
         <% end %>
-        <%= link_to "Close", list_path(@list), class: "btn btn-primary btn-sm pull-right" %>
+        <%= link_to "Done", list_path(@list), class: "btn btn-primary btn-sm pull-right" %>
       </div>
     </div>
   </div>
