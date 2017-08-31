@@ -28,10 +28,10 @@ document.addEventListener("turbolinks:load", function() {
       e.stopPropagation();
     }
   })
-  $("input.toggle-status,input.toggle-priority,select.edit-input,input[type='date'].edit-input").on("change", function(){
+  $("input.toggle-status,input.toggle-priority,select.edit-input,input[type='date'].edit-input,textarea.edit-input").on("change", function(){
     $(this).parents("form").trigger("submit")
   })
-  $("textarea.edit-input,input[type='text'].edit-input").on("mouseout", function(){
+  $("input[type='text'].edit-input").on("mouseleave", function(){
     $(this).parents("form").trigger("submit")
   })
   $(function () {

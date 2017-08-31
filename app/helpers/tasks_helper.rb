@@ -16,4 +16,26 @@ module TasksHelper
     end
   end
 
+  def calendar_icon_class(task)
+    if Date.today > task.due_date
+      "fa fa-calendar-times-o fa-fw text-danger"
+    elsif Date.today == task.due_date
+      "fa fa-calendar-check-o fa-fw text-warning"
+    else
+      "fa fa-calendar-o fa-fw text-success"
+    end
+  end
+
+  def calendar_tooltip(task)
+    if Date.today > task.due_date
+      "Past due #{task.due_date}"
+    elsif Date.today == task.due_date
+      "Due today"
+    elsif Date.tomorrow == task.due_date
+      "Due tomorrow"
+    else
+      "Due #{task.due_date}"
+    end
+  end
+
 end
