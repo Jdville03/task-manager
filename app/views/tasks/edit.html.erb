@@ -38,7 +38,7 @@
             <%= f.label :due_date, "Set due date <small>(optional)</small>".html_safe %>
             <div class="input-group">
               <span class="input-group-addon" id="due-date-addon"><i class="fa fa-calendar fa-fw"></i></span>
-              <%= f.date_field :due_date, class: "form-control edit-input", 'aria-describedby': "due-date-addon" %>
+              <%= f.date_field :due_date, min: Time.zone.yesterday, class: "form-control edit-input", 'aria-describedby': "due-date-addon" %>
             </div>
           </div>
         </li>
