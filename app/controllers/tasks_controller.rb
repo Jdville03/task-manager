@@ -33,7 +33,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     flash[:notice] = "#{@task.description.capitalize} task deleted successfully."
-    redirect_to list_path(@task.list)
+    redirect_back(fallback_location: list_path(@task.list))
   end
 
   private
