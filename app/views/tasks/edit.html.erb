@@ -1,8 +1,6 @@
 <div class="row">
   <div class="col-sm-7">
-    <fieldset disabled>
-      <%= render "tasks/tasks_panel" %>
-    </fieldset>
+    <%= render "tasks/tasks_panel" %>
   </div>
 
   <div class="col-sm-5">
@@ -20,8 +18,8 @@
         </li>
       <%= form_for([@list, @task]) do |f| %>
         <li class="list-group-item">
-        <div class="form-group <%= "has-error" if @task.errors[:description].any? %> form-group-in-panel">
-          <%= f.text_field :description, placeholder: @task.errors.full_messages_for(:description).first || "Task name", class: "form-control edit-input" %>
+        <div class="form-group form-group-in-panel">
+          <%= f.text_field :description, placeholder: "Task name", class: "form-control edit-input" %>
         </div>
         </li>
         <% if @list.shared_list? %>
@@ -62,5 +60,4 @@
       <% end %>
     </div>
   </div>
-
 </div>

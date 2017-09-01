@@ -44,19 +44,6 @@ class ListsController < ApplicationController
     @list.update(list_params)
     error_message_for_sharing_list(list_params)
     redirect_back(fallback_location: list_path(@list))
-    # if @list.save
-    #   error_message_for_sharing_list(list_params)
-    #   redirect_back(fallback_location: list_path(@list))
-    # else
-    #   @lists = current_user.lists
-    #   @task = Task.new
-    #   if @list.display_all_tasks?
-    #     @tasks = @list.tasks
-    #   else
-    #     @tasks = @list.tasks.incomplete
-    #   end
-    #   render :edit
-    # end
   end
 
   def destroy

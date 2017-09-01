@@ -7,19 +7,8 @@ class TasksController < ApplicationController
 
   def create
     @list = List.find(params[:list_id])
-    @task = @list.tasks.build(task_params)
-    if @task.save
-      #redirect_to list_path(@list)
-      redirect_back(fallback_location: list_path(@list))
-    else
-      @lists = current_user.lists
-      if @list.display_all_tasks?
-        @tasks = @list.tasks
-      else
-        @tasks = @list.tasks.incomplete
-      end
-      render "lists/show"
-    end
+    @task = @list.tasks.create(task_params)
+    redirect_back(fallback_location: list_path(@list))
   end
 
   def edit
@@ -38,12 +27,6 @@ class TasksController < ApplicationController
     @task.update(task_params)
     redirect_back(fallback_location: list_path(@task.list))
   end
-
-  # def show
-  #   @list = List.find(params[:list_id])
-  #   @lists = current_user.lists
-  #   @task = Task.find(params[:id])
-  # end
 
   def destroy
     @task = Task.find(params[:id])
