@@ -36,6 +36,11 @@
     <% end %>
   </div>
   <ul class="list-group my-tasks">
-    <%= render :collection => @list.tasks, :partial => "tasks/task_li", :as => :task %>
+    <%= render :collection => @tasks, :partial => "tasks/task_li", :as => :task %>
   </ul>
+  <div class="panel-footer">
+    <%= form_for @list do |f| %>
+      <%= f.check_box :display_tasks, :id => "toggle-event", :class => "toggle-status", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :checked => @list.display_all_tasks? %>
+    <% end %>
+  </div>
 </div>

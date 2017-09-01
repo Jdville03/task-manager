@@ -5,6 +5,11 @@ class List < ApplicationRecord
 
   validates :name, presence: true
 
+  DISPLAY_TASKS = {
+    :incomplete => 0,
+    :all => 1
+  }
+
   def users_attributes=(user_attributes)
     user_attributes.values.each do |user_attribute|
       if user = User.find_by(user_attribute)
@@ -27,6 +32,10 @@ class List < ApplicationRecord
 
   def owner
     self.user_lists.find_by(permission: "owner").user
+  end
+
+  def display_all_tasks?
+    self.display_tasks == DISPLAY_TASKS[:all]
   end
 
 end

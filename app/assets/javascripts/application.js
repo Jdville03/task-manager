@@ -28,11 +28,14 @@ document.addEventListener("turbolinks:load", function() {
       e.stopPropagation();
     }
   })
-  $("input.toggle-status,input.toggle-priority,.edit-input").on("change", function(){
+  $("input.toggle-status,input.toggle-priority,.edit-input,#toggle-event").on("change", function(){
     $(this).parents("form").trigger("submit")
   })
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
+  })
+  $(function() {
+    $('#toggle-event').bootstrapToggle();
   })
 });
 
