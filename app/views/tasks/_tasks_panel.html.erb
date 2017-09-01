@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="panel-body">
-    <%= form_for([@list, @task]) do |f| %>
+    <%= form_for([@list, @task], :url => list_tasks_path(@list), :html => { :method => :post }) do |f| %>
       <div class="form-group form-group-in-panel">
         <div class="input-group">
           <%= f.text_field :description, placeholder: "Create new task", class: "form-control", 'aria-describedby': "new-task-addon", value: "" %>
