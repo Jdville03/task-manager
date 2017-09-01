@@ -54,19 +54,19 @@ class Task < ApplicationRecord
   end
 
   def overdue?
-    self.due_date < Date.current
+    self.due_date < Time.zone.today
   end
 
   def due_today?
-    self.due_date == Date.current
+    self.due_date == Time.zone.today
   end
 
   def self.overdue
-    where("due_date < ?", Date.current)
+    where("due_date < ?", Time.zone.today)
   end
 
   def self.due_today
-    where(due_date: Date.current)
+    where(due_date: Time.zone.today)
   end
 
 end

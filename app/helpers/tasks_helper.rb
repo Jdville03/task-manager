@@ -17,9 +17,9 @@ module TasksHelper
   end
 
   def calendar_icon_class(task)
-    if Date.current > task.due_date
+    if Time.zone.today > task.due_date
       "fa fa-calendar-times-o fa-fw text-danger"
-    elsif Date.current == task.due_date
+    elsif Time.zone.today == task.due_date
       "fa fa-calendar-check-o fa-fw text-warning"
     else
       "fa fa-calendar-o fa-fw"
@@ -27,11 +27,11 @@ module TasksHelper
   end
 
   def calendar_tooltip(task)
-    if (Date.current > task.due_date) && task.incomplete?
+    if (Time.zone.today > task.due_date) && task.incomplete?
       "Overdue #{task.due_date}"
-    elsif Date.current == task.due_date
+    elsif Time.zone.today == task.due_date
       "Due today"
-    elsif Date.tomorrow == task.due_date
+    elsif Time.zone.tomorrow == task.due_date
       "Due tomorrow"
     else
       "Due on #{task.due_date}"
