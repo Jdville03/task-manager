@@ -32,10 +32,6 @@
   color: #DDDDDD;
 }
 
-/*.panel-footer .fa-square-o {
-  color: black;
-}*/
-
 .has-error .btn {
   color: #a94442;
   border-color: #a94442;
@@ -49,4 +45,9 @@ label {
 a.disabled {
   pointer-events: none;
   cursor: default;
+}
+
+.panel-default > .panel-heading .badge {
+  color: #ffffff;
+  background-color: #777777;
 }

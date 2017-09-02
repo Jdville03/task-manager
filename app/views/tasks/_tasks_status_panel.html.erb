@@ -7,9 +7,9 @@
     </div>
     <div id="collapse1" class="panel-collapse collapse in">
       <div class="list-group">
-        <a href="#" class="list-group-item">
+        <a href="<%= tasks_path %>" class="list-group-item <%= active_class(tasks_path) %>">
           <span class="badge"><%= user_incomplete_tasks_count(current_user) %></span>
-          <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> Remaining
+          <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> All
         </a>
         <% if current_user.starred_tasks.incomplete.any? %>
           <a href="#" class="list-group-item">

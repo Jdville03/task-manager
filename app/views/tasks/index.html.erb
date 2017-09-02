@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-sm-4">
+    <%= render "tasks/tasks_status_panel"  %>
+  </div>
+
+  <div class="col-sm-8">
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <span class="panel-title pull-left"><i class="fa fa-square-o fa-fw" aria-hidden="true"></i> All Tasks</span>
+        <span class="badge pull-right"><%= user_incomplete_tasks_count(current_user) %></span>
+      </div>
+      <div class="list-group">
+        <%= render :collection => @lists, :partial => "lists/list_li_with_tasks", :as => :list %>
+      </div>
+      <div class="panel-footer">
+        Panel Footer
+      </div>
+    </div>
+  </div>
+</div

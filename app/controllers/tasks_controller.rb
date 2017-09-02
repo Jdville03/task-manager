@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 
   def index
     display_sorted_lists
-    #redirect_to list_path(@list)
+    #display_sorted_tasks
   end
 
   def create
