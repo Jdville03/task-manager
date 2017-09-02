@@ -8,6 +8,7 @@
     <% end %>
     <%= list.name %>
   </a>
+  
   <ul class="list-group my-tasks", id="edit-selected">
     <%= render :collection => list.tasks, :partial => "tasks/task_li", :as => :task %>
   </ul>

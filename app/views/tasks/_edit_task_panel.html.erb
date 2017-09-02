@@ -1,0 +1,55 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span class="panel-title">
+      <i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit Task
+    </span>
+  </div>
+  <ul class="list-group my-tasks">
+    <li class="list-group-item <%= li_class_for_task(@task) %> clearfix">
+      <%= form_for_task_status(@task) %>
+      <%= form_for_task_priority(@task) %>
+      <span class="task-description"><%= @task.description %></span>
+    </li>
+  <%= form_for([@list, @task]) do |f| %>
+    <li class="list-group-item">
+    <div class="form-group form-group-in-panel">
+      <%= f.text_field :description, placeholder: "Task name", class: "form-control edit-input" %>
+    </div>
+    </li>
+    <% if @list.shared_list? %>
+      <li class="list-group-item">
+        <div class="form-group form-group-in-panel">
+          <%= f.label :assigned_user_id, "Assign user <small>(optional)</small>".html_safe %>
+          <div class="input-group">
+            <span class="input-group-addon" id="assigned-user-addon"><i class="fa fa-user-o fa-fw"></i></span>
+            <%= f.collection_select :assigned_user_id, @task.users, :id, :name, {include_blank: "None"}, {class: "form-control edit-input"} %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+    <li class="list-group-item">
+      <div class="form-group form-group-in-panel">
+        <%= f.label :due_date, "Set due date <small>(optional)</small>".html_safe %>
+        <div class="input-group">
+          <span class="input-group-addon" id="due-date-addon"><i class="fa fa-calendar fa-fw"></i></span>
+          <%= f.date_field :due_date, min: Time.zone.yesterday, class: "form-control edit-input", 'aria-describedby': "due-date-addon" %>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="form-group form-group-in-panel">
+        <%= f.label :note, "Add note <small>(optional)</small>".html_safe %>
+        <div class="input-group">
+          <span class="input-group-addon" id="note-addon"><i class="fa fa-pencil-square-o fa-fw"></i></span>
+          <%= f.text_area :note, rows: "4", placeholder: "Add note", class: "form-control edit-input", 'aria-describedby': "note-addon" %>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div class="panel-footer clearfix">
+    <%= link_to "<i class='fa fa-trash-o fa-fw fa-lg text-muted' aria-hidden='true'></i>".html_safe, list_task_path(@list, @task), :method => :delete, :class => "btn btn-link pull-left", "data-confirm" => "Do you really want to delete the #{@task.description} task?" %>
+    <%= link_to "Done", list_path(@list), class: "btn btn-primary pull-right" %>
+    <%= f.submit :style => "display: none" %>
+  </div>
+  <% end %>
+</div>

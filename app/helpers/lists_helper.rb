@@ -49,7 +49,7 @@ module ListsHelper
   end
 
   def checked_option_for_display_tasks
-    if session[:display_tasks] == "1"
+    if session[:display_tasks_option] == "1"
       true
     else
       false

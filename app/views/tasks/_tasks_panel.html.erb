@@ -42,8 +42,15 @@
     <%= render :collection => @tasks, :partial => "tasks/task_li", :as => :task %>
   </ul>
   <div class="panel-footer">
-    <%= form_for @list do |f| %>
-      <%= f.check_box :display_tasks, :id => "toggle-event", :class => "toggle-status", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :checked => checked_option_for_display_tasks, :disabled => @list.tasks.completed.empty? %>
+    <%# form_for @list do |f| %>
+      <%# f.check_box :display_tasks, :id => "toggle-event", :class => "toggle-status", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :checked => checked_option_for_display_tasks, :disabled => @list.tasks.completed.empty? %>
+    <%# end %>
+
+    <%= form_tag(list_path(@list), method: "get") do %>
+      <%= hidden_field_tag :display_tasks_option, value = "0" %>
+      <%= check_box_tag :display_tasks_option, value = "1", checked = checked_option_for_display_tasks, :id => "toggle-event", :class => "toggle-status", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :disabled => @list.tasks.completed.empty? %>
     <% end %>
+
+
   </div>
 </div>

@@ -16,7 +16,7 @@ class TasksController < ApplicationController
     @list = List.find(params[:list_id])
     display_sorted_lists
     @task = Task.find(params[:id])
-    display_sorted_tasks
+    display_sorted_tasks(@list)
   end
 
   def update
