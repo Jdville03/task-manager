@@ -16,4 +16,22 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     end
 
+    def display_sorted_tasks
+      session[:task_sort] = params[:task_sort] if params[:task_sort]
+      if session[:task_sort] == "Sort Alphabetically"
+        tasks = @list.tasks.sorted_alphabetically
+      elsif session[:task_sort] == "Sort by Priority"
+        tasks = @list.tasks.sorted_by_priority
+      elsif session[:task_sort] == "Sort by Assignee"
+        tasks = @list.tasks.sorted_by_assignee
+      else
+        tasks = @list.tasks
+      end
+      if session[:display_tasks] == "1"
+        @tasks = tasks
+      else
+        @tasks = tasks.incomplete
+      end
+    end
+
 end

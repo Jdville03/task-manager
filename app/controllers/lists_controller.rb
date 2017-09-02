@@ -3,7 +3,6 @@ class ListsController < ApplicationController
 
   def index
     @list = List.new
-    session[:list_sort] = params[:list_sort] if params[:list_sort]
     display_sorted_lists
   end
 
@@ -11,24 +10,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @lists = current_user.lists
     @task = Task.new
-    if params[:task_sort]
-      if params[:task_sort] == "Sort Alphabetically"
-        tasks = @list.tasks.sorted_alphabetically
-      elsif params[:task_sort] == "Sort by Priority"
-        tasks = @list.tasks.sorted_by_priority
-      elsif params[:task_sort] == "Sort by Assignee"
-        tasks = @list.tasks.sorted_by_assignee
-      else
-        tasks = @list.tasks
-      end
-    else
-      tasks = @list.tasks
-    end
-    if session[:display_tasks] == "1"
-      @tasks = tasks
-    else
-      @tasks = tasks.incomplete
-    end
+    display_sorted_tasks
   end
 
   def create
@@ -47,11 +29,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @lists = current_user.lists
     @task = Task.new
-    if session[:display_tasks] == "1"
-      @tasks = @list.tasks
-    else
-      @tasks = @list.tasks.incomplete
-    end
+    display_sorted_tasks
   end
 
   def update
@@ -99,6 +77,7 @@ class ListsController < ApplicationController
     end
 
     def display_sorted_lists
+      session[:list_sort] = params[:list_sort] if params[:list_sort]
       if session[:list_sort] == "Sort Alphabetically"
         @lists = current_user.lists.sorted_alphabetically
       elsif session[:list_sort] == "Sort by Incomplete Tasks"

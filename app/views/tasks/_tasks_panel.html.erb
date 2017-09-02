@@ -8,7 +8,7 @@
       <% end %>
       <%= @list.name %>
     </span>
-    <%= form_tag(list_path(@list), method: "get", class: "pull-right") do %>
+    <%= form_tag(url_for_task_sort_form(@list), method: "get", class: "pull-right") do %>
       <%= select_tag_for_task_sort(@list) %>
     <% end %>
     <!-- <div class="btn-group pull-right">

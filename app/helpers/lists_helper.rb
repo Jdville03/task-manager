@@ -32,12 +32,19 @@ module ListsHelper
     list.tasks.incomplete.due_today.count
   end
 
+  def url_for_task_sort_form(list)
+    if current_page?(list_path(list))
+      list_path(list)
+    elsif current_page?(edit_list_path(list))
+      edit_list_path(list)
+    end
+  end
 
   def select_tag_for_task_sort(list)
     if list.shared_list?
-      select_tag :task_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Priority", "Sort by Assignee"], selected: params[:task_sort]), class: "edit-input"
+      select_tag :task_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Priority", "Sort by Assignee"], selected: session[:task_sort]), class: "edit-input"
     else
-      select_tag :task_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Priority"], selected: params[:task_sort]), class: "edit-input"
+      select_tag :task_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Priority"], selected: session[:task_sort]), class: "edit-input"
     end
   end
 

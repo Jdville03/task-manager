@@ -16,11 +16,7 @@ class TasksController < ApplicationController
     @list = List.find(params[:list_id])
     @lists = current_user.lists
     @task = Task.find(params[:id])
-    if session[:display_tasks] == "1"
-      @tasks = @list.tasks
-    else
-      @tasks = @list.tasks.incomplete
-    end
+    display_sorted_tasks
   end
 
   def update
