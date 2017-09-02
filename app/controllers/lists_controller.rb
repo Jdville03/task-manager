@@ -20,10 +20,23 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @lists = current_user.lists
     @task = Task.new
-    if @list.display_all_tasks?
-      @tasks = @list.tasks
+    if params[:task_sort]
+      if params[:task_sort] == "Sort Alphabetically"
+        tasks = @list.tasks.sorted_alphabetically
+      elsif params[:task_sort] == "Sort by Priority"
+        tasks = @list.tasks.sorted_by_priority
+      elsif params[:task_sort] == "Sort by Assignee"
+        tasks = @list.tasks.sorted_by_assignee
+      else
+        tasks = @list.tasks
+      end
     else
-      @tasks = @list.tasks.incomplete
+      tasks = @list.tasks
+    end
+    if session[:display_tasks] == "1"
+      @tasks = tasks
+    else
+      @tasks = tasks.incomplete
     end
   end
 
@@ -31,6 +44,7 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
     if @list.save
       current_user.user_lists.create(list: @list, permission: "owner")
+      session[:display_tasks] = list_params[:display_tasks]
       redirect_to list_path(@list)
     else
       @lists = current_user.lists
@@ -42,7 +56,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @lists = current_user.lists
     @task = Task.new
-    if @list.display_all_tasks?
+    if session[:display_tasks] == "1"
       @tasks = @list.tasks
     else
       @tasks = @list.tasks.incomplete
@@ -52,6 +66,7 @@ class ListsController < ApplicationController
   def update
     @list = List.find(params[:id])
     @list.update(list_params)
+    session[:display_tasks] = list_params[:display_tasks] if list_params[:display_tasks]
     error_message_for_sharing_list(list_params)
     redirect_back(fallback_location: list_path(@list))
   end

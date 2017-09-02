@@ -1,6 +1,6 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <span class="panel-title">
+  <div class="panel-heading clearfix">
+    <span class="panel-title pull-left">
       <% if @list.shared_list? %>
         <i class="fa fa-users fa-fw text-success" aria-hidden="true"></i>
       <% else %>
@@ -8,7 +8,10 @@
       <% end %>
       <%= @list.name %>
     </span>
-    <div class="btn-group pull-right">
+    <%= form_tag(list_path(@list), method: "get", class: "pull-right") do %>
+      <%= select_tag_for_task_sort(@list) %>
+    <% end %>
+    <!-- <div class="btn-group pull-right">
       <button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-sort fa-fw fa-lg text-muted" aria-hidden="true"></i>
       </button>
@@ -19,7 +22,7 @@
         <li><a href="#"><i class="fa fa-star-o fa-fw" aria-hidden="true"></i> Priority</a></li>
         <li><a href="#"><i class="fa fa-user-o fa-fw" aria-hidden="true"></i> Assignee</a></li>
       </ul>
-    </div>
+    </div> -->
   </div>
   <div class="panel-body">
     <%= form_for([@list, @task], :url => list_tasks_path(@list), :html => { :method => :post }) do |f| %>
@@ -40,7 +43,7 @@
   </ul>
   <div class="panel-footer">
     <%= form_for @list do |f| %>
-      <%= f.check_box :display_tasks, :id => "toggle-event", :class => "toggle-status", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :checked => @list.display_all_tasks?, :disabled => @list.tasks.completed.empty? %>
+      <%= f.check_box :display_tasks, :id => "toggle-event", :class => "toggle-status", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :checked => checked_option_for_display_tasks, :disabled => @list.tasks.completed.empty? %>
     <% end %>
   </div>
 </div>

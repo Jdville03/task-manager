@@ -16,7 +16,7 @@ class TasksController < ApplicationController
     @list = List.find(params[:list_id])
     @lists = current_user.lists
     @task = Task.find(params[:id])
-    if @list.display_all_tasks?
+    if session[:display_tasks] == "1"
       @tasks = @list.tasks
     else
       @tasks = @list.tasks.incomplete

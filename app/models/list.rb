@@ -34,12 +34,12 @@ class List < ApplicationRecord
     self.user_lists.find_by(permission: "owner").user
   end
 
-  def display_all_tasks?
-    self.display_tasks == DISPLAY_TASKS[:all]
-  end
+  # def display_all_tasks?
+  #   self.display_tasks == DISPLAY_TASKS[:all]
+  # end
 
   def self.sorted_alphabetically
-    self.order(:name)
+    self.order('lower(name)')
   end
 
   # lists are sorted by creation date by default
