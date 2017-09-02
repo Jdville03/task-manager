@@ -17,6 +17,7 @@ class TasksController < ApplicationController
     @lists = current_user.lists
     @task = Task.find(params[:id])
     display_sorted_tasks
+    #raise params.inspect
   end
 
   def update

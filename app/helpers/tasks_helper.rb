@@ -7,7 +7,13 @@ module TasksHelper
   end
 
   def li_class_for_task(task)
-    "completed" if task.complete?
+    if task.complete? && current_page?(edit_list_task_path(task.list, task))
+      "completed selected"
+    elsif task.complete?
+      "completed"
+    elsif current_page?(edit_list_task_path(task.list, task))
+      "selected"
+    end
   end
 
   def form_for_task_priority(task)

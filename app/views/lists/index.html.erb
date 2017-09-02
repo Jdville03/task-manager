@@ -1,46 +1,6 @@
 <div class="row">
   <div class="col-sm-4">
-    <div class="panel-group">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <span class="panel-title">
-            <a data-toggle="collapse" href="#collapse1"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i> Tasks</a>
-          </span>
-        </div>
-        <div id="collapse1" class="panel-collapse collapse in">
-          <div class="list-group">
-            <a href="#" class="list-group-item">
-              <span class="badge"><%= user_incomplete_tasks_count(current_user) %></span>
-              <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> Remaining
-            </a>
-            <% if current_user.starred_tasks.incomplete.any? %>
-              <a href="#" class="list-group-item">
-                <span class="badge"><%= user_incomplete_starred_tasks(current_user) %></span>
-                <i class="fa fa-star fa-fw" aria-hidden="true"></i> Starred
-              </a>
-            <% end %>
-            <% if current_user.assigned_tasks.incomplete.any? %>
-              <a href="#" class="list-group-item">
-                <span class="badge"><%= user_incomplete_assigned_tasks(current_user) %></span>
-                <i class="fa fa-user fa-fw text-primary" aria-hidden="true"></i> Assigned to me <small>(from shared lists)</small>
-              </a>
-            <% end %>
-            <% if current_user.overdue_tasks.incomplete.any? %>
-              <a href="#" class="list-group-item">
-                <span class="badge"><%= user_incomplete_overdue_tasks(current_user) %></span>
-                <i class="fa fa-calendar-times-o fa-fw text-danger" aria-hidden="true"></i> Overdue
-              </a>
-            <% end %>
-            <% if current_user.due_today_tasks.incomplete.any? %>
-              <a href="#" class="list-group-item">
-                <span class="badge"><%= user_incomplete_due_today_tasks(current_user) %></span>
-                <i class="fa fa-calendar-check-o fa-fw text-warning" aria-hidden="true"></i> Due Today
-              </a>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render "tasks/tasks_status_panel"  %>
   </div>
 
   <div class="col-sm-8">

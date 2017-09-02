@@ -6,7 +6,7 @@
     <ul class="dropdown-menu">
       <div class="list-group list-group-lists">
       <% lists.each do |list| %>
-        <a href="<%= list_path(list) %>" class="list-group-item <%= active_class(list_path(list)) %>">
+        <a href="<%= list_path(list) %>" class="list-group-item <%= active_class(list_path(list), edit_list_path(list), list.id) %>">
           <span class="badge"><%= number_of_incomplete_tasks(list) if !list.all_tasks_completed? %></span>
           <%= list.name %>
         </a>

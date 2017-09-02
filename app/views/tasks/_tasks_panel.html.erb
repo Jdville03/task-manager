@@ -38,7 +38,7 @@
       </div>
     <% end %>
   </div>
-  <ul class="list-group my-tasks">
+  <ul class="list-group my-tasks", id="edit-selected">
     <%= render :collection => @tasks, :partial => "tasks/task_li", :as => :task %>
   </ul>
   <div class="panel-footer">
