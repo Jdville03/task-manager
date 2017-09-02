@@ -38,4 +38,12 @@ class List < ApplicationRecord
     self.display_tasks == DISPLAY_TASKS[:all]
   end
 
+  def self.sorted_alphabetically
+    self.order(:name)
+  end
+
+  def self.sorted_by_creation_date
+    self.order(:created_at)
+  end
+
 end

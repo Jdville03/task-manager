@@ -3,7 +3,19 @@ class ListsController < ApplicationController
 
   def index
     @list = List.new
-    @lists = current_user.lists
+    if params[:sort]
+      if params[:sort] == "Alphabetically"
+        @lists = current_user.lists.sorted_alphabetically
+      elsif params[:sort] == "Creation Date"
+        @lists = current_user.lists.sorted_by_creation_date
+      elsif params[:sort] == "Incomplete Tasks"
+        @lists = current_user.lists.sort_by{|list| list.tasks.incomplete.count}.reverse
+      else
+        @lists = current_user.lists
+      end
+    else
+      @lists = current_user.lists
+    end
   end
 
   def show

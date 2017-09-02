@@ -47,11 +47,9 @@
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <span class="panel-title pull-left"><i class="fa fa-list fa-fw" aria-hidden="true"></i> Lists</span>
-
-        <%= form_tag(lists_path, method: "get") do %>
-          <%= select_tag "sort", options_for_select(["<i class='fa fa-sort-alpha-asc fa-fw' aria-hidden='true'></i> Alphabetically".html_safe, "Creation Date", "Incomplete Tasks (DESC)", "Incomplete Tasks (ASC)"]), class: "pull-right edit-input", include_blank: "Sort lists" %>
+        <%= form_tag(lists_path, method: "get", class: "pull-right") do %>
+          <%= select_tag :sort, options_for_select(["Creation Date", "Alphabetically", "Incomplete Tasks"], selected: params[:sort]), class: "edit-input", prompt: "Sort" %>
         <% end %>
-
         <!-- <div class="btn-group pull-right">
           <button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-sort fa-fw fa-lg text-muted" aria-hidden="true"></i>
@@ -64,7 +62,6 @@
             <li><a href="#"><i class="fa fa-sort-numeric-asc fa-fw" aria-hidden="true"></i> Incomplete Tasks</a></li>
           </ul>
         </div> -->
-
       </div>
       <div class="panel-body">
         <%= form_for @list do |f| %>
