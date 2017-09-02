@@ -32,6 +32,7 @@ module ListsHelper
     list.tasks.incomplete.due_today.count
   end
 
+
   def select_tag_for_task_sort(list)
     if list.shared_list?
       select_tag :task_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Priority", "Sort by Assignee"], selected: params[:task_sort]), class: "edit-input"
