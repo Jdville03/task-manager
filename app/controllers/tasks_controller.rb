@@ -2,8 +2,8 @@ class TasksController < ApplicationController
   before_action :require_logged_in
 
   def index
-    @list = List.find(params[:list_id])
-    redirect_to list_path(@list)
+    display_sorted_lists
+    #redirect_to list_path(@list)
   end
 
   def create
@@ -14,10 +14,9 @@ class TasksController < ApplicationController
 
   def edit
     @list = List.find(params[:list_id])
-    @lists = current_user.lists
+    display_sorted_lists
     @task = Task.find(params[:id])
     display_sorted_tasks
-    #raise params.inspect
   end
 
   def update

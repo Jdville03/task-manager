@@ -16,6 +16,17 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     end
 
+    def display_sorted_lists
+      session[:list_sort] = params[:list_sort] if params[:list_sort]
+      if session[:list_sort] == "Sort Alphabetically"
+        @lists = current_user.lists.sorted_alphabetically
+      elsif session[:list_sort] == "Sort by Incomplete Tasks"
+        @lists = current_user.lists.sort_by{|list| list.tasks.incomplete.count}.reverse
+      else
+        @lists = current_user.lists
+      end
+    end
+
     def display_sorted_tasks
       session[:task_sort] = params[:task_sort] if params[:task_sort]
       if session[:task_sort] == "Sort Alphabetically"

@@ -8,7 +8,7 @@ class ListsController < ApplicationController
 
   def show
     @list = List.find(params[:id])
-    @lists = current_user.lists
+    display_sorted_lists
     @task = Task.new
     display_sorted_tasks
   end
@@ -20,14 +20,14 @@ class ListsController < ApplicationController
       session[:display_tasks] = list_params[:display_tasks]
       redirect_to list_path(@list)
     else
-      @lists = current_user.lists
+      display_sorted_lists
       render :index
     end
   end
 
   def edit
     @list = List.find(params[:id])
-    @lists = current_user.lists
+    display_sorted_lists
     @task = Task.new
     display_sorted_tasks
   end
@@ -73,17 +73,6 @@ class ListsController < ApplicationController
       email = list_params.dig(:users_attributes, "0", :email)
       if email.present? && !User.all.include?(User.find_by(email: email))
         flash[:alert] = "There is no user associated with #{email}."
-      end
-    end
-
-    def display_sorted_lists
-      session[:list_sort] = params[:list_sort] if params[:list_sort]
-      if session[:list_sort] == "Sort Alphabetically"
-        @lists = current_user.lists.sorted_alphabetically
-      elsif session[:list_sort] == "Sort by Incomplete Tasks"
-        @lists = current_user.lists.sort_by{|list| list.tasks.incomplete.count}.reverse
-      else
-        @lists = current_user.lists
       end
     end
 
