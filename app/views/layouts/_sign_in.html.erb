@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <li><p class="navbar-text"><%= Time.zone.today.strftime("%B %-d, %Y") %></p></li>
+  <li><a href="#" class="disabled"><%= Time.zone.today.strftime("%B %-d, %Y") %></a></li>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-fw text-primary" aria-hidden="true"></i></span> <%= current_user.name %> <span class="caret"></span></a>
     <ul class="dropdown-menu">
