@@ -42,8 +42,9 @@ class List < ApplicationRecord
     self.order(:name)
   end
 
-  def self.sorted_by_creation_date
-    self.order(:created_at)
-  end
+  # lists are sorted by creation date by default
+  # def self.sorted_by_creation_date
+  #   self.order(:created_at)
+  # end
 
 end

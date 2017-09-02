@@ -48,7 +48,7 @@
       <div class="panel-heading clearfix">
         <span class="panel-title pull-left"><i class="fa fa-list fa-fw" aria-hidden="true"></i> Lists</span>
         <%= form_tag(lists_path, method: "get", class: "pull-right") do %>
-          <%= select_tag :sort, options_for_select(["Creation Date", "Alphabetically", "Incomplete Tasks"], selected: params[:sort]), class: "edit-input", prompt: "Sort" %>
+          <%= select_tag :list_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Incomplete Tasks"], selected: params[:list_sort]), class: "edit-input" %>
         <% end %>
         <!-- <div class="btn-group pull-right">
           <button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
