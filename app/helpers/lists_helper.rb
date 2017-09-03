@@ -32,11 +32,11 @@ module ListsHelper
     list.tasks.incomplete.due_today.count
   end
 
-  def url_for_task_sort_form(list)
-    if current_page?(list_path(list))
-      list_path(list)
-    elsif current_page?(edit_list_path(list))
-      edit_list_path(list)
+  def url_for_task_sort_form
+    if current_page?(list_path(@list))
+      list_path(@list)
+    elsif current_page?(edit_list_path(@list))
+      edit_list_path(@list)
     end
   end
 
@@ -48,7 +48,19 @@ module ListsHelper
     end
   end
 
-  def checked_option_for_display_tasks
+  def url_for_display_tasks_option_form
+    if current_page?(list_path(@list))
+      list_path(@list)
+    elsif current_page?(edit_list_path(@list))
+      edit_list_path(@list)
+    elsif current_page?(controller: 'tasks', action: 'edit', :list_id => params[:list_id], :id => params[:id])
+      edit_list_task_path(@list, @task)
+    elsif current_page?(tasks_path)
+      tasks_path
+    end
+  end
+
+  def checked_option_for_display_tasks_option_form
     if session[:display_tasks_option] == "1"
       true
     else

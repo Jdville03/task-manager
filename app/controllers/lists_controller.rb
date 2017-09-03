@@ -10,7 +10,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     display_sorted_lists
     @task = Task.new
-    display_sorted_tasks(@list)
+    #helpers.display_sorted_tasks(@list) @tasks
   end
 
   def create
@@ -29,7 +29,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     display_sorted_lists
     @task = Task.new
-    display_sorted_tasks(@list)
+    #helpers.display_sorted_tasks(@list)
   end
 
   def update
@@ -51,14 +51,14 @@ class ListsController < ApplicationController
         end
       end
       if user == current_user
-        flash[:notice] = "You left the #{@list.name} list successfully."
+        flash[:notice] = "You left the #{@list.name.upcase} list successfully."
         redirect_to root_path
       else
         redirect_to edit_list_path(@list)
       end
     else
       @list.destroy
-      flash[:notice] = "#{@list.name.capitalize} list deleted successfully."
+      flash[:notice] = "#{@list.name.upcase} list deleted successfully."
       redirect_to root_path
     end
   end

@@ -16,7 +16,7 @@ class TasksController < ApplicationController
     @list = List.find(params[:list_id])
     display_sorted_lists
     @task = Task.find(params[:id])
-    display_sorted_tasks(@list)
+    helpers.display_sorted_tasks(@list)
   end
 
   def update
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    flash[:notice] = "#{@task.description.capitalize} task deleted successfully."
+    flash[:notice] = "#{@task.description.upcase} task deleted from #{@task.list.name.upcase} list successfully."
     redirect_back(fallback_location: list_path(@task.list))
   end
 
