@@ -20,6 +20,25 @@
 @import "lists";
 @import "tasks";
 
+body {
+  padding-top: 80px;
+  padding-bottom: 60px;
+}
+
+.navbar-fixed-bottom .navbar-nav {
+  width: 100%;
+  text-align: center;
+  > li {
+    float: none;
+    display: inline-block;
+  }
+}
+
+.navbar-fixed-bottom li {
+  margin: 0px;
+  padding: 0px;
+}
+
 .form-group-in-panel {
   margin: auto 0;
 }
