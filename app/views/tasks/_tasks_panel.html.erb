@@ -28,7 +28,7 @@
     <%= form_for([@list, @task], :url => list_tasks_path(@list), :html => { :method => :post }) do |f| %>
       <div class="form-group form-group-in-panel">
         <div class="input-group">
-          <%= f.text_field :description, placeholder: "Create new task", class: "form-control", 'aria-describedby': "new-task-addon", value: "" %>
+          <%= f.text_field :description, autofocus: true, placeholder: "Create new task", class: "form-control", 'aria-describedby': "new-task-addon", value: "" %>
           <span class="input-group-btn">
             <%= button_tag(type: "submit", class: "btn btn-default") do %>
               <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
@@ -42,15 +42,9 @@
     <%= render :collection => display_sorted_tasks(@list), :partial => "tasks/task_li", :as => :task %>
   </ul>
   <div class="panel-footer">
-    <%# form_for @list do |f| %>
-      <%# f.check_box :display_tasks, :id => "toggle-event", :class => "toggle-status", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :checked => checked_option_for_display_tasks, :disabled => @list.tasks.completed.empty? %>
-    <%# end %>
-
     <%= form_tag(url_for_display_tasks_option_form, method: "get") do %>
       <%= hidden_field_tag :display_tasks_option, value = "0" %>
       <%= check_box_tag :display_tasks_option, value = "1", checked = checked_option_for_display_tasks_option_form, :id => "toggle-event", :class => "toggle-status", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :disabled => @list.tasks.completed.empty? %>
     <% end %>
-
-
   </div>
 </div>

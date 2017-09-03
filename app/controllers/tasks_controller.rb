@@ -14,7 +14,8 @@ class TasksController < ApplicationController
   def edit
     @list = List.find(params[:list_id])
     display_sorted_lists
-    @task = Task.find(params[:id])
+    @task = Task.find_by_id(params[:id])
+    redirect_to list_path(@list) if @task.nil?
   end
 
   def update

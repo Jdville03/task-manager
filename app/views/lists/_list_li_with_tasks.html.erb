@@ -1,6 +1,6 @@
-<% if list.tasks.any? %>
+<% if tasks_index_list_filter(list) %>
   <a href="<%= list_path(list) %>" class="list-group-item">
-    <span class="badge"><%= number_of_incomplete_tasks(list) if !list.all_tasks_completed? %></span>
+    <span class="badge"><%= tasks_index_list_item_badge(list) %></span>
     <% if list.shared_list? %>
       <i class="fa fa-users fa-fw text-success" aria-hidden="true"></i>
     <% else %>
@@ -9,6 +9,6 @@
     <%= list.name %>
   </a>
   <ul class="list-group my-tasks", id="edit-selected">
-    <%= render :collection => display_sorted_tasks(list), :partial => "tasks/task_li", :as => :task %>
+    <%= render :collection => tasks_index_list_tasks_collection(list), :partial => "tasks/task_li", :as => :task %>
   </ul>
 <% end %>

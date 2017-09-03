@@ -55,8 +55,6 @@ module ListsHelper
       edit_list_path(@list)
     elsif current_page?(controller: 'tasks', action: 'edit', :list_id => params[:list_id], :id => params[:id])
       edit_list_task_path(@list, @task)
-    elsif current_page?(tasks_path)
-      tasks_path
     end
   end
 

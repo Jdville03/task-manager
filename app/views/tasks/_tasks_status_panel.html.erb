@@ -12,25 +12,25 @@
           <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> All
         </a>
         <% if current_user.starred_tasks.incomplete.any? %>
-          <a href="#" class="list-group-item">
+          <a href="<%= starred_tasks_path %>" class="list-group-item <%= active_class(starred_tasks_path) %>">
             <span class="badge"><%= user_incomplete_starred_tasks(current_user) %></span>
             <i class="fa fa-star fa-fw" aria-hidden="true"></i> Starred
           </a>
         <% end %>
         <% if current_user.assigned_tasks.incomplete.any? %>
-          <a href="#" class="list-group-item">
+          <a href="<%= my_assigned_tasks_path %>" class="list-group-item <%= active_class(my_assigned_tasks_path) %>">
             <span class="badge"><%= user_incomplete_assigned_tasks(current_user) %></span>
             <i class="fa fa-user fa-fw text-primary" aria-hidden="true"></i> Assigned to me <small>(from shared lists)</small>
           </a>
         <% end %>
         <% if current_user.overdue_tasks.incomplete.any? %>
-          <a href="#" class="list-group-item">
+          <a href="<%= overdue_tasks_path %>" class="list-group-item <%= active_class(overdue_tasks_path) %>">
             <span class="badge"><%= user_incomplete_overdue_tasks(current_user) %></span>
             <i class="fa fa-calendar-times-o fa-fw text-danger" aria-hidden="true"></i> Overdue
           </a>
         <% end %>
         <% if current_user.due_today_tasks.incomplete.any? %>
-          <a href="#" class="list-group-item">
+          <a href="<%= due_today_tasks_path %>" class="list-group-item <%= active_class(due_today_tasks_path) %>">
             <span class="badge"><%= user_incomplete_due_today_tasks(current_user) %></span>
             <i class="fa fa-calendar-check-o fa-fw text-warning" aria-hidden="true"></i> Due Today
           </a>
