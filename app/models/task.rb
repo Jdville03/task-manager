@@ -81,9 +81,4 @@ class Task < ApplicationRecord
     self.order(:assigned_user_id)
   end
 
-  # tasks are sorted by creation date by default
-  # def self.sorted_by_creation_date
-  #   self.order(:created_at)
-  # end
-
 end

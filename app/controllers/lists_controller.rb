@@ -10,14 +10,12 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     display_sorted_lists
     @task = Task.new
-    #helpers.display_sorted_tasks(@list) @tasks
   end
 
   def create
     @list = List.new(list_params)
     if @list.save
       current_user.user_lists.create(list: @list, permission: "owner")
-      #session[:display_tasks] = list_params[:display_tasks]
       redirect_to list_path(@list)
     else
       display_sorted_lists
@@ -29,13 +27,11 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     display_sorted_lists
     @task = Task.new
-    #helpers.display_sorted_tasks(@list)
   end
 
   def update
     @list = List.find(params[:id])
     @list.update(list_params)
-    #session[:display_tasks] = list_params[:display_tasks] if list_params[:display_tasks]
     error_message_for_sharing_list(list_params)
     redirect_back(fallback_location: list_path(@list))
   end
@@ -66,7 +62,7 @@ class ListsController < ApplicationController
   private
 
     def list_params
-      params.require(:list).permit(:name, :display_tasks, users_attributes: [:email])
+      params.require(:list).permit(:name, users_attributes: [:email])
     end
 
     def error_message_for_sharing_list(list_params)

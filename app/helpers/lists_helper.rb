@@ -18,9 +18,9 @@ module ListsHelper
 
   def delete_user_from_list_confirmation(user, list)
     if user == current_user
-      "Do you really want to leave the #{list.name} list?"
+      "Do you really want to leave the #{list.name.upcase} list?"
     else
-      "Do you really want to remove #{user.name} from the #{list.name} list?"
+      "Do you really want to remove #{user.name.upcase} from the #{list.name.upcase} list?"
     end
   end
 
