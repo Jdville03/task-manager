@@ -1,3 +1,4 @@
+<% @tasks = display_sorted_tasks(@list) %>
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
     <span class="panel-title pull-left">
@@ -39,7 +40,7 @@
     <% end %>
   </div>
   <ul class="list-group my-tasks", id="edit-selected">
-    <%= render :collection => display_sorted_tasks(@list), :partial => "tasks/task_li", :as => :task %>
+    <%= render :collection => @tasks, :partial => "tasks/task_li", :as => :task %>
   </ul>
   <div class="panel-footer">
     <%= form_tag(url_for_display_tasks_option_form, method: "get") do %>

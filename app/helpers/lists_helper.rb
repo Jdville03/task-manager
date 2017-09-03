@@ -37,6 +37,8 @@ module ListsHelper
       list_path(@list)
     elsif current_page?(edit_list_path(@list))
       edit_list_path(@list)
+    elsif current_page?(controller: 'tasks', action: 'edit', :list_id => params[:list_id], :id => params[:id])
+      edit_list_task_path(@list, @task)
     end
   end
 
@@ -59,11 +61,7 @@ module ListsHelper
   end
 
   def checked_option_for_display_tasks_option_form
-    if session[:display_tasks_option] == "1"
-      true
-    else
-      false
-    end
+    session[:display_tasks_option] == "1" ? true : false
   end
 
 end
