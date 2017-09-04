@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 20170828051447) do
     t.datetime "updated_at", null: false
     t.integer "priority", default: 0
     t.index ["list_id"], name: "index_tasks_on_list_id"
-    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "user_lists", force: :cascade do |t|
