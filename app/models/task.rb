@@ -3,7 +3,7 @@ class Task < ApplicationRecord
   has_many :task_tags
   has_many :tags, through: :task_tags
   has_many :users, through: :list
-  belongs_to :assigned_user, :class_name => "User", :foreign_key => :assigned_user_id, optional: true
+  belongs_to :assigned_user, :class_name => "User", :foreign_key => :user_id, optional: true
 
   validates :description, presence: true
 
@@ -78,7 +78,7 @@ class Task < ApplicationRecord
   end
 
   def self.sorted_by_assignee
-    self.order(:assigned_user_id)
+    self.order(:user_id)
   end
 
 end

@@ -39,12 +39,12 @@ ActiveRecord::Schema.define(version: 20170828051447) do
     t.date "due_date"
     t.text "note"
     t.integer "list_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "assigned_user_id"
     t.integer "priority", default: 0
-    t.index ["assigned_user_id"], name: "index_tasks_on_assigned_user_id"
     t.index ["list_id"], name: "index_tasks_on_list_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "user_lists", force: :cascade do |t|

@@ -19,10 +19,10 @@
     <% if @list.shared_list? %>
       <li class="list-group-item">
         <div class="form-group form-group-in-panel">
-          <%= f.label :assigned_user_id, "Assign user <small>(optional)</small>".html_safe %>
+          <%= f.label :user_id, "Assign user <small>(optional)</small>".html_safe %>
           <div class="input-group">
             <span class="input-group-addon" id="assigned-user-addon"><i class="fa fa-user-o fa-fw"></i></span>
-            <%= f.collection_select :assigned_user_id, @task.users, :id, :name, {include_blank: "None"}, {class: "form-control edit-input"} %>
+            <%= f.collection_select :user_id, @task.users, :id, :name, {include_blank: "None"}, {class: "form-control edit-input"} %>
           </div>
         </div>
       </li>
