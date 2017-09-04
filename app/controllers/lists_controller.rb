@@ -41,7 +41,11 @@ class ListsController < ApplicationController
     if params[:user_id]
       user = User.find(params[:user_id])
       @list.users.delete(user)
-      if tasks = @list.tasks.assigned_to_user(user)
+      if !@list.shared_list?
+        @list.tasks.each do |task|
+          task.update(assigned_user: nil)
+        end
+      elsif tasks = @list.tasks.assigned_to_user(user)
         tasks.each do |task|
           task.update(assigned_user: nil)
         end
@@ -50,6 +54,7 @@ class ListsController < ApplicationController
         flash[:notice] = "You left the #{@list.name.upcase} list successfully."
         redirect_to root_path
       else
+        flash[:notice] = "#{user.name.upcase} removed from the #{@list.name.upcase} list successfully."
         redirect_to edit_list_path(@list)
       end
     else
