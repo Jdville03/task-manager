@@ -32,10 +32,10 @@ document.addEventListener("turbolinks:load", function() {
     }
   })
   $("input.toggle-status,input.toggle-priority,.edit-input,#toggle-event").on("change", function(){
-    $(this).parents("form").trigger("submit")
+    $(this).parents("form").trigger("submit");
   })
   $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
   })
   $(function() {
     $('#toggle-event').bootstrapToggle();
