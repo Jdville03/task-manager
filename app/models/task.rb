@@ -82,7 +82,7 @@ class Task < ApplicationRecord
   end
 
   def self.sorted_by_assignee
-    self.order(user_id: :desc, created_at: :asc)
+    self.order(:user_id, :created_at)
   end
 
 end
