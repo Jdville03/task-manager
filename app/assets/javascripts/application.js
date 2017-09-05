@@ -19,22 +19,22 @@
 //= require turbolinks
 //= require_tree .
 
-window.setTimeout(function () {
-  $(".alert-success").fadeTo(500, 0).slideUp(500, function () {
+window.setTimeout(function() {
+  $(".alert-success").fadeTo(500, 0).slideUp(500, function() {
     $(this).remove();
   });
 }, 3000);
 
 document.addEventListener("turbolinks:load", function() {
-  $('a[data-toggle="collapse"]').click(function(e){
+  $('a[data-toggle="collapse"]').click(function(e) {
     if ($(window).width() >= 768){
       e.stopPropagation();
     }
   })
-  $("input.toggle-status,input.toggle-priority,.edit-input,#toggle-event").on("change", function(){
+  $("input.toggle-status,input.toggle-priority,.edit-input,#toggle-event").on("change", function() {
     $(this).parents("form").trigger("submit");
   })
-  $(function () {
+  $(function() {
     $('[data-toggle="tooltip"]').tooltip();
   })
   $(function() {
@@ -42,7 +42,7 @@ document.addEventListener("turbolinks:load", function() {
   })
 });
 
-$(window).resize(function(){
+$(window).resize(function() {
   if ($(window).width() >= 768){
     $('.panel-collapse').addClass('in');
   }
