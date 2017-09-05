@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :tags
+
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   root 'lists#index'
   resources :lists do
@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get '/tasks/assigned_to_me' => 'tasks#index', as: 'my_assigned_tasks'
   get '/tasks/overdue' => 'tasks#index', as: 'overdue_tasks'
   get '/tasks/due_today' => 'tasks#index', as: 'due_today_tasks'
+
+  # resources :tags
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
