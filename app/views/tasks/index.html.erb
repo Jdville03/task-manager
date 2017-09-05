@@ -12,12 +12,6 @@
       <div class="list-group">
         <%= render :collection => @lists, :partial => "lists/list_li_with_tasks", :as => :list %>
       </div>
-      <div class="panel-footer">
-        <%= form_tag(url_for_display_tasks_option_form, method: "get") do %>
-          <%= hidden_field_tag :display_tasks_option, value = "0" %>
-          <%= check_box_tag :display_tasks_option, value = "1", checked = checked_option_for_display_tasks_option_form, :id => "toggle-event", :class => "toggle-status", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :disabled => current_user.tasks.completed.empty? %>
-        <% end %>
-      </div>
     </div>
   </div>
 </div>

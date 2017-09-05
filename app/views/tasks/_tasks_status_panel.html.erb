@@ -38,6 +38,32 @@
         <a href="<%= root_path %>" class="list-group-item <%= active_class(root_path, lists_path) %>">
           <i class="fa fa-list fa-fw" aria-hidden="true"></i> Lists
         </a>
+        <li class="list-group-item">
+          <% if current_page?(root_path) || current_page?(lists_path) || current_page?(tasks_path) %>
+            <div class="form-group">
+              <label for="listsSort">Lists</label>
+              <%= form_tag(url_for_lists_sort_form, method: "get") do %>
+                <%= select_tag :list_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Incomplete Tasks"], selected: session[:list_sort]), class: "edit-input form-control", id: "listsSort", disabled: current_user.lists.empty? %>
+              <% end %>
+            </div>
+          <% end %>
+          <% if current_page?(tasks_path) || current_page?(starred_tasks_path) || current_page?(my_assigned_tasks_path) || current_page?(overdue_tasks_path) || current_page?(due_today_tasks_path) %>
+            <% session[:task_sort] = params[:task_sort] if params[:task_sort] %>
+            <div class="form-group">
+              <label for="tasksSort">Tasks</label>
+              <%= form_tag(url_for_tasks_sort_form, method: "get") do %>
+                <%= select_tag :task_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Priority", "Sort by Assignee"], selected: session[:task_sort]), class: "edit-input form-control", id: "tasksSort" %>
+              <% end %>
+            </div>
+            <% session[:display_tasks_option] = params[:display_tasks_option] if params[:display_tasks_option] %>
+            <div class="form-group">
+              <%= form_tag(url_for_display_tasks_option_form, method: "get") do %>
+                <%= hidden_field_tag :display_tasks_option, value = "0" %>
+                <%= check_box_tag :display_tasks_option, value = "1", checked = checked_option_for_display_tasks_option_form, :id => "toggle-event", :class => "toggle-status", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :disabled => current_user.tasks.completed.empty? %>
+              <% end %>
+            </div>
+          <% end %>
+        </li>
       </div>
     </div>
   </div>

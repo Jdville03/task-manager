@@ -32,7 +32,7 @@ module ListsHelper
     list.tasks.incomplete.due_today.count
   end
 
-  def url_for_task_sort_form
+  def url_for_tasks_sort_form_for_list
     if current_page?(list_path(@list))
       list_path(@list)
     elsif current_page?(edit_list_path(@list))
@@ -50,7 +50,7 @@ module ListsHelper
     end
   end
 
-  def url_for_display_tasks_option_form
+  def url_for_display_tasks_option_form_for_list
     if current_page?(list_path(@list))
       list_path(@list)
     elsif current_page?(edit_list_path(@list))
