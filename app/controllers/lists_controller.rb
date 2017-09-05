@@ -41,15 +41,7 @@ class ListsController < ApplicationController
     if params[:user_id]
       user = User.find(params[:user_id])
       @list.users.delete(user)
-      if !@list.shared_list?
-        @list.tasks.each do |task|
-          task.update(assigned_user: nil)
-        end
-      elsif tasks = @list.tasks.assigned_to_user(user)
-        tasks.each do |task|
-          task.update(assigned_user: nil)
-        end
-      end
+      remove_assigned_user_association
       if user == current_user
         flash[:notice] = "You left the #{@list.name.upcase} list successfully."
         redirect_to root_path
@@ -74,6 +66,18 @@ class ListsController < ApplicationController
       email = list_params.dig(:users_attributes, "0", :email)
       if email.present? && !User.all.include?(User.find_by(email: email))
         flash[:alert] = "There is no user associated with #{email}."
+      end
+    end
+
+    def remove_assigned_user_association
+      if !@list.shared_list?
+        @list.tasks.each do |task|
+          task.update(assigned_user: nil)
+        end
+      elsif tasks = @list.tasks.assigned_to_user(user)
+        tasks.each do |task|
+          task.update(assigned_user: nil)
+        end
       end
     end
 

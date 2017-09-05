@@ -45,8 +45,4 @@ module ApplicationHelper
     end
   end
 
-  # def select_tag_for_tasks_sort_form
-  #   select_tag :task_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Priority", "Sort by Assignee"], selected: session[:task_sort]), class: "edit-input form-control", id: "tasksSort"
-  # end
-
 end
