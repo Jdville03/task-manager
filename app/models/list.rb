@@ -29,8 +29,16 @@ class List < ApplicationRecord
     self.user_lists.find_by(permission: "owner").user
   end
 
+  def self.sorted_by_creation_date
+    self.order(:created_at)
+  end
+
   def self.sorted_alphabetically
     self.order("lower(name), created_at")
+  end
+
+  def self.sorted_by_incomplete_tasks
+    self.order("tasks.incomplete.count DESC, created_at")
   end
 
 end

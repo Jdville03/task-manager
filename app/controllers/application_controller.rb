@@ -21,9 +21,9 @@ class ApplicationController < ActionController::Base
       if session[:list_sort] == "Sort Alphabetically"
         @lists = current_user.lists.sorted_alphabetically
       elsif session[:list_sort] == "Sort by Incomplete Tasks"
-        @lists = current_user.lists.sort_by{|list| list.tasks.incomplete.count}.reverse
+        @lists = current_user.lists.sort_by{|list| [-list.tasks.incomplete.count, list.created_at]}
       else
-        @lists = current_user.lists
+        @lists = current_user.lists.sorted_by_creation_date
       end
     end
 

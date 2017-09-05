@@ -69,6 +69,8 @@ class Task < ApplicationRecord
     where(due_date: Time.zone.today)
   end
 
+  
+
   def self.sorted_alphabetically
     self.order('lower(description)')
   end
