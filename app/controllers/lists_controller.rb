@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   before_action :require_logged_in
+  before_action :set_list, only: [:show, :edit, :update, :destroy]
 
   def index
     @list = List.new
@@ -7,7 +8,6 @@ class ListsController < ApplicationController
   end
 
   def show
-    @list = List.find(params[:id])
     display_sorted_lists
     @task = Task.new
   end
@@ -24,31 +24,22 @@ class ListsController < ApplicationController
   end
 
   def edit
-    @list = List.find(params[:id])
     display_sorted_lists
     @task = Task.new
   end
 
   def update
-    @list = List.find(params[:id])
     @list.update(list_params)
     error_message_for_sharing_list(list_params)
     redirect_back(fallback_location: list_path(@list))
   end
 
   def destroy
-    @list = List.find(params[:id])
     if params[:user_id]
-      user = User.find(params[:user_id])
-      @list.users.delete(user)
+      @user = User.find(params[:user_id])
+      @list.users.delete(@user)
       remove_assigned_user_association
-      if user == current_user
-        flash[:notice] = "You left the #{@list.name.upcase} list successfully."
-        redirect_to root_path
-      else
-        flash[:notice] = "#{user.name.upcase} removed from the #{@list.name.upcase} list successfully."
-        redirect_to edit_list_path(@list)
-      end
+      flash_message_for_removed_user
     else
       @list.destroy
       flash[:notice] = "#{@list.name.upcase} list deleted successfully."
@@ -60,6 +51,10 @@ class ListsController < ApplicationController
 
     def list_params
       params.require(:list).permit(:name, users_attributes: [:email])
+    end
+
+    def set_list
+      @list = List.find(params[:id])
     end
 
     def error_message_for_sharing_list(list_params)
@@ -74,10 +69,20 @@ class ListsController < ApplicationController
         @list.tasks.each do |task|
           task.update(assigned_user: nil)
         end
-      elsif tasks = @list.tasks.assigned_to_user(user)
+      elsif tasks = @list.tasks.assigned_to_user(@user)
         tasks.each do |task|
           task.update(assigned_user: nil)
         end
+      end
+    end
+
+    def flash_message_for_removed_user
+      if @user == current_user
+        flash[:notice] = "You left the #{@list.name.upcase} list successfully."
+        redirect_to root_path
+      else
+        flash[:notice] = "#{@user.name.upcase} removed from the #{@list.name.upcase} list successfully."
+        redirect_to edit_list_path(@list)
       end
     end
 

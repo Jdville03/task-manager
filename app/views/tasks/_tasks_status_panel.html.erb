@@ -7,7 +7,7 @@
     </div>
     <div id="collapse1" class="panel-collapse collapse in">
       <div class="list-group">
-        <a href="<%= tasks_path %>" class="list-group-item <%= active_class(tasks_path) %>">
+        <a href="<%= tasks_path %>" class="list-group-item <%= active_class(tasks_path) %> <%= disabled_link_class %>">
           <span class="badge"><%= user_incomplete_tasks_count(current_user) %></span>
           <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> All
         </a>

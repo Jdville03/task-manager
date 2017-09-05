@@ -4,6 +4,10 @@ module ApplicationHelper
     "active" if current_page?(link_path) || current_page?(alt_link_path) || params[:list_id] == list_id.to_s
   end
 
+  def disabled_link_class
+    "disabled" if current_user.tasks.empty?
+  end
+
   def display_sorted_tasks(list)
     session[:task_sort] = params[:task_sort] if params[:task_sort]
     if session[:task_sort] == "Sort Alphabetically"
