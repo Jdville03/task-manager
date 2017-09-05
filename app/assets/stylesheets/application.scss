@@ -19,6 +19,7 @@
 @import "bootstrap-social";
 @import "lists";
 @import "tasks";
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
 
 body {
   padding-top: 80px;
@@ -69,4 +70,8 @@ a.disabled {
 .panel-default > .panel-heading .badge {
   color: #ffffff;
   background-color: #777777;
+}
+
+.navbar-brand {
+  font-family: 'Permanent Marker', cursive;
 }
