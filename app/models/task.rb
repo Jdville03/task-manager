@@ -69,18 +69,20 @@ class Task < ApplicationRecord
     where(due_date: Time.zone.today)
   end
 
-  
+  def self.sorted_by_creation_date
+    self.order(:created_at)
+  end
 
   def self.sorted_alphabetically
-    self.order('lower(description)')
+    self.order("lower(description), created_at")
   end
 
   def self.sorted_by_priority
-    self.order(priority: :desc)
+    self.order(priority: :desc, created_at: :asc)
   end
 
   def self.sorted_by_assignee
-    self.order(:user_id)
+    self.order(user_id: :desc, created_at: :asc)
   end
 
 end

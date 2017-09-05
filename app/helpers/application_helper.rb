@@ -13,7 +13,7 @@ module ApplicationHelper
     elsif session[:task_sort] == "Sort by Assignee"
       tasks = list.tasks.sorted_by_assignee
     else
-      tasks = list.tasks
+      tasks = list.tasks.sorted_by_creation_date
     end
     session[:display_tasks_option] = params[:display_tasks_option] if params[:display_tasks_option]
     if session[:display_tasks_option] == "1"
