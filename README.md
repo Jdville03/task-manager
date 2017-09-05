@@ -1,4 +1,4 @@
-# check!
+# check! - Task Manager
 
 Use this Rails app to track and manage your checklists and tasks. You can share lists with other registered users to collaborate as a group to track the assignment and completion of tasks.
 
