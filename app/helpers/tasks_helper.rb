@@ -60,15 +60,15 @@ module TasksHelper
 
   def tasks_index_heading_title
     if current_page?(tasks_path)
-      "All Tasks"
+      "All tasks"
     elsif current_page?(starred_tasks_path)
-      "Starred Tasks"
+      "Starred tasks"
     elsif current_page?(my_assigned_tasks_path)
-      "Tasks Assigned To Me <small>(from shared lists)</small>".html_safe
+      "Tasks assigned to me <small>(from shared lists)</small>".html_safe
     elsif current_page?(overdue_tasks_path)
-      "Overdue Tasks"
+      "Overdue tasks"
     elsif current_page?(due_today_tasks_path)
-      "Tasks Due Today"
+      "Tasks due today"
     end
   end
 

@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  include ActionView::Helpers::UrlHelper
+
   def after_sign_in_path_for(resource)
     super resource
   end
@@ -17,7 +19,11 @@ class ApplicationController < ActionController::Base
     end
 
     def display_sorted_lists
-      session[:list_sort] = params[:list_sort] if params[:list_sort]
+      if params[:list_sort]
+        session[:list_sort] = params[:list_sort]
+      elsif current_page?(starred_tasks_path) || current_page?(my_assigned_tasks_path) || current_page?(overdue_tasks_path) || current_page?(due_today_tasks_path)
+        session[:list_sort] = "Sort by Completion Date"
+      end
       if session[:list_sort] == "Sort Alphabetically"
         @lists = current_user.lists.sorted_alphabetically
       elsif session[:list_sort] == "Sort by Incomplete Tasks"
