@@ -34,7 +34,7 @@
             <% end %>
           </span>
         </li>
-        <%= render :collection => @list.users.sorted_alphabetically, :partial => "lists/edit_list_users", :as => :user %>
+        <%= render :collection => @list.users.sorted_by_id, :partial => "lists/edit_list_users", :as => :user %>
       </ul>
       <div class="panel-footer clearfix">
         <% if @list.owner == current_user %>

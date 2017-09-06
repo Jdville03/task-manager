@@ -12,7 +12,7 @@
           <ul class="list-group">
             <% if @list.shared_list? %>
               <ul class="list-group-item list-unstyled">
-                <% @list.users.sorted_alphabetically.each do |user| %>
+                <% @list.users.sorted_by_id.each do |user| %>
                   <li>
                     <% if user == current_user %>
                       <i class="fa fa-user-circle fa-fw text-primary" aria-hidden="true"></i>

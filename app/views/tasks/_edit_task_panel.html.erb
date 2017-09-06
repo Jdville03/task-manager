@@ -22,7 +22,7 @@
           <%= f.label :user_id, "Assign user <small>(optional)</small>".html_safe %>
           <div class="input-group">
             <span class="input-group-addon" id="assigned-user-addon"><i class="fa fa-user-o fa-fw"></i></span>
-            <%= f.collection_select :user_id, @task.users.sorted_alphabetically, :id, :name, {include_blank: "None"}, {class: "form-control edit-input"} %>
+            <%= f.collection_select :user_id, @task.users.sorted_by_id, :id, :name, {include_blank: "None"}, {class: "form-control edit-input"} %>
           </div>
         </div>
       </li>

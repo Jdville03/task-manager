@@ -37,8 +37,8 @@ class User < ApplicationRecord
     self.tasks.due_today
   end
 
-  def self.sorted_alphabetically
-    self.order("lower(users.name), created_at")
+  def self.sorted_by_id
+    self.order(:id)
   end
 
 end
