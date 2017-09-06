@@ -10,7 +10,7 @@
       <%= @list.name %>
     </span>
     <%= form_tag(url_for_tasks_sort_form_for_list, method: "get", class: "pull-right") do %>
-      <%= select_tag_for_task_sort(@list) %>
+      <%= select_tag_for_tasks_sort_form_for_list(@list) %>
     <% end %>
     <!-- <div class="btn-group pull-right">
       <button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -42,7 +42,7 @@ module ListsHelper
     end
   end
 
-  def select_tag_for_task_sort(list)
+  def select_tag_for_tasks_sort_form_for_list(list)
     if list.shared_list?
       select_tag :task_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Priority", "Sort by Assignee"], selected: session[:task_sort]), class: "edit-input"
     else
@@ -58,10 +58,6 @@ module ListsHelper
     elsif current_page?(controller: 'tasks', action: 'edit', :list_id => params[:list_id], :id => params[:id])
       edit_list_task_path(@list, @task)
     end
-  end
-
-  def checked_option_for_display_tasks_option_form
-    session[:display_tasks_option] == "1" ? true : false
   end
 
 end

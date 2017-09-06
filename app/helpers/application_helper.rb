@@ -35,18 +35,8 @@ module ApplicationHelper
     end
   end
 
-  def url_for_tasks_sort_form
-    if current_page?(tasks_path)
-      tasks_path
-    elsif current_page?(starred_tasks_path)
-      starred_tasks_path
-    elsif current_page?(my_assigned_tasks_path)
-      my_assigned_tasks_path
-    elsif current_page?(overdue_tasks_path)
-      overdue_tasks_path
-    elsif current_page?(due_today_tasks_path)
-      due_today_tasks_path
-    end
+  def checked_option_for_display_tasks_option_form
+    session[:display_tasks_option] == "1" ? true : false
   end
 
 end
