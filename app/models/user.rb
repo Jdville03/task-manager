@@ -38,7 +38,7 @@ class User < ApplicationRecord
   end
 
   def self.sorted_alphabetically
-    self.order("lower(name), created_at")
+    self.order("lower(users.name), created_at")
   end
 
 end

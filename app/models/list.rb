@@ -34,7 +34,7 @@ class List < ApplicationRecord
   end
 
   def self.sorted_alphabetically
-    self.order("lower(name), created_at")
+    self.order("lower(lists.name), created_at")
   end
 
   def self.sorted_by_incomplete_tasks
