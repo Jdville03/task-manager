@@ -44,9 +44,6 @@ document.addEventListener("turbolinks:load", function() {
 
 $(window).resize(function() {
   if ($(window).width() >= 768){
-    $('.panel-collapse').addClass('in');
-  }
-  if ($(window).width() <= 768){
-    $('.panel-collapse').removeClass('in');
+    $('.panel-collapse').collapse('show')
   }
 });
