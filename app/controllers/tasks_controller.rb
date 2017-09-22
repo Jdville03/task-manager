@@ -20,8 +20,13 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    @task.update(task_params)
-    redirect_back(fallback_location: list_path(@task.list))
+    @task.assign_attributes(task_params)
+    if @task.list_id_changed?
+      flash_message_and_redirect_for_moved_task
+    else
+      @task.save
+      redirect_back(fallback_location: list_path(@task.list))
+    end
   end
 
   def destroy
@@ -34,7 +39,22 @@ class TasksController < ApplicationController
   private
 
     def task_params
-      params.require(:task).permit(:description, :status, :priority, :user_id, :due_date, :note)
+      params.require(:task).permit(:description, :status, :priority, :user_id, :due_date, :note, :list_id)
+    end
+
+    def flash_message_and_redirect_for_moved_task
+      flash[:notice] = "#{@task.description.upcase} task moved from #{List.find(@task.list_id_was).name.upcase} list to #{@task.list.name.upcase} list successfully."
+      @task.save
+      update_assigned_user_association
+      redirect_to edit_list_task_path(@task.list, @task)
+    end
+
+    def update_assigned_user_association
+      if @task.assigned_user
+        if !@task.list.shared_list? || !@task.list.users.include?(@task.assigned_user)
+          @task.update(assigned_user: nil)
+        end
+      end
     end
 
 end
