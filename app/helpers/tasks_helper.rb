@@ -156,4 +156,12 @@ module TasksHelper
     end
   end
 
+  def move_task_class
+    if current_user.lists.count < 2
+      true
+    else
+      false
+    end
+  end
+
 end

@@ -50,7 +50,7 @@
         <%= f.label :list_id, "Move to another list <small>(optional)</small>".html_safe %>
         <div class="input-group">
           <span class="input-group-addon" id="list-addon"><i class="fa fa-list fa-fw"></i></span>
-          <%= f.collection_select :list_id, current_user.lists.sorted_by_creation_date, :id, :name, {include_blank: false}, {class: "form-control edit-input"} %>
+          <%= f.collection_select :list_id, current_user.lists.sorted_by_creation_date, :id, :name, {include_blank: false}, {class: "form-control edit-input", disabled: move_task_class} %>
         </div>
       </div>
     </li>
