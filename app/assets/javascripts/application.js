@@ -27,23 +27,23 @@ window.setTimeout(function() {
 
 document.addEventListener("turbolinks:load", function() {
   $('a[data-toggle="collapse"]').click(function(e) {
-    if ($(window).width() >= 768){
+    if ($(window).width() >= 768) {
       e.stopPropagation();
     }
-  })
+  });
   $("input.toggle-status,input.toggle-priority,.edit-input,#toggle-event").on("change", function() {
     $(this).parents("form").trigger("submit");
-  })
+  });
   $(function() {
     $('[data-toggle="tooltip"]').tooltip();
-  })
+  });
   $(function() {
     $('#toggle-event').bootstrapToggle();
-  })
+  });
 });
 
 $(window).resize(function() {
-  if ($(window).width() >= 768){
-    $('.panel-collapse').collapse('show')
+  if ($(window).width() >= 768) {
+    $('.panel-collapse').collapse('show');
   }
 });
