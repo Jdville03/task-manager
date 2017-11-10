@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   root 'lists#index'
   resources :lists, except: [:new] do
-    resources :tasks, except: [:new, :show]
+    # resources :tasks, except: [:new, :show]
+    resources :tasks, except: [:new]
   end
   resources :tasks, only: [:index]
 

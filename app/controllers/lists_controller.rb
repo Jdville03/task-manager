@@ -10,6 +10,10 @@ class ListsController < ApplicationController
   def show
     display_sorted_lists
     @task = Task.new
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @list}
+    end
   end
 
   def create
