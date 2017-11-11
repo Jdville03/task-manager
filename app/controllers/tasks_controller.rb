@@ -5,13 +5,10 @@ class TasksController < ApplicationController
     display_sorted_lists
   end
 
-# placeholder action to display task json
+# placeholder action for task json
   def show
     @task = Task.find(params[:id])
-    respond_to do |format|
-      format.html { render :show }
-      format.json { render json: @task}
-    end
+    render json: @task
   end
 
   def create

@@ -5,6 +5,10 @@ class ListsController < ApplicationController
   def index
     @list = List.new
     display_sorted_lists
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @lists}
+    end
   end
 
   def show
