@@ -14,8 +14,7 @@ class TasksController < ApplicationController
   def create
     @list = List.find(params[:list_id])
     @task = @list.tasks.create(task_params)
-    # redirect_back(fallback_location: list_path(@list))
-    render json: @task, status: 201
+    redirect_back(fallback_location: list_path(@list))
   end
 
   def edit
