@@ -34,13 +34,17 @@
           </div>
         <% end %>
       </div>
-      <div class="list-group">
+      <div class="list-group" id="new-list-json">
         <%= render :collection => @lists, :partial => "lists/list_li", :as => :list %>
-
-        <!-- placeholder to display JSON response -->
-        <a href="#" class="list-group-item" id="listName"></a>
-
       </div>
     </div>
   </div>
 </div>
+
+<!-- script tag to display JSON response -->
+<script id="list-template" type="text/x-handlebars-template">
+  <a href="#" class="list-group-item">
+    <i class="fa fa-user-o fa-fw text-primary" aria-hidden="true"></i>
+    {{name}}
+  </a>
+</script>

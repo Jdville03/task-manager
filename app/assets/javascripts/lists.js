@@ -8,7 +8,9 @@ document.addEventListener("turbolinks:load", function() {
     let posting = $.post(this.action, values);
     posting.done(function(data) {
       let list = data;
-      $("#listName").text(list["name"]);
+      let template = Handlebars.compile(document.getElementById("list-template").innerHTML);
+      let result = template(list);
+      document.getElementById("new-list-json").innerHTML += result;
       document.getElementById("new_list").reset();
     });
   });
