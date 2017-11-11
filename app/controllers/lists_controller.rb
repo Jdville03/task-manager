@@ -24,7 +24,8 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
     if @list.save
       current_user.user_lists.create(list: @list, permission: "owner")
-      redirect_to list_path(@list)
+      # redirect_to list_path(@list)
+      render json: @list, status: 201
     else
       display_sorted_lists
       render :index
