@@ -6,12 +6,14 @@ document.addEventListener("turbolinks:load", function() {
     event.preventDefault();
     let values = $(this).serialize();
     let posting = $.post(this.action, values);
-    posting.done(function(data) {
+    posting.success(function(data) {
       let list = data;
       let template = Handlebars.compile(document.getElementById("list-template").innerHTML);
       let result = template(list);
-      document.getElementById("new-list-json").innerHTML += result;
-      document.getElementById("new_list").reset();
+      if (list.name) {
+        document.getElementById("new-list-json").innerHTML += result;
+        document.getElementById("new_list").reset();
+      }
     });
   });
 });
