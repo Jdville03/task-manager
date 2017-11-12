@@ -12,18 +12,6 @@
     <%= form_tag(url_for_tasks_sort_form_for_list, method: "get", class: "pull-right") do %>
       <%= select_tag_for_tasks_sort_form_for_list(@list) %>
     <% end %>
-    <!-- <div class="btn-group pull-right">
-      <button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-sort fa-fw fa-lg text-muted" aria-hidden="true"></i>
-      </button>
-      <ul class="dropdown-menu">
-        <li class="dropdown-header">Sort</li>
-        <li><a href="#"><i class="fa fa-sort-alpha-asc fa-fw" aria-hidden="true"></i> Alphabetically</a></li>
-        <li><a href="#"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Creation Date</a></li>
-        <li><a href="#"><i class="fa fa-star-o fa-fw" aria-hidden="true"></i> Priority</a></li>
-        <li><a href="#"><i class="fa fa-user-o fa-fw" aria-hidden="true"></i> Assignee</a></li>
-      </ul>
-    </div> -->
   </div>
   <div class="panel-body">
     <%= form_for([@list, @task], :url => list_tasks_path(@list), :html => { :method => :post }) do |f| %>
