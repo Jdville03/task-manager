@@ -41,14 +41,14 @@
 <!-- script tag to display JSON response -->
 <script id="task-template" type="text/x-handlebars-template">
   <li class="list-group-item">
-    <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list.id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
+    <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list_id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
       <input name="utf8" type="hidden" value="✓">
       <input type="hidden" name="_method" value="patch">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <input name="task[status]" type="hidden" value="0">
       <input class="toggle-status" type="checkbox" value="1" name="task[status]" id="task_status">
     </form>
-    <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list.id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
+    <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list_id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
       <input name="utf8" type="hidden" value="✓">
       <input type="hidden" name="_method" value="patch">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
@@ -57,10 +57,10 @@
     </form>
     <span class="task-description">{{description}}</span>
     <span class="task-icons"></span>
-    <a class="btn btn-link edit-task" href="/lists/{{list.id}}/tasks/{{id}}/edit">
+    <a class="btn btn-link edit-task" href="/lists/{{list_id}}/tasks/{{id}}/edit">
       <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
     </a>
-    <a class="btn btn-link destroy" data-confirm="Do you really want to delete the ORANGE JUICE task?" rel="nofollow" data-method="delete" href="/lists/{{list.id}}/tasks/{{id}}">
+    <a class="btn btn-link destroy" data-confirm="Do you really want to delete the ORANGE JUICE task?" rel="nofollow" data-method="delete" href="/lists/{{list_id}}/tasks/{{id}}">
       <i class="fa fa-times fa-fw" aria-hidden="true"></i>
     </a>
   </li>

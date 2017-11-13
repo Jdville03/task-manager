@@ -1,18 +1,33 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
+function Task(attributes) {
+  this.id = attributes.id;
+  this.description = attributes.description;
+  this.list_id = attributes.list.id;
+}
+
+document.addEventListener("turbolinks:load", function() {
+  Task.templateSource = document.getElementById("task-template").innerHTML;
+  Task.template = Handlebars.compile(Task.templateSource);
+});
+
+Task.prototype.renderLI = function() {
+  return Task.template(this);
+}
+
 document.addEventListener("turbolinks:load", function() {
   $('#new_task').submit(function(event) {
     event.preventDefault();
     let values = $(this).serialize();
     let posting = $.post(this.action, values);
     posting.success(function(data) {
-      let task = data;
-      let template = Handlebars.compile(document.getElementById("task-template").innerHTML);
-      let result = template(task);
+      let task = new Task(data);
+      let taskLI = task.renderLI();
       if (task.description) {
-        $("#edit-selected").append(result);
+        $("#edit-selected").append(taskLI);
         document.getElementById("new_task").reset();
+
         // update incomplete tasks counter in list show view
         let element = document.getElementById("number-of-incomplete-tasks");
         if (element) {
