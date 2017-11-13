@@ -28,7 +28,7 @@
               </ul>
             <% end %>
             <li class="list-group-item">
-              <span class="badge"><%= number_of_incomplete_tasks(@list) %></span>
+              <span class="badge" id="number-of-incomplete-tasks"><%= number_of_incomplete_tasks(@list) %></span>
               <i class="fa fa-square-o fa-fw" aria-hidden="true"></i> All
             </li>
             <% if @list.tasks.incomplete.starred.any? %>
