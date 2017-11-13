@@ -13,9 +13,16 @@ document.addEventListener("turbolinks:load", function() {
       if (task.description) {
         document.getElementById("edit-selected").innerHTML += result;
         document.getElementById("new_task").reset();
-        // update incomplete tasks counter
+        // update incomplete tasks counters
         num = parseInt(document.getElementById("number-of-incomplete-tasks").innerHTML);
         document.getElementById("number-of-incomplete-tasks").innerHTML = num + 1;
+
+        element = document.querySelector(".list-group-lists a.active span");
+        if (element.innerHTML) {
+          element.innerHTML = num + 1;
+        } else {
+          element.innerHTML = 1;
+        }
       }
     });
   });
