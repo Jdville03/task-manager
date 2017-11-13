@@ -9,10 +9,13 @@ document.addEventListener("turbolinks:load", function() {
     posting.success(function(data) {
       let list = data;
       let template = Handlebars.compile(document.getElementById("list-template").innerHTML);
+      let templateNav = Handlebars.compile(document.getElementById("list-template-lists-nav").innerHTML);
       let result = template(list);
+      let resultNav = templateNav(list);
       if (list.name) {
-        document.getElementById("new-list-json").innerHTML += result;
+        $("#new-list-json").append(result);
         document.getElementById("new_list").reset();
+        $("#new-list-nav-json").append(resultNav);
       }
     });
   });

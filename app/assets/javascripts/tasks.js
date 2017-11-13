@@ -11,17 +11,21 @@ document.addEventListener("turbolinks:load", function() {
       let template = Handlebars.compile(document.getElementById("task-template").innerHTML);
       let result = template(task);
       if (task.description) {
-        document.getElementById("edit-selected").innerHTML += result;
+        $("#edit-selected").append(result);
         document.getElementById("new_task").reset();
-        // update incomplete tasks counters
-        num = parseInt(document.getElementById("number-of-incomplete-tasks").innerHTML);
-        document.getElementById("number-of-incomplete-tasks").innerHTML = num + 1;
-
-        element = document.querySelector(".list-group-lists a.active span");
-        if (element.innerHTML) {
+        // update incomplete tasks counter in list show view
+        let element = document.getElementById("number-of-incomplete-tasks");
+        if (element) {
+          let num = parseInt(element.innerHTML);
           element.innerHTML = num + 1;
+        }
+        // update incomplete tasks counter in nav lists menu
+        let elementNav = document.querySelector("#new-list-nav-json a.active span");
+        let numNav = parseInt(elementNav.innerHTML);
+        if (numNav) {
+          elementNav.innerHTML = numNav + 1;
         } else {
-          element.innerHTML = 1;
+          elementNav.innerHTML = 1;
         }
       }
     });
