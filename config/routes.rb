@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'lists#index'
   resources :lists, except: [:new] do
     # resources :tasks, except: [:new, :show]
-    resources :tasks, except: [:new]
+    resources :tasks, except: [:new, :index]
   end
   resources :tasks, only: [:index]
 

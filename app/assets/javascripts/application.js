@@ -25,6 +25,12 @@ window.setTimeout(function() {
   });
 }, 3000);
 
+$(window).resize(function() {
+  if ($(window).width() >= 768) {
+    $('.panel-collapse').collapse('show');
+  }
+});
+
 document.addEventListener("turbolinks:load", function() {
   $('a[data-toggle="collapse"]').click(function(e) {
     if ($(window).width() >= 768) {
@@ -36,10 +42,4 @@ document.addEventListener("turbolinks:load", function() {
   });
   $('[data-toggle="tooltip"]').tooltip();
   $('#toggle-event').bootstrapToggle();
-});
-
-$(window).resize(function() {
-  if ($(window).width() >= 768) {
-    $('.panel-collapse').collapse('show');
-  }
 });

@@ -65,3 +65,19 @@
     </a>
   </li>
 </script>
+
+<script> // MutationObserver used to react to changes in DOM
+  // select the target node
+  var target = document.getElementById("edit-selected");
+  // create an observer instance
+  var observer = new MutationObserver(function() {
+    $("input.toggle-status,input.toggle-priority,.edit-input,#toggle-event").on("change", function() {
+      $(this).parents("form").trigger("submit");
+    });
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+  // configuration of the observer:
+  var config = { attributes: true, childList: true, characterData: true };
+  // pass in the target node, as well as the observer options
+  observer.observe(target, config);
+</script>
