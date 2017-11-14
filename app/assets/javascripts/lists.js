@@ -33,7 +33,11 @@ document.addEventListener("turbolinks:load", function() {
       if (data.name) {
         $("#new-list-json").append(listLink);
         document.getElementById("new_list").reset();
-        $("#new-list-nav-json").append(listLinkNav);
+        if ($("#new-list-nav-json").html().includes("</a>")) {
+          $("#new-list-nav-json").append(listLinkNav);
+        } else {
+          $("#new-list-nav-json").html(listLinkNav);
+        }
       }
     });
   });
