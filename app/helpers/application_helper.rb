@@ -35,6 +35,10 @@ module ApplicationHelper
     end
   end
 
+  def if_for_lists_sort_input
+    "listsSort" if current_page?(root_path) || current_page?(lists_path)
+  end
+
   def checked_option_for_display_tasks_option_form
     session[:display_tasks_option] == "1" ? true : false
   end

@@ -87,7 +87,9 @@ document.addEventListener("turbolinks:load", function() {
     $.get("/lists" + ".json", function(data) {
       let template = Handlebars.compile(document.getElementById("lists-template").innerHTML);
       let result = template(data);
-      $("#new-list-json").html(result);
+      if ($("#new-list-json")) {
+        $("#new-list-json").html(result);
+      }
     })
   });
 });
