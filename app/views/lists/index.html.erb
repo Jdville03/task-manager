@@ -34,7 +34,7 @@
   {{#each this}}
   <a href="/lists/{{id}}" class="list-group-item">
     <!-- <span class="badge"><%# number_of_incomplete_tasks(list) if !list.all_tasks_completed? %></span> -->
-    <span class="badge"></span>
+    {{number_of_incomplete_tasks}}
     {{#ifCond users.length '>' 1}}
     <i class="fa fa-users fa-fw text-success" aria-hidden="true"></i>
     {{else}}

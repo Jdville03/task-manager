@@ -71,6 +71,16 @@ Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
   }
 });
 
+// helper to display number of incomplete tasks in lists index template
+Handlebars.registerHelper('number_of_incomplete_tasks', function() {
+  let incompleteTasks = this.tasks.filter(function(task) {
+    return task.status === 0;
+  });
+  if (incompleteTasks.length) {
+    return new Handlebars.SafeString("<span class='badge'>" + incompleteTasks.length + "</span>");
+  }
+});
+
 document.addEventListener("turbolinks:load", function() {
   $("#listsSort").parents("form").submit(function(event) {
     event.preventDefault();
