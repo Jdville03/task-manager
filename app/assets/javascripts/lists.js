@@ -42,3 +42,42 @@ document.addEventListener("turbolinks:load", function() {
     });
   });
 });
+
+// block helper to allow use of comparison operator in Handlebars template
+Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+  switch (operator) {
+    case '==':
+        return (v1 == v2) ? options.fn(this) : options.inverse(this);
+    case '===':
+        return (v1 === v2) ? options.fn(this) : options.inverse(this);
+    case '!=':
+        return (v1 != v2) ? options.fn(this) : options.inverse(this);
+    case '!==':
+        return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+    case '<':
+        return (v1 < v2) ? options.fn(this) : options.inverse(this);
+    case '<=':
+        return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+    case '>':
+        return (v1 > v2) ? options.fn(this) : options.inverse(this);
+    case '>=':
+        return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+    case '&&':
+        return (v1 && v2) ? options.fn(this) : options.inverse(this);
+    case '||':
+        return (v1 || v2) ? options.fn(this) : options.inverse(this);
+    default:
+        return options.inverse(this);
+  }
+});
+
+document.addEventListener("turbolinks:load", function() {
+  $("#listsSort").parents("form").submit(function(event) {
+    event.preventDefault();
+    $.get("/lists" + ".json", function(data) {
+      let template = Handlebars.compile(document.getElementById("lists-template").innerHTML);
+      let result = template(data);
+      $("#new-list-json").html(result);
+    })
+  });
+});
