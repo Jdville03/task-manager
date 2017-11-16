@@ -45,7 +45,6 @@ document.addEventListener("turbolinks:load", function() {
   });
 });
 
-
 // renders lists index via jQuery and an Active Model Serialization JSON backend
 
 // block helper to allow use of comparison operator in Handlebars template

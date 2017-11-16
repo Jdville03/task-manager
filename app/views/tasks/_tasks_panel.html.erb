@@ -38,7 +38,50 @@
   </div>
 </div>
 
-<!-- script tag to display JSON response -->
+<!-- script tag to display JSON response for tasks on list show page -->
+<script id="tasks-template" type="text/x-handlebars-template">
+  <%# display_sorted_tasks(@list) %>
+  {{#each this}}
+  {{#if status}}
+  <li class="list-group-item completed">
+  {{else}}
+  <li class="list-group-item">
+  {{/if}}
+    <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list_id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
+      <input name="utf8" type="hidden" value="✓">
+      <input type="hidden" name="_method" value="patch">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <input name="task[status]" type="hidden" value="0">
+      {{#if status}}
+      <input class="toggle-status" type="checkbox" value="1" checked="checked" name="task[status]" id="task_status">
+      {{else}}
+      <input class="toggle-status" type="checkbox" value="1" name="task[status]" id="task_status">
+      {{/if}}
+    </form>
+    <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list_id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
+      <input name="utf8" type="hidden" value="✓">
+      <input type="hidden" name="_method" value="patch">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <input name="task[priority]" type="hidden" value="0">
+      {{#if priority}}
+      <input class="toggle-priority" type="checkbox" value="1" checked="checked" name="task[priority]" id="task_priority">
+      {{else}}
+      <input class="toggle-priority" type="checkbox" value="1" name="task[priority]" id="task_priority">
+      {{/if}}
+    </form>
+    <span class="task-description">{{description}}</span>
+    <span class="task-icons"></span>
+    <a class="btn btn-link edit-task" href="/lists/{{list_id}}/tasks/{{id}}/edit">
+      <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+    </a>
+    <a class="btn btn-link destroy" data-confirm="Do you really want to delete this task?" rel="nofollow" data-method="delete" href="/lists/{{list_id}}/tasks/{{id}}">
+      <i class="fa fa-times fa-fw" aria-hidden="true"></i>
+    </a>
+  </li>
+  {{/each}}
+</script>
+
+<!-- script tag to display JSON response for new task -->
 <script id="task-template" type="text/x-handlebars-template">
   <li class="list-group-item">
     <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list_id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
@@ -60,7 +103,7 @@
     <a class="btn btn-link edit-task" href="/lists/{{list_id}}/tasks/{{id}}/edit">
       <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
     </a>
-    <a class="btn btn-link destroy" data-confirm="Do you really want to delete the ORANGE JUICE task?" rel="nofollow" data-method="delete" href="/lists/{{list_id}}/tasks/{{id}}">
+    <a class="btn btn-link destroy" data-confirm="Do you really want to delete this task?" rel="nofollow" data-method="delete" href="/lists/{{list_id}}/tasks/{{id}}">
       <i class="fa fa-times fa-fw" aria-hidden="true"></i>
     </a>
   </li>

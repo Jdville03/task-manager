@@ -48,3 +48,21 @@ document.addEventListener("turbolinks:load", function() {
     });
   });
 });
+
+// renders tasks on list show page via jQuery and an Active Model Serialization JSON backend (list has_many tasks)
+
+document.addEventListener("turbolinks:load", function() {
+  $("#task_sort").parents("form").submit(function(event) {
+    event.preventDefault();
+    let task_sort_value = $(this).serialize();
+    let url = this.action;
+    $.get(url + ".json", task_sort_value, function(data) {
+      // alert(task_sort_value);
+      let template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
+      let tasks = data.tasks
+      // alert(tasks);
+      let result = template(tasks);
+      $("#edit-selected").html(result);
+    });
+  });
+});
