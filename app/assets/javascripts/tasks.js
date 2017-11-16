@@ -1,6 +1,8 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
+// creates new task via an AJAX POST request and translates JSON response into JS model object which is rendered via Handlebars template
+
 function Task(attributes) {
   this.id = attributes.id;
   this.description = attributes.description;
