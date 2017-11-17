@@ -19,7 +19,7 @@ Task.prototype.renderLI = function() {
 }
 
 document.addEventListener("turbolinks:load", function() {
-  $('#new_task').submit(function(event) {
+  $("#task_description").parents("form").submit(function(event) {
     event.preventDefault();
     let values = $(this).serialize();
     let posting = $.post(this.action, values);
@@ -49,19 +49,51 @@ document.addEventListener("turbolinks:load", function() {
   });
 });
 
-// renders tasks on list show page via jQuery and an Active Model Serialization JSON backend (list has_many tasks)
 
+// helper to display task name in delete alert
+Handlebars.registerHelper('task_description_upper_case', function() {
+  return new Handlebars.SafeString(this.description.toUpperCase());
+});
+
+// helper to display user initials for task user icon
+Handlebars.registerHelper('display_icon_with_user_initials', function() {
+  let userInitials = this.assigned_user.name.replace(/\W*(\w)\w*/g, '$1').toUpperCase();
+  return new Handlebars.SafeString("<span class='label label-success'><i class='fa fa-user-circle fa-fw' aria-hidden='true'></i>" + userInitials + "</span>");
+});
+
+// helper to display task due date
+Handlebars.registerHelper('display_task_due_date', function() {
+  if (new Date() > this.due_date && this.status === 0) {
+    return new Handlebars.SafeString(`Overdue ${this.due_date}`);
+  } else if (new Date() === this.due_date) {
+    return new Handlebars.SafeString("Due today");
+  } else if (new Date().setDate(new Date().getDate() + 1) === this.due_date) {
+    return new Handlebars.SafeString("Due tomorrow");
+  } else {
+    return new Handlebars.SafeString(`Due on ${this.due_date}`);
+  }
+});
+
+// helper to display due date icon
+Handlebars.registerHelper('display_due_date_icon', function() {
+  if (new Date() > this.due_date) {
+    return new Handlebars.SafeString("fa fa-calendar-times-o fa-fw text-danger");
+  } else if (new Date() === this.due_date) {
+    return new Handlebars.SafeString("fa fa-calendar-check-o fa-fw text-warning");
+  } else {
+    return new Handlebars.SafeString("fa fa-calendar-o fa-fw");
+  }
+});
+
+// renders tasks index on list show page via jQuery and an Active Model Serialization JSON backend
 document.addEventListener("turbolinks:load", function() {
   $("#task_sort").parents("form").submit(function(event) {
     event.preventDefault();
     let task_sort_value = $(this).serialize();
     let url = this.action;
-    $.get(url + ".json", task_sort_value, function(data) {
-      // alert(task_sort_value);
+    $.get(url + "/tasks.json", task_sort_value, function(data) {
       let template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
-      let tasks = data.tasks
-      // alert(tasks);
-      let result = template(tasks);
+      let result = template(data);
       $("#edit-selected").html(result);
     });
   });

@@ -2,7 +2,12 @@ class TasksController < ApplicationController
   before_action :require_logged_in
 
   def index
-    display_sorted_lists
+    if list = List.find_by_id(params[:list_id])
+      display_sorted_tasks(list)
+      render json: @tasks
+    else
+      display_sorted_lists
+    end
   end
 
 # placeholder action for task json
@@ -14,10 +19,7 @@ class TasksController < ApplicationController
   def create
     @list = List.find(params[:list_id])
     @task = @list.tasks.create(task_params)
-    respond_to do |format|
-      format.json { render json: @task, status: 201 }
-      format.html { redirect_back(fallback_location: list_path(@list)) }
-    end
+    render json: @task, status: 201
   end
 
   def edit

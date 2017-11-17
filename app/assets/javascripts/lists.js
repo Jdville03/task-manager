@@ -45,35 +45,6 @@ document.addEventListener("turbolinks:load", function() {
   });
 });
 
-// renders lists index via jQuery and an Active Model Serialization JSON backend
-
-// block helper to allow use of comparison operator in Handlebars template
-Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
-  switch (operator) {
-    case '==':
-        return (v1 == v2) ? options.fn(this) : options.inverse(this);
-    case '===':
-        return (v1 === v2) ? options.fn(this) : options.inverse(this);
-    case '!=':
-        return (v1 != v2) ? options.fn(this) : options.inverse(this);
-    case '!==':
-        return (v1 !== v2) ? options.fn(this) : options.inverse(this);
-    case '<':
-        return (v1 < v2) ? options.fn(this) : options.inverse(this);
-    case '<=':
-        return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-    case '>':
-        return (v1 > v2) ? options.fn(this) : options.inverse(this);
-    case '>=':
-        return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-    case '&&':
-        return (v1 && v2) ? options.fn(this) : options.inverse(this);
-    case '||':
-        return (v1 || v2) ? options.fn(this) : options.inverse(this);
-    default:
-        return options.inverse(this);
-  }
-});
 
 // helper to display number of incomplete tasks in lists index template
 Handlebars.registerHelper('number_of_incomplete_tasks', function() {
@@ -85,6 +56,7 @@ Handlebars.registerHelper('number_of_incomplete_tasks', function() {
   }
 });
 
+// renders lists index via jQuery and an Active Model Serialization JSON backend
 document.addEventListener("turbolinks:load", function() {
   $("#listsSort").parents("form").submit(function(event) {
     event.preventDefault();
