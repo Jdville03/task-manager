@@ -61,24 +61,33 @@ Handlebars.registerHelper('display_icon_with_user_initials', function() {
   return new Handlebars.SafeString("<span class='label label-success'><i class='fa fa-user-circle fa-fw' aria-hidden='true'></i>" + userInitials + "</span>");
 });
 
-// helper to display task due date
-Handlebars.registerHelper('display_task_due_date', function() {
-  if (new Date() > this.due_date && this.status === 0) {
-    return new Handlebars.SafeString(`Overdue ${this.due_date}`);
-  } else if (new Date() === this.due_date) {
+// helper to display task due date in calendar tooltip
+Handlebars.registerHelper('display_calendar_tooltip', function() {
+  let today = new Date(new Date().setHours(0, 0, 0, 0));
+  let tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+  let due_date = this.due_date.replace(/-/g, '/');
+  let due_date_object = new Date(due_date);
+
+  if (today > due_date_object && this.status === 0) {
+    return new Handlebars.SafeString(`Overdue ${due_date}`);
+  } else if (today.getTime() === due_date_object.getTime()) {
     return new Handlebars.SafeString("Due today");
-  } else if (new Date().setDate(new Date().getDate() + 1) === this.due_date) {
+  } else if (tomorrow.getTime() === due_date_object.getTime()) {
     return new Handlebars.SafeString("Due tomorrow");
   } else {
-    return new Handlebars.SafeString(`Due on ${this.due_date}`);
+    return new Handlebars.SafeString(`Due on ${due_date}`);
   }
 });
 
-// helper to display due date icon
-Handlebars.registerHelper('display_due_date_icon', function() {
-  if (new Date() > this.due_date) {
+// helper to display task due date icon
+Handlebars.registerHelper('display_calendar_icon', function() {
+  let today = new Date(new Date().setHours(0, 0, 0, 0));
+  let due_date = this.due_date.replace(/-/g, '/');
+  let due_date_object = new Date(due_date);
+
+  if (today > due_date_object) {
     return new Handlebars.SafeString("fa fa-calendar-times-o fa-fw text-danger");
-  } else if (new Date() === this.due_date) {
+  } else if (today.getTime() === due_date_object.getTime()) {
     return new Handlebars.SafeString("fa fa-calendar-check-o fa-fw text-warning");
   } else {
     return new Handlebars.SafeString("fa fa-calendar-o fa-fw");

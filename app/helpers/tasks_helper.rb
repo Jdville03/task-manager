@@ -34,13 +34,13 @@ module TasksHelper
 
   def calendar_tooltip(task)
     if (Time.zone.today > task.due_date) && task.incomplete?
-      "Overdue #{task.due_date.strftime('%m/%d/%Y')}"
+      "Overdue #{task.due_date.strftime('%Y/%m/%d')}"
     elsif Time.zone.today == task.due_date
       "Due today"
     elsif Time.zone.tomorrow == task.due_date
       "Due tomorrow"
     else
-      "Due on #{task.due_date.strftime('%m/%d/%Y')}"
+      "Due on #{task.due_date.strftime('%Y/%m/%d')}"
     end
   end
 
