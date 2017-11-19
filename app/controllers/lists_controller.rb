@@ -13,6 +13,7 @@ class ListsController < ApplicationController
 
   def show
     display_sorted_lists
+    display_sorted_tasks(@list)
     @task = Task.new
     respond_to do |format|
       format.html { render :show }
@@ -24,7 +25,6 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
     if @list.save
       current_user.user_lists.create(list: @list, permission: "owner")
-      # redirect_to list_path(@list)
       render json: @list, status: 201
     else
       display_sorted_lists
@@ -34,6 +34,7 @@ class ListsController < ApplicationController
 
   def edit
     display_sorted_lists
+    display_sorted_tasks(@list)
     @task = Task.new
   end
 
