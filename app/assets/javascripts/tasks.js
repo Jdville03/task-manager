@@ -29,9 +29,12 @@ document.addEventListener("turbolinks:load", function() {
       let task = new Task(data);
       let taskLI = task.renderLI();
       if (task.description) {
+        if ($("#task_sort").prop("disabled")) {
+          $("#task_sort").prop("disabled", false);
+        }
         $("#edit-selected").append(taskLI);
         document.getElementById("new_task").reset();
-
+        
         // update incomplete tasks counter in list show view
         let element = document.getElementById("number-of-incomplete-tasks");
         if (element) {

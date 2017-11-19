@@ -9,7 +9,7 @@
       <%= @list.name %>
     </span>
     <%= form_tag(url_for_tasks_sort_form_for_list, method: "get", class: "pull-right") do %>
-      <%= select_tag_for_tasks_sort_form_for_list(@list) %>
+      <%= select_tag :task_sort, options_for_select_for_tasks_sort_select_tag(@list), class: "edit-input", disabled: @list.tasks.empty? %>
     <% end %>
   </div>
   <div class="panel-body">

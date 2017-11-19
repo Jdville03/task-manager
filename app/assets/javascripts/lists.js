@@ -73,6 +73,6 @@ document.addEventListener("turbolinks:load", function() {
       let resultNav = templateNav(data);
       $("#new-list-json").html(result);
       $("#new-list-nav-json").html(resultNav);
-    })
+    });
   });
 });
