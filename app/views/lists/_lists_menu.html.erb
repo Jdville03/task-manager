@@ -20,7 +20,17 @@
   </li>
 <% end %>
 
-<!-- script tag to display JSON response -->
+<!-- script tag to display JSON response for lists index -->
+<script id="lists-template-lists-nav" type="text/x-handlebars-template">
+  {{#each this}}
+    <a href="/lists/{{id}}" class="list-group-item">
+      {{number_of_incomplete_tasks}}
+      {{name}}
+    </a>
+  {{/each}}
+</script>
+
+<!-- script tag to display JSON response for new list -->
 <script id="list-template-lists-nav" type="text/x-handlebars-template">
   <a href="/lists/{{id}}" class="list-group-item">
     <span class="badge"></span>

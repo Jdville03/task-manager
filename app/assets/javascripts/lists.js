@@ -39,6 +39,7 @@ document.addEventListener("turbolinks:load", function() {
           $("#new-list-nav-json").append(listLinkNav);
         } else {
           $("#new-list-nav-json").html(listLinkNav);
+          $("#listsSort").prop("disabled", false);
         }
       }
     });
@@ -63,10 +64,11 @@ document.addEventListener("turbolinks:load", function() {
     let list_sort_value = $(this).serialize();
     $.get("/lists" + ".json", list_sort_value, function(data) {
       let template = Handlebars.compile(document.getElementById("lists-template").innerHTML);
+      let templateNav = Handlebars.compile(document.getElementById("lists-template-lists-nav").innerHTML);
       let result = template(data);
-      if ($("#new-list-json")) {
-        $("#new-list-json").html(result);
-      }
+      let resultNav = templateNav(data);
+      $("#new-list-json").html(result);
+      $("#new-list-nav-json").html(resultNav);
     })
   });
 });
