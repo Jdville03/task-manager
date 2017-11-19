@@ -50,6 +50,20 @@ document.addEventListener("turbolinks:load", function() {
 });
 
 
+// helper to select class for task list item
+Handlebars.registerHelper('li_class_for_task', function() {
+  let window_url_array = window.location.pathname.split('/');
+  let window_list_id = window_url_array[2];
+  let window_task_id = window_url_array[4];
+  if (this.status === 1 && this.list_id === parseInt(window_list_id) && this.id === parseInt(window_task_id)) {
+    return new Handlebars.SafeString("completed selected");
+  } else if (this.status === 1) {
+    return new Handlebars.SafeString("completed");
+  } else if (this.list_id === parseInt(window_list_id) && this.id === parseInt(window_task_id)) {
+    return new Handlebars.SafeString("selected");
+  }
+});
+
 // helper to display task name in delete alert
 Handlebars.registerHelper('task_description_upper_case', function() {
   return new Handlebars.SafeString(this.description.toUpperCase());

@@ -41,11 +41,7 @@
 <!-- script tag to display JSON response for tasks on list show page -->
 <script id="tasks-template" type="text/x-handlebars-template">
   {{#each this}}
-    {{#if status}}
-      <li class="list-group-item completed">
-    {{else}}
-      <li class="list-group-item">
-    {{/if}}
+    <li class="list-group-item {{li_class_for_task}}">
       <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list.id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
         <input name="utf8" type="hidden" value="✓">
         <input type="hidden" name="_method" value="patch">
