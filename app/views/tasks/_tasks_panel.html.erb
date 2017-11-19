@@ -14,7 +14,7 @@
     <% end %>
   </div>
   <div class="panel-body">
-    <%= form_for([@list, @task], :url => list_tasks_path(@list), :html => { :method => :post }) do |f| %>
+    <%= form_for([@list, @task], :url => list_tasks_path(@list), :html => { :id => "new_task", :method => :post }) do |f| %>
       <div class="form-group form-group-in-panel">
         <div class="input-group">
           <%= f.text_field :description, autofocus: true, placeholder: "Create new task", class: "form-control", 'aria-describedby': "new-task-addon", value: "" %>
