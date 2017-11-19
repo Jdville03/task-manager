@@ -10,8 +10,10 @@ function Task(attributes) {
 }
 
 document.addEventListener("turbolinks:load", function() {
-  Task.templateSource = document.getElementById("task-template").innerHTML;
-  Task.template = Handlebars.compile(Task.templateSource);
+  if (document.getElementById("task-template")) {
+    Task.templateSource = document.getElementById("task-template").innerHTML;
+    Task.template = Handlebars.compile(Task.templateSource);
+  }
 });
 
 Task.prototype.renderLI = function() {

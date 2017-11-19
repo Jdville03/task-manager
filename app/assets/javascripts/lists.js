@@ -9,10 +9,14 @@ function List(attributes) {
 }
 
 document.addEventListener("turbolinks:load", function() {
-  List.templateSource = document.getElementById("list-template").innerHTML;
-  List.template = Handlebars.compile(List.templateSource);
-  List.templateSourceNav = document.getElementById("list-template-lists-nav").innerHTML;
-  List.templateNav = Handlebars.compile(List.templateSourceNav);
+  if (document.getElementById("list-template")) {
+    List.templateSource = document.getElementById("list-template").innerHTML;
+    List.template = Handlebars.compile(List.templateSource);
+  }
+  if (document.getElementById("list-template-lists-nav")) {
+    List.templateSourceNav = document.getElementById("list-template-lists-nav").innerHTML;
+    List.templateNav = Handlebars.compile(List.templateSourceNav);
+  }
 });
 
 List.prototype.renderLink = function() {
