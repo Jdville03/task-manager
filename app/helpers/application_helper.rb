@@ -35,7 +35,7 @@ module ApplicationHelper
     end
   end
 
-  def if_for_lists_sort_input
+  def id_for_lists_sort_input
     "listsSort" if current_page?(root_path) || current_page?(lists_path)
   end
 

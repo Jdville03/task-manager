@@ -40,7 +40,7 @@
             <div class="form-group">
               <label for="listsSort">Lists</label>
               <%= form_tag(url_for_lists_sort_form, method: "get") do %>
-                <%= select_tag :list_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Incomplete Tasks"], selected: session[:list_sort]), class: "edit-input form-control", id: if_for_lists_sort_input %>
+                <%= select_tag :list_sort, options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Incomplete Tasks"], selected: session[:list_sort]), class: "edit-input form-control", id: id_for_lists_sort_input %>
               <% end %>
             </div>
           <% end %>
