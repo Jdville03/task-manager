@@ -99,8 +99,9 @@ document.addEventListener("turbolinks:load", function() {
   $("#task_sort").parents("form").submit(function(event) {
     event.preventDefault();
     let task_sort_value = $(this).serialize();
-    let url = this.action;
-    $.get(url + "/tasks.json", task_sort_value, function(data) {
+    let url_list_id = this.action.split('/')[4];
+    let url = `/lists/${url_list_id}/tasks.json`;
+    $.get(url, task_sort_value, function(data) {
       let template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
       let result = template(data);
       $("#edit-selected").html(result);
