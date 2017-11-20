@@ -2,12 +2,7 @@ class TasksController < ApplicationController
   before_action :require_logged_in
 
   def index
-    if list = List.find_by_id(params[:list_id])
-      display_sorted_tasks(list)
-      render json: @tasks
-    else
-      display_sorted_lists
-    end
+    display_sorted_lists
   end
 
 # placeholder action for task json

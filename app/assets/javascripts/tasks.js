@@ -34,7 +34,7 @@ document.addEventListener("turbolinks:load", function() {
         }
         $("#edit-selected").append(taskLI);
         document.getElementById("new_task").reset();
-        
+
         // update incomplete tasks counter in list show view
         let element = document.getElementById("number-of-incomplete-tasks");
         if (element) {
@@ -113,16 +113,16 @@ Handlebars.registerHelper('display_calendar_icon', function() {
   }
 });
 
-// renders tasks index on list show page via jQuery and an Active Model Serialization JSON backend
+// renders tasks (from has_many relationship in list JSON) on list show page via jQuery and an Active Model Serialization JSON backend 
 document.addEventListener("turbolinks:load", function() {
   $("#task_sort").parents("form").submit(function(event) {
     event.preventDefault();
     let task_sort_value = $(this).serialize();
     let url_list_id = this.action.split('/')[4];
-    let url = `/lists/${url_list_id}/tasks.json`;
+    let url = `/lists/${url_list_id}.json`;
     $.get(url, task_sort_value, function(data) {
       let template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
-      let result = template(data);
+      let result = template(data.tasks);
       $("#edit-selected").html(result);
     });
   });

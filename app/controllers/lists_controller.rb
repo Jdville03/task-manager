@@ -17,7 +17,7 @@ class ListsController < ApplicationController
     @task = Task.new
     respond_to do |format|
       format.html { render :show }
-      format.json { render json: @list}
+      format.json { render json: @list, task_sort_option: session[:task_sort], display_tasks_option: session[:display_tasks_option] }
     end
   end
 
