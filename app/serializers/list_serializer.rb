@@ -1,5 +1,6 @@
 class ListSerializer < ActiveModel::Serializer
   attributes :id, :name
+  has_many :users
   has_many :tasks
 
   def tasks
@@ -20,5 +21,4 @@ class ListSerializer < ActiveModel::Serializer
     end
   end
 
-  has_many :users
 end
