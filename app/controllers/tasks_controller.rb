@@ -22,7 +22,11 @@ class TasksController < ApplicationController
     display_sorted_lists
     display_sorted_tasks(@list)
     @task = Task.find_by_id(params[:id])
-    redirect_to list_path(@list) if @task.nil?
+    redirect_to list_path(@list) and return if @task.nil?
+    respond_to do |format|
+      format.html { render :edit }
+      format.json { render json: @task}
+    end
   end
 
   def update

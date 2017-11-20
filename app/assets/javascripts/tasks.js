@@ -113,7 +113,7 @@ Handlebars.registerHelper('display_calendar_icon', function() {
   }
 });
 
-// renders tasks (from has_many relationship in list JSON) on list show page via jQuery and an Active Model Serialization JSON backend 
+// renders tasks (from has_many relationship in list JSON) on list show page via jQuery and an Active Model Serialization JSON backend
 document.addEventListener("turbolinks:load", function() {
   $("#task_sort").parents("form").submit(function(event) {
     event.preventDefault();
@@ -124,6 +124,76 @@ document.addEventListener("turbolinks:load", function() {
       let template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
       let result = template(data.tasks);
       $("#edit-selected").html(result);
+    });
+  });
+});
+
+
+// helper to display users options for assign user to task selection
+Handlebars.registerHelper('display_users_options', function() {
+  let optionsHTML = "<option value>None</option>";
+  let assignedUserId;
+  if (this.assigned_user) {
+    assignedUserId = this.assigned_user.id;
+  }
+  this.users.forEach(function(user) {
+    if (user.id === assignedUserId) {
+      optionsHTML += `<option selected='selected' value='${user.id}'>${user.name}</option>`;
+    } else {
+      optionsHTML += `<option value='${user.id}'>${user.name}</option>`;
+    }
+  });
+  return new Handlebars.SafeString(optionsHTML);
+});
+
+// helper to set minimum date for task due date input
+Handlebars.registerHelper('yesterday', function() {
+  let today = new Date(new Date().setHours(0, 0, 0, 0));
+  let yesterday = new Date(today.getTime() - (24 * 60 * 60 * 1000));
+
+  function formatDate(date) {
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    let year = date.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
+  }
+
+  return new Handlebars.SafeString(formatDate(yesterday));
+});
+
+// helper to display lists options for move task to another list selection
+Handlebars.registerHelper('display_lists_options', function() {
+  let optionsHTML = "";
+  let listId = this.list_id;
+
+  $.get('/lists.json', function(data) {
+    data.forEach(function(list) {
+      if (list.id === listId) {
+        optionsHTML += `<option selected='selected' value='${list.id}'>${list.name}</option>`;
+      } else {
+        optionsHTML += `<option value='${list.id}'>${list.name}</option>`;
+      }
+    });
+  });
+  return new Handlebars.SafeString(optionsHTML);
+  // return new Handlebars.SafeString("<option value='1'>House</option><option value='2'>Yard</option><option selected='selected' value='3'>Groceries</option><option value='4'>Work</option><option value='5'>Winter clothes</option><option value='14'>1 list</option><option value='18'>0 list</option><option value='23'>2 list</option><option value='24'>Z list</option>");
+});
+
+// renders task edit panel via jQuery and an Active Model Serialization JSON backend
+document.addEventListener("turbolinks:load", function() {
+  $(".js-next").on("click", function(event) {
+    event.preventDefault();
+    let nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    let listId = $(".js-next").attr("data-list-id");
+    $.get(`/lists/${listId}/tasks/${nextId}/edit.json`, function(data) {
+      let template = Handlebars.compile(document.getElementById("task-edit-template").innerHTML);
+      let result = template(data);
+      $("#edit-task-json").html(result);
+
+      // re-set the id to current on the link
+      $(".js-next").attr("data-id", data.id);
     });
   });
 });
