@@ -36,19 +36,19 @@ class ApplicationController < ActionController::Base
     def display_sorted_tasks(list)
       session[:task_sort] = params[:task_sort] if params[:task_sort]
       if session[:task_sort] == "Sort Alphabetically"
-        tasks = list.tasks.sorted_alphabetically
+        sorted_tasks = list.tasks.sorted_alphabetically
       elsif session[:task_sort] == "Sort by Priority"
-        tasks = list.tasks.sorted_by_priority
+        sorted_tasks = list.tasks.sorted_by_priority
       elsif session[:task_sort] == "Sort by Assignee"
-        tasks = list.tasks.sorted_by_assignee
+        sorted_tasks = list.tasks.sorted_by_assignee
       else
-        tasks = list.tasks.sorted_by_creation_date
+        sorted_tasks = list.tasks.sorted_by_creation_date
       end
       session[:display_tasks_option] = params[:display_tasks_option] if params[:display_tasks_option]
       if session[:display_tasks_option] == "1"
-        @tasks = tasks
+        @tasks = sorted_tasks
       else
-        @tasks = tasks.incomplete
+        @tasks = sorted_tasks.incomplete
       end
     end
 
