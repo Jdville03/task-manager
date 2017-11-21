@@ -168,8 +168,14 @@ Handlebars.registerHelper('display_lists_options', function() {
   let optionsHTML = "";
   let listId = this.list_id;
 
-  $.get('/lists.json', function(data) {
-    data.forEach(function(list) {
+  var request = $.ajax({
+    url: "/lists",
+    dataType: "json",
+    async: false
+  });
+
+  request.done(function(lists) {
+    lists.forEach(function(list) {
       if (list.id === listId) {
         optionsHTML += `<option selected='selected' value='${list.id}'>${list.name}</option>`;
       } else {
@@ -177,23 +183,31 @@ Handlebars.registerHelper('display_lists_options', function() {
       }
     });
   });
+
   return new Handlebars.SafeString(optionsHTML);
-  // return new Handlebars.SafeString("<option value='1'>House</option><option value='2'>Yard</option><option selected='selected' value='3'>Groceries</option><option value='4'>Work</option><option value='5'>Winter clothes</option><option value='14'>1 list</option><option value='18'>0 list</option><option value='23'>2 list</option><option value='24'>Z list</option>");
 });
 
-// renders task edit panel via jQuery and an Active Model Serialization JSON backend
+// renders task edit panel via jQuery and an Active Model Serialization JSON backend (through list JSON)
 document.addEventListener("turbolinks:load", function() {
   $(".js-next").on("click", function(event) {
     event.preventDefault();
-    let nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    let currentId = parseInt($(".js-next").attr("data-id"));
     let listId = $(".js-next").attr("data-list-id");
-    $.get(`/lists/${listId}/tasks/${nextId}/edit.json`, function(data) {
+    $.get(`/lists/${listId}.json`, function(data) {
+      let tasks = data.tasks;
+      let tasksIds = tasks.map(function(task) {
+        return task.id;
+      })
+      let currentTaskIndex = tasksIds.indexOf(currentId);
+      let nextTaskIndex = currentTaskIndex + 1;
+      let nextTask = tasks[nextTaskIndex];
+
       let template = Handlebars.compile(document.getElementById("task-edit-template").innerHTML);
-      let result = template(data);
+      let result = template(nextTask);
       $("#edit-task-json").html(result);
 
       // re-set the id to current on the link
-      $(".js-next").attr("data-id", data.id);
+      $(".js-next").attr("data-id", nextTask.id);
     });
   });
 });
