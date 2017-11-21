@@ -1,5 +1,5 @@
 <% if task.valid? %>
-  <li class="list-group-item <%= li_class_for_task(task) %>">
+  <li class="list-group-item <%= li_class_for_task(task) %>" id="task-<%= task.id %>">
     <%= form_for_task_status(task) %>
     <%= form_for_task_priority(task) %>
     <span class="task-description"><%= task.description %></span>

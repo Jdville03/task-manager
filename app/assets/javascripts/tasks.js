@@ -202,6 +202,10 @@ document.addEventListener("turbolinks:load", function() {
         let result = template(nextTask);
         $("#edit-task-json").html(result);
 
+        // update class for task LI
+        $(`#task-${currentId}`).removeClass("selected");
+        $(`#task-${nextTask.id}`).addClass("selected");
+
         // re-set the id to current on the link
         $(".js-next").attr("data-id", nextTask.id);
       }
