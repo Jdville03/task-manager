@@ -32,16 +32,6 @@ module ListsHelper
     list.tasks.incomplete.due_today.count
   end
 
-  def url_for_tasks_sort_form_for_list
-    if current_page?(list_path(@list))
-      list_path(@list)
-    elsif current_page?(edit_list_path(@list))
-      edit_list_path(@list)
-    elsif current_page?(controller: 'tasks', action: 'edit', :list_id => params[:list_id], :id => params[:id])
-      edit_list_task_path(@list, @task)
-    end
-  end
-
   def options_for_select_for_tasks_sort_select_tag(list)
     if list.shared_list?
       options_for_select(["Sort by Creation Date", "Sort Alphabetically", "Sort by Priority", "Sort by Assignee"], selected: session[:task_sort])
