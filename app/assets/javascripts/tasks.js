@@ -194,15 +194,17 @@ document.addEventListener("turbolinks:load", function() {
         return task.id;
       })
       let currentTaskIndex = tasksIds.indexOf(currentId);
-      let nextTaskIndex = currentTaskIndex + 1;
-      let nextTask = tasks[nextTaskIndex];
+      if (currentTaskIndex < tasks.length - 1) {
+        let nextTaskIndex = currentTaskIndex + 1;
+        let nextTask = tasks[nextTaskIndex];
 
-      let template = Handlebars.compile(document.getElementById("task-edit-template").innerHTML);
-      let result = template(nextTask);
-      $("#edit-task-json").html(result);
+        let template = Handlebars.compile(document.getElementById("task-edit-template").innerHTML);
+        let result = template(nextTask);
+        $("#edit-task-json").html(result);
 
-      // re-set the id to current on the link
-      $(".js-next").attr("data-id", nextTask.id);
+        // re-set the id to current on the link
+        $(".js-next").attr("data-id", nextTask.id);
+      }
     });
   });
 });
