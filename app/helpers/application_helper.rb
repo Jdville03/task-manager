@@ -27,14 +27,6 @@ module ApplicationHelper
     end
   end
 
-  def url_for_lists_sort_form
-    if current_page?(root_path) || current_page?(lists_path)
-      lists_path
-    elsif current_page?(tasks_path)
-      tasks_path
-    end
-  end
-
   def id_for_lists_sort_input
     "listsSort" if current_page?(root_path) || current_page?(lists_path)
   end
