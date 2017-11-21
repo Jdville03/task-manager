@@ -14,10 +14,10 @@
       <%= form_for_task_priority(@task) %>
       <span class="task-description"><%= @task.description %></span>
     </li>
-  <%= form_for([@list, @task]) do |f| %>
+  <%= form_for([@list, @task], :html => { :id => "edit_task_#{@task.id}_panel" }) do |f| %>
     <li class="list-group-item">
       <div class="form-group form-group-in-panel">
-        <%= f.text_field :description, placeholder: "Task name", class: "form-control edit-input" %>
+        <%= f.text_field :description, placeholder: "Task name", class: "form-control edit-input taskDescription" %>
       </div>
     </li>
     <% if @list.shared_list? %>
@@ -26,7 +26,7 @@
           <%= f.label :user_id, "Assign user <small>(optional)</small>".html_safe %>
           <div class="input-group">
             <span class="input-group-addon" id="assigned-user-addon"><i class="fa fa-user-o fa-fw"></i></span>
-            <%= f.collection_select :user_id, @task.users.sorted_by_id, :id, :name, {include_blank: "None"}, {class: "form-control edit-input"} %>
+            <%= f.collection_select :user_id, @task.users.sorted_by_id, :id, :name, {include_blank: "None"}, {class: "form-control edit-input usersOptions"} %>
           </div>
         </div>
       </li>
@@ -36,7 +36,7 @@
         <%= f.label :due_date, "Set due date <small>(optional)</small>".html_safe %>
         <div class="input-group">
           <span class="input-group-addon" id="due-date-addon"><i class="fa fa-calendar fa-fw"></i></span>
-          <%= f.date_field :due_date, min: Time.zone.yesterday, class: "form-control edit-input", 'aria-describedby': "due-date-addon" %>
+          <%= f.date_field :due_date, min: Time.zone.yesterday, class: "form-control edit-input taskDueDate", 'aria-describedby': "due-date-addon" %>
         </div>
       </div>
     </li>
@@ -45,7 +45,7 @@
         <%= f.label :note, "Add note <small>(optional)</small>".html_safe %>
         <div class="input-group">
           <span class="input-group-addon" id="note-addon"><i class="fa fa-pencil-square-o fa-fw"></i></span>
-          <%= f.text_area :note, rows: "4", placeholder: "Add note", class: "form-control edit-input", 'aria-describedby': "note-addon" %>
+          <%= f.text_area :note, rows: "4", placeholder: "Add note", class: "form-control edit-input taskNote", 'aria-describedby': "note-addon" %>
         </div>
       </div>
     </li>
@@ -60,14 +60,14 @@
     </li>
   </ul>
   <div class="panel-footer clearfix">
-    <%= link_to "<i class='fa fa-trash-o fa-fw fa-lg text-muted' aria-hidden='true'></i>".html_safe, list_task_path(@list, @task), :method => :delete, :class => "btn btn-link pull-left", "data-confirm" => "Do you really want to delete the #{@task.description.upcase} task?" %>
+    <%= link_to "<i class='fa fa-trash-o fa-fw fa-lg text-muted' aria-hidden='true'></i>".html_safe, list_task_path(@list, @task), :method => :delete, :class => "btn btn-link pull-left", :id => "deleteTask", "data-confirm" => "Do you really want to delete the #{@task.description.upcase} task?" %>
     <%= link_to "Done", list_path(@list), class: "btn btn-primary pull-right" %>
     <%= f.submit :style => "display: none" %>
   </div>
   <% end %>
 </div>
 
-<!-- script tag to display JSON response for edit task -->
+<!-- script tag to display JSON response for part of edit task panel -->
 <script id="task-edit-template" type="text/x-handlebars-template">
   <li class="list-group-item {{li_class_for_task}} clearfix">
     <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list_id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
@@ -94,6 +94,52 @@
     </form>
     <span class="task-description">{{description}}</span>
   </li>
+</script>
+
+<!-- MutationObserver script used to react to changes in DOM -->
+<script>
+  // select the target node
+  var target = document.getElementById("edit-task-json");
+  // create an observer instance
+  var observer = new MutationObserver(function() {
+    $("input.toggle-status,input.toggle-priority,.edit-input,#toggle-event").on("change", function() {
+      $(this).parents("form").trigger("submit");
+    });
+  });
+  // configuration of the observer:
+  var config = { attributes: true, childList: true, characterData: true };
+  // pass in the target node, as well as the observer options
+  observer.observe(target, config);
+</script>
+
+<!-- script tag to display JSON response for edit task -->
+<!-- <script id="task-edit-template" type="text/x-handlebars-template">
+  <li class="list-group-item {{li_class_for_task}} clearfix">
+    <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list_id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
+      <input name="utf8" type="hidden" value="✓">
+      <input type="hidden" name="_method" value="patch">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <input name="task[status]" type="hidden" value="0">
+      {{#if status}}
+        <input class="toggle-status" type="checkbox" value="1" checked="checked" name="task[status]" id="task_status">
+      {{else}}
+        <input class="toggle-status" type="checkbox" value="1" name="task[status]" id="task_status">
+      {{/if}}
+    </form>
+    <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list_id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
+      <input name="utf8" type="hidden" value="✓">
+      <input type="hidden" name="_method" value="patch">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <input name="task[priority]" type="hidden" value="0">
+      {{#if priority}}
+        <input class="toggle-priority" type="checkbox" value="1" checked="checked" name="task[priority]" id="task_priority">
+      {{else}}
+        <input class="toggle-priority" type="checkbox" value="1" name="task[priority]" id="task_priority">
+      {{/if}}
+    </form>
+    <span class="task-description">{{description}}</span>
+  </li>
+
   <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list_id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
     <input name="utf8" type="hidden" value="✓">
     <input type="hidden" name="_method" value="patch">
@@ -155,4 +201,4 @@
     </li>
   </form>
 
-</script>
+</script> -->
