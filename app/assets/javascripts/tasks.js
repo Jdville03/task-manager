@@ -150,7 +150,6 @@ Handlebars.registerHelper('display_users_options', function() {
 Handlebars.registerHelper('yesterday', function() {
   let today = new Date(new Date().setHours(0, 0, 0, 0));
   let yesterday = new Date(today.getTime() - (24 * 60 * 60 * 1000));
-
   function formatDate(date) {
     let month = '' + (date.getMonth() + 1);
     let day = '' + date.getDate();
@@ -159,7 +158,6 @@ Handlebars.registerHelper('yesterday', function() {
     if (day.length < 2) day = '0' + day;
     return [year, month, day].join('-');
   }
-
   return new Handlebars.SafeString(formatDate(yesterday));
 });
 
@@ -167,7 +165,6 @@ Handlebars.registerHelper('yesterday', function() {
 Handlebars.registerHelper('display_lists_options', function() {
   let optionsHTML = "";
   let listId = this.list_id;
-
   $.ajax({
     url: "/lists",
     dataType: "json",
@@ -182,11 +179,10 @@ Handlebars.registerHelper('display_lists_options', function() {
       }
     });
   });
-
   return new Handlebars.SafeString(optionsHTML);
 });
 
-// renders task edit panel via jQuery and an Active Model Serialization JSON backend (through list JSON)
+// renders task edit panel via jQuery and an Active Model Serialization JSON backend (through list has_many tasks association)
 document.addEventListener("turbolinks:load", function() {
   $(".js-next").on("click", function(event) {
     event.preventDefault();
