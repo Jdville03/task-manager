@@ -40,7 +40,7 @@
 <!-- script tag to display JSON response for tasks on list show page -->
 <script id="tasks-template" type="text/x-handlebars-template">
   {{#each this}}
-    <li class="list-group-item {{li_class_for_task}}">
+    <li class="list-group-item {{li_class_for_task}}" id="task-{{id}}">
       <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list_id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
         <input name="utf8" type="hidden" value="✓">
         <input type="hidden" name="_method" value="patch">
@@ -99,7 +99,7 @@
 
 <!-- script tag to display JSON response for new task -->
 <script id="task-template" type="text/x-handlebars-template">
-  <li class="list-group-item">
+  <li class="list-group-item" id="task-{{id}}">
     <form class="edit_task" id="edit_task_{{id}}" action="/lists/{{list_id}}/tasks/{{id}}" accept-charset="UTF-8" method="post">
       <input name="utf8" type="hidden" value="✓">
       <input type="hidden" name="_method" value="patch">
