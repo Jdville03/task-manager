@@ -206,6 +206,9 @@ document.addEventListener("turbolinks:load", function() {
         $(`#task-${currentId}`).removeClass("selected");
         $(`#task-${nextTask.id}`).addClass("selected");
 
+        // update URL
+        history.pushState({}, '', `/lists/${listId}/tasks/${nextTask.id}/edit`);
+
         // re-set the id to current on the link
         $(".js-next").attr("data-id", nextTask.id);
       }

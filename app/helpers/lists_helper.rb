@@ -50,14 +50,4 @@ module ListsHelper
     end
   end
 
-  def url_for_display_tasks_option_form_for_list
-    if current_page?(list_path(@list))
-      list_path(@list)
-    elsif current_page?(edit_list_path(@list))
-      edit_list_path(@list)
-    elsif current_page?(controller: 'tasks', action: 'edit', :list_id => params[:list_id], :id => params[:id])
-      edit_list_task_path(@list, @task)
-    end
-  end
-
 end
