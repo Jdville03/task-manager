@@ -168,13 +168,12 @@ Handlebars.registerHelper('display_lists_options', function() {
   let optionsHTML = "";
   let listId = this.list_id;
 
-  var request = $.ajax({
+  $.ajax({
     url: "/lists",
     dataType: "json",
     async: false
-  });
-
-  request.done(function(lists) {
+  })
+  .success(function(lists) {
     lists.forEach(function(list) {
       if (list.id === listId) {
         optionsHTML += `<option selected='selected' value='${list.id}'>${list.name}</option>`;
