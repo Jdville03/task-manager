@@ -129,65 +129,12 @@ document.addEventListener("turbolinks:load", function() {
 });
 
 
-// helper to display users options for assign user to task selection
-// Handlebars.registerHelper('display_users_options', function() {
-//   let optionsHTML = "<option value>None</option>";
-//   let assignedUserId;
-//   if (this.assigned_user) {
-//     assignedUserId = this.assigned_user.id;
-//   }
-//   this.users.forEach(function(user) {
-//     if (user.id === assignedUserId) {
-//       optionsHTML += `<option selected='selected' value='${user.id}'>${user.name}</option>`;
-//     } else {
-//       optionsHTML += `<option value='${user.id}'>${user.name}</option>`;
-//     }
-//   });
-//   return new Handlebars.SafeString(optionsHTML);
-// });
-
-// helper to set minimum date for task due date input
-// Handlebars.registerHelper('yesterday', function() {
-//   let today = new Date(new Date().setHours(0, 0, 0, 0));
-//   let yesterday = new Date(today.getTime() - (24 * 60 * 60 * 1000));
-//   function formatDate(date) {
-//     let month = '' + (date.getMonth() + 1);
-//     let day = '' + date.getDate();
-//     let year = date.getFullYear();
-//     if (month.length < 2) month = '0' + month;
-//     if (day.length < 2) day = '0' + day;
-//     return [year, month, day].join('-');
-//   }
-//   return new Handlebars.SafeString(formatDate(yesterday));
-// });
-
-// helper to display lists options for move task to another list selection
-// Handlebars.registerHelper('display_lists_options', function() {
-//   let optionsHTML = "";
-//   let listId = this.list_id;
-//   $.ajax({
-//     url: "/lists",
-//     dataType: "json",
-//     async: false
-//   })
-//   .success(function(lists) {
-//     lists.forEach(function(list) {
-//       if (list.id === listId) {
-//         optionsHTML += `<option selected='selected' value='${list.id}'>${list.name}</option>`;
-//       } else {
-//         optionsHTML += `<option value='${list.id}'>${list.name}</option>`;
-//       }
-//     });
-//   });
-//   return new Handlebars.SafeString(optionsHTML);
-// });
-
 // renders task edit panel via jQuery and an Active Model Serialization JSON backend (through list has_many tasks association)
 document.addEventListener("turbolinks:load", function() {
   $(".js-next").on("click", function(event) {
     event.preventDefault();
-    let currentId = parseInt($(".js-next").attr("data-id"));
-    let listId = $(".js-next").attr("data-list-id");
+    let currentId = parseInt($(".js-next").data("id"));
+    let listId = $(".js-next").data("list-id");
     $.get(`/lists/${listId}.json`, function(data) {
       let tasks = data.tasks;
       let tasksIds = tasks.map(function(task) {
@@ -200,11 +147,11 @@ document.addEventListener("turbolinks:load", function() {
 
         let template = Handlebars.compile(document.getElementById("task-edit-template").innerHTML);
         let result = template(nextTask);
-        // $("#edit-task-json").html(result);
-
         $("#edit-task-json li").first().replaceWith(result);
-        $(`#edit_task_${currentId}_panel`).attr("id", `edit_task_${nextTask.id}_panel`);
+
+        $(`#edit_task_${currentId}_panel input[name='authenticity_token']`).val($('meta[name="csrf-token"]').attr('content'));
         $(`#edit_task_${currentId}_panel`).attr("action", `/lists/${listId}/tasks/${nextTask.id}`);
+        $(`#edit_task_${currentId}_panel`).attr("id", `edit_task_${nextTask.id}_panel`);
         $(".taskDescription").val(nextTask.description);
         if (nextTask.users.length > 1) {
           let optionsHTML = "<option value>None</option>";
@@ -234,7 +181,7 @@ document.addEventListener("turbolinks:load", function() {
         history.pushState({}, '', `/lists/${listId}/tasks/${nextTask.id}/edit`);
 
         // re-set the id to current on the link
-        $(".js-next").attr("data-id", nextTask.id);
+        $(".js-next").data("id", nextTask.id);
       }
     });
   });
