@@ -129,12 +129,12 @@ document.addEventListener("turbolinks:load", function() {
 });
 
 
-// renders task edit panel via jQuery and an Active Model Serialization JSON backend (through list has_many tasks association)
+// renders task edit panel via jQuery and an Active Model Serialization JSON backend (through list has_many tasks association) upon clicking next
 document.addEventListener("turbolinks:load", function() {
   $(".js-next").on("click", function(event) {
     event.preventDefault();
-    let currentId = parseInt($(".js-next").data("id"));
-    let listId = $(".js-next").data("list-id");
+    let currentId = parseInt($(".js-next").attr("data-id"));
+    let listId = $(".js-next").attr("data-list-id");
     $.get(`/lists/${listId}.json`, function(data) {
       let tasks = data.tasks;
       let tasksIds = tasks.map(function(task) {
@@ -181,7 +181,68 @@ document.addEventListener("turbolinks:load", function() {
         history.pushState({}, '', `/lists/${listId}/tasks/${nextTask.id}/edit`);
 
         // re-set the id to current on the link
-        $(".js-next").data("id", nextTask.id);
+        $(".js-next").attr("data-id", nextTask.id);
+        $(".js-back").attr("data-id", nextTask.id);
+      }
+    });
+  });
+});
+
+
+// renders task edit panel via jQuery and an Active Model Serialization JSON backend (through list has_many tasks association) upon clicking back
+document.addEventListener("turbolinks:load", function() {
+  $(".js-back").on("click", function(event) {
+    event.preventDefault();
+    let currentId = parseInt($(".js-back").attr("data-id"));
+    let listId = $(".js-back").attr("data-list-id");
+    $.get(`/lists/${listId}.json`, function(data) {
+      let tasks = data.tasks;
+      let tasksIds = tasks.map(function(task) {
+        return task.id;
+      })
+      let currentTaskIndex = tasksIds.indexOf(currentId);
+      if (currentTaskIndex > 0) {
+        let previousTaskIndex = currentTaskIndex - 1;
+        let previousTask = tasks[previousTaskIndex];
+
+        let template = Handlebars.compile(document.getElementById("task-edit-template").innerHTML);
+        let result = template(previousTask);
+        $("#edit-task-json li").first().replaceWith(result);
+
+        $(`#edit_task_${currentId}_panel input[name='authenticity_token']`).val($('meta[name="csrf-token"]').attr('content'));
+        $(`#edit_task_${currentId}_panel`).attr("action", `/lists/${listId}/tasks/${previousTask.id}`);
+        $(`#edit_task_${currentId}_panel`).attr("id", `edit_task_${previousTask.id}_panel`);
+        $(".taskDescription").val(previousTask.description);
+        if (previousTask.users.length > 1) {
+          let optionsHTML = "<option value>None</option>";
+          let assignedUserId;
+          if (previousTask.assigned_user) {
+            assignedUserId = previousTask.assigned_user.id;
+          }
+          previousTask.users.forEach(function(user) {
+            if (user.id === assignedUserId) {
+              optionsHTML += `<option selected='selected' value='${user.id}'>${user.name}</option>`;
+            } else {
+              optionsHTML += `<option value='${user.id}'>${user.name}</option>`;
+            }
+          });
+          $(".usersOptions").html(optionsHTML);
+        }
+        $(".taskDueDate").val(previousTask.due_date);
+        $(".taskNote").val(previousTask.note);
+        $("#deleteTask").data("confirm", `Do you really want to delete the ${previousTask.description.toUpperCase()} task?`);
+        $("#deleteTask").attr("href", `/lists/${listId}/tasks/${previousTask.id}`);
+
+        // update class for task LI
+        $(`#task-${currentId}`).removeClass("selected");
+        $(`#task-${previousTask.id}`).addClass("selected");
+
+        // update URL
+        history.pushState({}, '', `/lists/${listId}/tasks/${previousTask.id}/edit`);
+
+        // re-set the id to current on the link
+        $(".js-back").attr("data-id", previousTask.id);
+        $(".js-next").attr("data-id", previousTask.id);
       }
     });
   });
