@@ -32,7 +32,7 @@
   <div class="panel-footer">
     <%= form_tag(nil, method: "get") do %>
       <%= hidden_field_tag :display_tasks_option, value = "0" %>
-      <%= check_box_tag :display_tasks_option, value = "1", checked = checked_option_for_display_tasks_option_form, :id => "toggle-event", :class => "toggle-status", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :disabled => @list.tasks.completed.empty? %>
+      <%= check_box_tag :display_tasks_option, value = "1", checked = checked_option_for_display_tasks_option_form, :id => "toggle-event", :class => "toggle-status toggleCompletedTasks", :data => {:toggle => "toggle", :on => "Hide completed tasks", :off => "Show completed tasks", :width => "180"}, :disabled => @list.tasks.completed.empty? %>
     <% end %>
   </div>
 </div>
