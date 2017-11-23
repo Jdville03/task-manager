@@ -37,7 +37,22 @@ document.addEventListener("turbolinks:load", function() {
       e.stopPropagation();
     }
   });
-  $("input.toggle-status,input.toggle-priority,.edit-input,#toggle-event").on("change", function() {
+  $("body").on("change", "input.toggle-status", function() {
+    $(this).parents("form").trigger("submit");
+  });
+  $("body").on("change", "input.toggle-priority", function() {
+    $(this).parents("form").trigger("submit");
+  });
+  $("body").on("change", ".edit-input", function() {
+    $(this).parents("form").trigger("submit");
+  });
+  $("body").on("change", ".lists-sort", function() {
+    $(this).parents("form").trigger("submit");
+  });
+  $("body").on("change", ".tasks-sort", function() {
+    $(this).parents("form").trigger("submit");
+  });
+  $("body").on("change", "#toggle-event", function() {
     $(this).parents("form").trigger("submit");
   });
   $('[data-toggle="tooltip"]').tooltip();

@@ -77,7 +77,7 @@ Handlebars.registerHelper('task_description_upper_case', function() {
 // helper to display user initials for task user icon
 Handlebars.registerHelper('display_icon_with_user_initials', function() {
   let userInitials = this.assigned_user.name.replace(/\W*(\w)\w*/g, '$1').toUpperCase();
-  return new Handlebars.SafeString("<span class='label label-success'><i class='fa fa-user-circle fa-fw' aria-hidden='true'></i>" + userInitials + "</span>");
+  return new Handlebars.SafeString("<span class='label label-success'><i class='fa fa-user-circle fa-fw' aria-hidden='true'></i>" + userInitials + " </span>");
 });
 
 // helper to display task due date in calendar tooltip
@@ -124,6 +124,7 @@ document.addEventListener("turbolinks:load", function() {
       let template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
       let result = template(data.tasks);
       $("#edit-selected").html(result);
+      $('[data-toggle="tooltip"]').tooltip();
     });
   });
 });
@@ -139,6 +140,7 @@ document.addEventListener("turbolinks:load", function() {
       let template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
       let result = template(data.tasks);
       $("#edit-selected").html(result);
+      $('[data-toggle="tooltip"]').tooltip();
     });
   });
 });

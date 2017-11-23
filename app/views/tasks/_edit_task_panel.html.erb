@@ -95,19 +95,3 @@
     <span class="task-description">{{description}}</span>
   </li>
 </script>
-
-<!-- MutationObserver script used to react to changes in DOM -->
-<script>
-  // select the target node
-  var target = document.getElementById("edit-task-json");
-  // create an observer instance
-  var observer = new MutationObserver(function() {
-    $("input.toggle-status,input.toggle-priority,.edit-input,#toggle-event").on("change", function() {
-      $(this).parents("form").trigger("submit");
-    });
-  });
-  // configuration of the observer:
-  var config = { attributes: true, childList: true, characterData: true };
-  // pass in the target node, as well as the observer options
-  observer.observe(target, config);
-</script>
