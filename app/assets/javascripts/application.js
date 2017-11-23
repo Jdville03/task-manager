@@ -52,9 +52,6 @@ document.addEventListener("turbolinks:load", function() {
   $("body").on("change", ".tasks-sort", function() {
     $(this).parents("form").trigger("submit");
   });
-  $("body").on("change", "#toggle-event", function() {
-    $(this).parents("form").trigger("submit");
-  });
   $('[data-toggle="tooltip"]').tooltip();
   $('#toggle-event').bootstrapToggle();
 });
