@@ -26,8 +26,8 @@ document.addEventListener("turbolinks:load", function() {
     var values = $(this).serialize();
     var posting = $.post(this.action, values);
     posting.success(function(data) {
-      let task = new Task(data);
-      let taskLI = task.renderLI();
+      var task = new Task(data);
+      var taskLI = task.renderLI();
       if (task.description) {
         if ($("#task_sort").prop("disabled")) {
           $("#task_sort").prop("disabled", false);
@@ -36,14 +36,14 @@ document.addEventListener("turbolinks:load", function() {
         document.getElementById("new_task").reset();
 
         // update incomplete tasks counter in list show view
-        let element = document.getElementById("number-of-incomplete-tasks");
+        var element = document.getElementById("number-of-incomplete-tasks");
         if (element) {
-          let num = parseInt(element.innerHTML);
+          var num = parseInt(element.innerHTML);
           element.innerHTML = num + 1;
         }
         // update incomplete tasks counter in nav lists menu
-        let elementNav = document.querySelector("#new-list-nav-json a.active span");
-        let numNav = parseInt(elementNav.innerHTML);
+        var elementNav = document.querySelector("#new-list-nav-json a.active span");
+        var numNav = parseInt(elementNav.innerHTML);
         if (numNav) {
           elementNav.innerHTML = numNav + 1;
         } else {
@@ -57,9 +57,9 @@ document.addEventListener("turbolinks:load", function() {
 
 // helper to select class for task list item
 Handlebars.registerHelper('li_class_for_task', function() {
-  let window_url_array = window.location.pathname.split('/');
-  let window_list_id = window_url_array[2];
-  let window_task_id = window_url_array[4];
+  var window_url_array = window.location.pathname.split('/');
+  var window_list_id = window_url_array[2];
+  var window_task_id = window_url_array[4];
   if (this.status === 1 && this.list_id === parseInt(window_list_id) && this.id === parseInt(window_task_id)) {
     return new Handlebars.SafeString("completed selected");
   } else if (this.status === 1) {
@@ -76,16 +76,16 @@ Handlebars.registerHelper('task_description_upper_case', function() {
 
 // helper to display user initials for task user icon
 Handlebars.registerHelper('display_icon_with_user_initials', function() {
-  let userInitials = this.assigned_user.name.replace(/\W*(\w)\w*/g, '$1').toUpperCase();
+  var userInitials = this.assigned_user.name.replace(/\W*(\w)\w*/g, '$1').toUpperCase();
   return new Handlebars.SafeString("<span class='label label-success'><i class='fa fa-user-circle fa-fw' aria-hidden='true'></i>" + userInitials + " </span>");
 });
 
 // helper to display task due date in calendar tooltip
 Handlebars.registerHelper('display_calendar_tooltip', function() {
-  let today = new Date(new Date().setHours(0, 0, 0, 0));
-  let tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
-  let due_date = this.due_date.replace(/-/g, '/');
-  let due_date_object = new Date(due_date);
+  var today = new Date(new Date().setHours(0, 0, 0, 0));
+  var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+  var due_date = this.due_date.replace(/-/g, '/');
+  var due_date_object = new Date(due_date);
 
   if (today > due_date_object && this.status === 0) {
     return new Handlebars.SafeString(`Overdue ${due_date}`);
@@ -100,9 +100,9 @@ Handlebars.registerHelper('display_calendar_tooltip', function() {
 
 // helper to display task due date icon
 Handlebars.registerHelper('display_calendar_icon', function() {
-  let today = new Date(new Date().setHours(0, 0, 0, 0));
-  let due_date = this.due_date.replace(/-/g, '/');
-  let due_date_object = new Date(due_date);
+  var today = new Date(new Date().setHours(0, 0, 0, 0));
+  var due_date = this.due_date.replace(/-/g, '/');
+  var due_date_object = new Date(due_date);
 
   if (today > due_date_object) {
     return new Handlebars.SafeString("fa fa-calendar-times-o fa-fw text-danger");
@@ -117,12 +117,12 @@ Handlebars.registerHelper('display_calendar_icon', function() {
 document.addEventListener("turbolinks:load", function() {
   $("#task_sort").parents("form").submit(function(event) {
     event.preventDefault();
-    let task_sort_value = $(this).serialize();
-    let url_list_id = this.action.split('/')[4];
-    let url = `/lists/${url_list_id}.json`;
+    var task_sort_value = $(this).serialize();
+    var url_list_id = this.action.split('/')[4];
+    var url = `/lists/${url_list_id}.json`;
     $.get(url, task_sort_value, function(data) {
-      let template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
-      let result = template(data.tasks);
+      var template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
+      var result = template(data.tasks);
       $("#edit-selected").html(result);
       $('[data-toggle="tooltip"]').tooltip();
     });
@@ -133,12 +133,12 @@ document.addEventListener("turbolinks:load", function() {
 document.addEventListener("turbolinks:load", function() {
   $(".toggleCompletedTasks").parents("form").submit(function(event) {
     event.preventDefault();
-    let task_toggle_value = $(this).serialize();
-    let url_list_id = this.action.split('/')[4];
-    let url = `/lists/${url_list_id}.json`;
+    var task_toggle_value = $(this).serialize();
+    var url_list_id = this.action.split('/')[4];
+    var url = `/lists/${url_list_id}.json`;
     $.get(url, task_toggle_value, function(data) {
-      let template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
-      let result = template(data.tasks);
+      var template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
+      var result = template(data.tasks);
       $("#edit-selected").html(result);
       $('[data-toggle="tooltip"]').tooltip();
     });
@@ -150,20 +150,20 @@ document.addEventListener("turbolinks:load", function() {
 document.addEventListener("turbolinks:load", function() {
   $(".js-next").on("click", function(event) {
     event.preventDefault();
-    let currentId = parseInt($(".js-next").attr("data-id"));
-    let listId = $(".js-next").attr("data-list-id");
+    var currentId = parseInt($(".js-next").attr("data-id"));
+    var listId = $(".js-next").attr("data-list-id");
     $.get(`/lists/${listId}.json`, function(data) {
-      let tasks = data.tasks;
-      let tasksIds = tasks.map(function(task) {
+      var tasks = data.tasks;
+      var tasksIds = tasks.map(function(task) {
         return task.id;
       })
-      let currentTaskIndex = tasksIds.indexOf(currentId);
+      var currentTaskIndex = tasksIds.indexOf(currentId);
       if (currentTaskIndex < tasks.length - 1) {
-        let nextTaskIndex = currentTaskIndex + 1;
-        let nextTask = tasks[nextTaskIndex];
+        var nextTaskIndex = currentTaskIndex + 1;
+        var nextTask = tasks[nextTaskIndex];
 
-        let template = Handlebars.compile(document.getElementById("task-edit-template").innerHTML);
-        let result = template(nextTask);
+        var template = Handlebars.compile(document.getElementById("task-edit-template").innerHTML);
+        var result = template(nextTask);
         $("#edit-task-json li").first().replaceWith(result);
 
         $(`#edit_task_${currentId}_panel input[name='authenticity_token']`).val($('meta[name="csrf-token"]').attr('content'));
@@ -171,8 +171,8 @@ document.addEventListener("turbolinks:load", function() {
         $(`#edit_task_${currentId}_panel`).attr("id", `edit_task_${nextTask.id}_panel`);
         $(".taskDescription").val(nextTask.description);
         if (nextTask.users.length > 1) {
-          let optionsHTML = "<option value>None</option>";
-          let assignedUserId;
+          var optionsHTML = "<option value>None</option>";
+          var assignedUserId;
           if (nextTask.assigned_user) {
             assignedUserId = nextTask.assigned_user.id;
           }
@@ -210,20 +210,20 @@ document.addEventListener("turbolinks:load", function() {
 document.addEventListener("turbolinks:load", function() {
   $(".js-back").on("click", function(event) {
     event.preventDefault();
-    let currentId = parseInt($(".js-back").attr("data-id"));
-    let listId = $(".js-back").attr("data-list-id");
+    var currentId = parseInt($(".js-back").attr("data-id"));
+    var listId = $(".js-back").attr("data-list-id");
     $.get(`/lists/${listId}.json`, function(data) {
-      let tasks = data.tasks;
-      let tasksIds = tasks.map(function(task) {
+      var tasks = data.tasks;
+      var tasksIds = tasks.map(function(task) {
         return task.id;
       })
-      let currentTaskIndex = tasksIds.indexOf(currentId);
+      var currentTaskIndex = tasksIds.indexOf(currentId);
       if (currentTaskIndex > 0) {
-        let previousTaskIndex = currentTaskIndex - 1;
-        let previousTask = tasks[previousTaskIndex];
+        var previousTaskIndex = currentTaskIndex - 1;
+        var previousTask = tasks[previousTaskIndex];
 
-        let template = Handlebars.compile(document.getElementById("task-edit-template").innerHTML);
-        let result = template(previousTask);
+        var template = Handlebars.compile(document.getElementById("task-edit-template").innerHTML);
+        var result = template(previousTask);
         $("#edit-task-json li").first().replaceWith(result);
 
         $(`#edit_task_${currentId}_panel input[name='authenticity_token']`).val($('meta[name="csrf-token"]').attr('content'));
@@ -231,8 +231,8 @@ document.addEventListener("turbolinks:load", function() {
         $(`#edit_task_${currentId}_panel`).attr("id", `edit_task_${previousTask.id}_panel`);
         $(".taskDescription").val(previousTask.description);
         if (previousTask.users.length > 1) {
-          let optionsHTML = "<option value>None</option>";
-          let assignedUserId;
+          var optionsHTML = "<option value>None</option>";
+          var assignedUserId;
           if (previousTask.assigned_user) {
             assignedUserId = previousTask.assigned_user.id;
           }

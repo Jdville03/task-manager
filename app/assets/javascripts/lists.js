@@ -33,9 +33,9 @@ document.addEventListener("turbolinks:load", function() {
     var values = $(this).serialize();
     var posting = $.post(this.action, values);
     posting.success(function(data) {
-      let list = new List(data);
-      let listLink = list.renderLink();
-      let listLinkNav = list.renderLinkNav();
+      var list = new List(data);
+      var listLink = list.renderLink();
+      var listLinkNav = list.renderLinkNav();
       if (data.name) {
         $("#new-list-json").append(listLink);
         document.getElementById("new_list").reset();
@@ -53,7 +53,7 @@ document.addEventListener("turbolinks:load", function() {
 
 // helper to display number of incomplete tasks in lists index template
 Handlebars.registerHelper('number_of_incomplete_tasks', function() {
-  let incompleteTasks = this.tasks.filter(function(task) {
+  var incompleteTasks = this.tasks.filter(function(task) {
     return task.status === 0;
   });
   if (incompleteTasks.length) {
@@ -65,12 +65,12 @@ Handlebars.registerHelper('number_of_incomplete_tasks', function() {
 document.addEventListener("turbolinks:load", function() {
   $("#listsSort").parents("form").submit(function(event) {
     event.preventDefault();
-    let list_sort_value = $(this).serialize();
+    var list_sort_value = $(this).serialize();
     $.get("/lists" + ".json", list_sort_value, function(data) {
-      let template = Handlebars.compile(document.getElementById("lists-template").innerHTML);
-      let templateNav = Handlebars.compile(document.getElementById("lists-template-lists-nav").innerHTML);
-      let result = template(data);
-      let resultNav = templateNav(data);
+      var template = Handlebars.compile(document.getElementById("lists-template").innerHTML);
+      var templateNav = Handlebars.compile(document.getElementById("lists-template-lists-nav").innerHTML);
+      var result = template(data);
+      var resultNav = templateNav(data);
       $("#new-list-json").html(result);
       $("#new-list-nav-json").html(resultNav);
     });
