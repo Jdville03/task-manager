@@ -88,13 +88,13 @@ Handlebars.registerHelper('display_calendar_tooltip', function() {
   var due_date_object = new Date(due_date);
 
   if (today > due_date_object && this.status === 0) {
-    return new Handlebars.SafeString(`Overdue ${due_date}`);
+    return new Handlebars.SafeString("Overdue " + due_date);
   } else if (today.getTime() === due_date_object.getTime()) {
     return new Handlebars.SafeString("Due today");
   } else if (tomorrow.getTime() === due_date_object.getTime()) {
     return new Handlebars.SafeString("Due tomorrow");
   } else {
-    return new Handlebars.SafeString(`Due on ${due_date}`);
+    return new Handlebars.SafeString("Due on " + due_date);
   }
 });
 
@@ -119,7 +119,7 @@ document.addEventListener("turbolinks:load", function() {
     event.preventDefault();
     var task_sort_value = $(this).serialize();
     var url_list_id = this.action.split('/')[4];
-    var url = `/lists/${url_list_id}.json`;
+    var url = "/lists/" + url_list_id + ".json";
     $.get(url, task_sort_value, function(data) {
       var template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
       var result = template(data.tasks);
@@ -135,7 +135,7 @@ document.addEventListener("turbolinks:load", function() {
     event.preventDefault();
     var task_toggle_value = $(this).serialize();
     var url_list_id = this.action.split('/')[4];
-    var url = `/lists/${url_list_id}.json`;
+    var url = "/lists/" + url_list_id + ".json";
     $.get(url, task_toggle_value, function(data) {
       var template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
       var result = template(data.tasks);
@@ -152,7 +152,7 @@ document.addEventListener("turbolinks:load", function() {
     event.preventDefault();
     var currentId = parseInt($(".js-next").attr("data-id"));
     var listId = $(".js-next").attr("data-list-id");
-    $.get(`/lists/${listId}.json`, function(data) {
+    $.get("/lists/" + listId + ".json", function(data) {
       var tasks = data.tasks;
       var tasksIds = tasks.map(function(task) {
         return task.id;
@@ -166,9 +166,9 @@ document.addEventListener("turbolinks:load", function() {
         var result = template(nextTask);
         $("#edit-task-json li").first().replaceWith(result);
 
-        $(`#edit_task_${currentId}_panel input[name='authenticity_token']`).val($('meta[name="csrf-token"]').attr('content'));
-        $(`#edit_task_${currentId}_panel`).attr("action", `/lists/${listId}/tasks/${nextTask.id}`);
-        $(`#edit_task_${currentId}_panel`).attr("id", `edit_task_${nextTask.id}_panel`);
+        $("#edit_task_" + currentId + "_panel input[name='authenticity_token']").val($('meta[name="csrf-token"]').attr('content'));
+        $("#edit_task_" + currentId + "_panel").attr("action", "/lists/" + listId + "/tasks/" + nextTask.id);
+        $("#edit_task_" + currentId + "_panel").attr("id", "edit_task_" + nextTask.id + "_panel");
         $(".taskDescription").val(nextTask.description);
         if (nextTask.users.length > 1) {
           var optionsHTML = "<option value>None</option>";
@@ -178,24 +178,24 @@ document.addEventListener("turbolinks:load", function() {
           }
           nextTask.users.forEach(function(user) {
             if (user.id === assignedUserId) {
-              optionsHTML += `<option selected='selected' value='${user.id}'>${user.name}</option>`;
+              optionsHTML += "<option selected='selected' value='" + user.id + "'>" + user.name + "</option>";
             } else {
-              optionsHTML += `<option value='${user.id}'>${user.name}</option>`;
+              optionsHTML += "<option value='" + user.id + "'>" + user.name + "</option>";
             }
           });
           $(".usersOptions").html(optionsHTML);
         }
         $(".taskDueDate").val(nextTask.due_date);
         $(".taskNote").val(nextTask.note);
-        $("#deleteTask").data("confirm", `Do you really want to delete the ${nextTask.description.toUpperCase()} task?`);
-        $("#deleteTask").attr("href", `/lists/${listId}/tasks/${nextTask.id}`);
+        $("#deleteTask").data("confirm", "Do you really want to delete the " + nextTask.description.toUpperCase() + " task?");
+        $("#deleteTask").attr("href", "/lists/" + listId + "/tasks/" + nextTask.id);
 
         // update class for task LI
-        $(`#task-${currentId}`).removeClass("selected");
-        $(`#task-${nextTask.id}`).addClass("selected");
+        $("#task-" + currentId).removeClass("selected");
+        $("#task-" + nextTask.id).addClass("selected");
 
         // update URL
-        history.pushState({}, '', `/lists/${listId}/tasks/${nextTask.id}/edit`);
+        history.pushState({}, '', "/lists/" + listId + "/tasks/" + nextTask.id + "/edit");
 
         // re-set the id to current on the link
         $(".js-next").attr("data-id", nextTask.id);
@@ -212,7 +212,7 @@ document.addEventListener("turbolinks:load", function() {
     event.preventDefault();
     var currentId = parseInt($(".js-back").attr("data-id"));
     var listId = $(".js-back").attr("data-list-id");
-    $.get(`/lists/${listId}.json`, function(data) {
+    $.get("/lists/" + listId + ".json", function(data) {
       var tasks = data.tasks;
       var tasksIds = tasks.map(function(task) {
         return task.id;
@@ -226,9 +226,9 @@ document.addEventListener("turbolinks:load", function() {
         var result = template(previousTask);
         $("#edit-task-json li").first().replaceWith(result);
 
-        $(`#edit_task_${currentId}_panel input[name='authenticity_token']`).val($('meta[name="csrf-token"]').attr('content'));
-        $(`#edit_task_${currentId}_panel`).attr("action", `/lists/${listId}/tasks/${previousTask.id}`);
-        $(`#edit_task_${currentId}_panel`).attr("id", `edit_task_${previousTask.id}_panel`);
+        $("#edit_task_" + currentId + "_panel input[name='authenticity_token']").val($('meta[name="csrf-token"]').attr('content'));
+        $("#edit_task_" + currentId + "_panel").attr("action", "/lists/" + listId + "/tasks/" + previousTask.id);
+        $("#edit_task_" + currentId + "_panel").attr("id", "edit_task_" + previousTask.id + "_panel");
         $(".taskDescription").val(previousTask.description);
         if (previousTask.users.length > 1) {
           var optionsHTML = "<option value>None</option>";
@@ -238,24 +238,24 @@ document.addEventListener("turbolinks:load", function() {
           }
           previousTask.users.forEach(function(user) {
             if (user.id === assignedUserId) {
-              optionsHTML += `<option selected='selected' value='${user.id}'>${user.name}</option>`;
+              optionsHTML += "<option selected='selected' value='" + user.id + "'>" + user.name + "</option>";
             } else {
-              optionsHTML += `<option value='${user.id}'>${user.name}</option>`;
+              optionsHTML += "<option value='" + user.id + "'>" + user.name + "</option>";
             }
           });
           $(".usersOptions").html(optionsHTML);
         }
         $(".taskDueDate").val(previousTask.due_date);
         $(".taskNote").val(previousTask.note);
-        $("#deleteTask").data("confirm", `Do you really want to delete the ${previousTask.description.toUpperCase()} task?`);
-        $("#deleteTask").attr("href", `/lists/${listId}/tasks/${previousTask.id}`);
+        $("#deleteTask").data("confirm", "Do you really want to delete the " + previousTask.description.toUpperCase() + " task?");
+        $("#deleteTask").attr("href", "/lists/" + listId + "/tasks/" + previousTask.id);
 
         // update class for task LI
-        $(`#task-${currentId}`).removeClass("selected");
-        $(`#task-${previousTask.id}`).addClass("selected");
+        $("#task-" + currentId).removeClass("selected");
+        $("#task-" + previousTask.id).addClass("selected");
 
         // update URL
-        history.pushState({}, '', `/lists/${listId}/tasks/${previousTask.id}/edit`);
+        history.pushState({}, '', "/lists/" + listId + "/tasks/" + previousTask.id + "/edit");
 
         // re-set the id to current on the link
         $(".js-back").attr("data-id", previousTask.id);
