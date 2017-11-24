@@ -23,7 +23,7 @@ Task.prototype.renderLI = function() {
 document.addEventListener("turbolinks:load", function() {
   $("#new_task").submit(function(event) {
     event.preventDefault();
-    let values = $(this).serialize();
+    var values = $(this).serialize();
     let posting = $.post(this.action, values);
     posting.success(function(data) {
       let task = new Task(data);

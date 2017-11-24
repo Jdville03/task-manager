@@ -30,7 +30,7 @@ List.prototype.renderLinkNav = function() {
 document.addEventListener("turbolinks:load", function() {
   $('#new_list').submit(function(event) {
     event.preventDefault();
-    let values = $(this).serialize();
+    var values = $(this).serialize();
     let posting = $.post(this.action, values);
     posting.success(function(data) {
       let list = new List(data);
