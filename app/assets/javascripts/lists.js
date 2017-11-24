@@ -61,7 +61,7 @@ Handlebars.registerHelper('number_of_incomplete_tasks', function() {
   }
 });
 
-// renders lists index via jQuery and an Active Model Serialization JSON backend
+// renders lists index via jQuery and an Active Model Serialization JSON backend upon sorting lists
 document.addEventListener("turbolinks:load", function() {
   $("#listsSort").parents("form").submit(function(event) {
     event.preventDefault();
