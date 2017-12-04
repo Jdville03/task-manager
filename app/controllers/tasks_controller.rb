@@ -39,8 +39,13 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    flash[:notice] = "#{@task.description.upcase} task deleted from #{@task.list.name.upcase} list successfully."
-    redirect_back(fallback_location: list_path(@task.list))
+    respond_to do |format|
+      format.html do
+        flash[:notice] = "#{@task.description.upcase} task deleted from #{@task.list.name.upcase} list successfully."
+        redirect_back(fallback_location: list_path(@task.list))
+      end
+      format.json { render json: @task }
+    end
   end
 
   private

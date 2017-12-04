@@ -54,6 +54,34 @@ document.addEventListener("turbolinks:load", function() {
   });
 });
 
+// destroys task via an AJAX DELETE request and removes task LI from DOM
+
+Task.prototype.destroy = function() {
+  $("li#task-" + this.id).remove();
+}
+
+document.addEventListener("turbolinks:load", function() {
+  $("body").on("click", "a.destroy", function(event) {
+    var urlLink = $(this).attr("href");
+    if (urlLink + "/edit" !== window.location.pathname) {
+      event.preventDefault();
+      event.stopPropagation();
+      var confirmMessage = $(this).attr("data-confirm");
+      if (confirm(confirmMessage)) {
+        $.ajax({
+          url: urlLink,
+          dataType: "json",
+          method: "DELETE"
+        })
+        .success(function(data) {
+          var task = new Task(data);
+          task.destroy()
+        });
+      }
+    }
+  });
+});
+
 
 // helper to select class for task list item
 Handlebars.registerHelper('li_class_for_task', function() {
