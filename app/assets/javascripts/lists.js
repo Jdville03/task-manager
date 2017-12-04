@@ -30,8 +30,7 @@ List.prototype.renderLinkNav = function() {
 document.addEventListener("turbolinks:load", function() {
   $('#new_list').submit(function(event) {
     event.preventDefault();
-    var values = $(this).serialize();
-    var posting = $.post(this.action, values);
+    var posting = $.post(this.action, $(this).serialize());
     posting.success(function(data) {
       var list = new List(data);
       var listLink = list.renderLink();
@@ -62,17 +61,18 @@ Handlebars.registerHelper('number_of_incomplete_tasks', function() {
 });
 
 // renders lists index via jQuery and an Active Model Serialization JSON backend upon sorting lists
+function renderLists(data) {
+  var template = Handlebars.compile(document.getElementById("lists-template").innerHTML);
+  var templateNav = Handlebars.compile(document.getElementById("lists-template-lists-nav").innerHTML);
+  var result = template(data);
+  var resultNav = templateNav(data);
+  $("#new-list-json").html(result);
+  $("#new-list-nav-json").html(resultNav);
+}
+
 document.addEventListener("turbolinks:load", function() {
   $("#listsSort").parents("form").submit(function(event) {
     event.preventDefault();
-    var list_sort_value = $(this).serialize();
-    $.get("/lists" + ".json", list_sort_value, function(data) {
-      var template = Handlebars.compile(document.getElementById("lists-template").innerHTML);
-      var templateNav = Handlebars.compile(document.getElementById("lists-template-lists-nav").innerHTML);
-      var result = template(data);
-      var resultNav = templateNav(data);
-      $("#new-list-json").html(result);
-      $("#new-list-nav-json").html(resultNav);
-    });
+    var data = $.get("/lists" + ".json", $(this).serialize(), renderLists);
   });
 });

@@ -20,39 +20,48 @@ Task.prototype.renderLI = function() {
   return Task.template(this);
 }
 
-document.addEventListener("turbolinks:load", function() {
+function updateIncompleteTasksCounters() {
+  // update incomplete tasks counter in list show view
+  var element = document.getElementById("number-of-incomplete-tasks");
+  if (element) {
+    var num = parseInt(element.innerHTML);
+    element.innerHTML = num + 1;
+  }
+  // update incomplete tasks counter in nav lists menu
+  var elementNav = document.querySelector("#new-list-nav-json a.active span");
+  var numNav = parseInt(elementNav.innerHTML);
+  if (numNav) {
+    elementNav.innerHTML = numNav + 1;
+  } else {
+    elementNav.innerHTML = 1;
+  }
+}
+
+function displayNewTask(data) {
+  var task = new Task(data);
+  var taskLI = task.renderLI();
+  if (task.description) {
+    if ($("#task_sort").prop("disabled")) {
+      $("#task_sort").prop("disabled", false);
+    }
+    $("#edit-selected").append(taskLI);
+    document.getElementById("new_task").reset();
+
+    updateIncompleteTasksCounters();
+  }
+}
+
+function setNewTaskEventListner() {
   $("#new_task").submit(function(event) {
     event.preventDefault();
-    var values = $(this).serialize();
-    var posting = $.post(this.action, values);
-    posting.success(function(data) {
-      var task = new Task(data);
-      var taskLI = task.renderLI();
-      if (task.description) {
-        if ($("#task_sort").prop("disabled")) {
-          $("#task_sort").prop("disabled", false);
-        }
-        $("#edit-selected").append(taskLI);
-        document.getElementById("new_task").reset();
-
-        // update incomplete tasks counter in list show view
-        var element = document.getElementById("number-of-incomplete-tasks");
-        if (element) {
-          var num = parseInt(element.innerHTML);
-          element.innerHTML = num + 1;
-        }
-        // update incomplete tasks counter in nav lists menu
-        var elementNav = document.querySelector("#new-list-nav-json a.active span");
-        var numNav = parseInt(elementNav.innerHTML);
-        if (numNav) {
-          elementNav.innerHTML = numNav + 1;
-        } else {
-          elementNav.innerHTML = 1;
-        }
-      }
-    });
+    $.post(this.action, $(this).serialize(), displayNewTask);
   });
+}
+
+document.addEventListener("turbolinks:load", function() {
+  setNewTaskEventListner();
 });
+
 
 // destroys task via an AJAX DELETE request and removes task LI from DOM
 
@@ -145,10 +154,9 @@ Handlebars.registerHelper('display_calendar_icon', function() {
 document.addEventListener("turbolinks:load", function() {
   $("#task_sort").parents("form").submit(function(event) {
     event.preventDefault();
-    var task_sort_value = $(this).serialize();
-    var url_list_id = this.action.split('/')[4];
-    var url = "/lists/" + url_list_id + ".json";
-    $.get(url, task_sort_value, function(data) {
+    var urlListId = this.action.split('/')[4];
+    var url = "/lists/" + urlListId + ".json";
+    $.get(url, $(this).serialize(), function(data) {
       var template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
       var result = template(data.tasks);
       $("#edit-selected").html(result);
@@ -161,10 +169,9 @@ document.addEventListener("turbolinks:load", function() {
 document.addEventListener("turbolinks:load", function() {
   $(".toggleCompletedTasks").parents("form").submit(function(event) {
     event.preventDefault();
-    var task_toggle_value = $(this).serialize();
-    var url_list_id = this.action.split('/')[4];
-    var url = "/lists/" + url_list_id + ".json";
-    $.get(url, task_toggle_value, function(data) {
+    var urlListId = this.action.split('/')[4];
+    var url = "/lists/" + urlListId + ".json";
+    $.get(url, $(this).serialize(), function(data) {
       var template = Handlebars.compile(document.getElementById("tasks-template").innerHTML);
       var result = template(data.tasks);
       $("#edit-selected").html(result);
